@@ -5,129 +5,114 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>角的度量 · 探索馆与挑战馆</title>
 <script>
-(function(){
-  try{var s=JSON.parse(localStorage.getItem('jdm_v1')||'{}');
-    document.documentElement.setAttribute('data-theme',s.theme||'green');
-    document.documentElement.style.fontSize=((s.font||1)*16)+'px';
-  }catch(e){document.documentElement.style.fontSize='16px';}
-  setTimeout(function(){
-    if(!window.__booted){
-      var el=document.getElementById('err');
-      if(el){el.style.display='block';el.textContent='⚠️ 页面脚本没有正常启动。把这一句告诉老师，并按 Ctrl+F5 刷新一次。';}
-    }
-  },3500);
-})();
+(function(){try{var s=JSON.parse(localStorage.getItem('jdm_v2')||'{}');
+document.documentElement.setAttribute('data-theme',s.theme||'green');
+document.documentElement.style.fontSize=((s.font||1)*16)+'px';}catch(e){document.documentElement.style.fontSize='16px';}
+setTimeout(function(){if(!window.__booted){var el=document.getElementById('err');if(el){el.style.display='block';el.textContent='⚠️ 页面脚本没启动，按 Ctrl+F5 刷新。';}}},4500);})();
 </script>
 <style>
-:root{--ink:#1A1A1A;--red:#C0392B;--yellow:#F1C40F;--bg:#F8F9FA;--card:#FFFFFF;--text:#22242A;--muted:#6B7280;--line:#E5E7EB;--ok:#2E9E5B;--tip:#E67E22;--shadow:0 4px 18px rgba(20,20,30,.08)}
+:root{--ink:#1A1A1A;--red:#C0392B;--yellow:#F1C40F;--jade:#4E6B62;--bg:#F8F9FA;--card:#FFFFFF;--text:#22242A;--muted:#6B7280;--line:#E5E7EB;--ok:#2E9E5B;--tip:#E67E22;--shadow:0 4px 18px rgba(20,20,30,.08)}
 html[data-theme="green"]{--bg:#C7EDCC;--card:#F6FCF7;--text:#1F2A22;--muted:#5C6B60;--line:#B9DCC0}
 html[data-theme="dark"]{--bg:#1A1A1A;--card:#242424;--text:#EDEDED;--muted:#ABABAB;--line:#3A3A3A;--ok:#7BE495;--tip:#FFB74D;--shadow:0 4px 18px rgba(0,0,0,.5)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;font-size:1rem;line-height:1.7}
-.topbar{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.5rem .8rem;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
-.tb-left,.tb-right{display:flex;align-items:center;gap:.45rem}
-#crumb{font-weight:700}
-.pill{display:inline-flex;align-items:center;gap:.2rem;padding:.2rem .55rem;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:.85rem;white-space:nowrap}
-.iconbtn{border:none;background:var(--bg);color:var(--text);border-radius:.7rem;padding:.32rem .55rem;font-size:1.05rem;cursor:pointer}
-.iconbtn:hover{background:var(--line)}
+.topbar{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.5rem .7rem;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.tb-left,.tb-right{display:flex;align-items:center;gap:.35rem}
+#crumb{font-weight:700;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38vw}
+.pill{display:inline-flex;align-items:center;gap:.2rem;padding:.2rem .5rem;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:.85rem;white-space:nowrap}
+.iconbtn{border:none;background:var(--bg);color:var(--text);border-radius:.7rem;padding:.3rem .5rem;font-size:1rem;cursor:pointer}
 .errbar{display:none;background:#C0392B;color:#fff;padding:.5rem .8rem;font-size:.85rem;word-break:break-all}
 .wrap{max-width:980px;margin:0 auto;padding:1rem .85rem 4rem}
-.h1{font-size:1.5rem;font-weight:800;margin:.2rem 0 .1rem}
-.sub{color:var(--muted);font-size:.9rem;margin-bottom:.9rem}
-.card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.9rem;box-shadow:var(--shadow);margin-bottom:.85rem}
+.h1{font-size:1.4rem;font-weight:800;margin:.2rem 0 .1rem}
+.sub{color:var(--muted);font-size:.88rem;margin-bottom:.8rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.85rem;box-shadow:var(--shadow);margin-bottom:.8rem}
 .units{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:.7rem}
-.unit{position:relative;background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.85rem;min-height:6.2rem;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:.15s}
-.unit:hover{transform:translateY(-2px)}
+.unit{position:relative;background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.85rem;min-height:6.2rem;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
 .unit.locked{opacity:.55;filter:grayscale(.75)}
-.unit.active{border:2px solid var(--red);box-shadow:0 6px 20px rgba(192,57,43,.18)}
+.unit.active{border:2px solid var(--red)}
 .unit .no{font-size:.78rem;color:var(--muted)}
 .unit .nm{font-weight:800}
 .badge-new{position:absolute;top:-.5rem;left:.7rem;background:var(--red);color:#fff;font-size:.68rem;padding:.08rem .45rem;border-radius:999px}
 .entry{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.entry .big{display:block;padding:.9rem;border-radius:1rem;border:1px solid var(--line);background:var(--card);text-align:left;cursor:pointer;box-shadow:var(--shadow);color:var(--text);font-family:inherit}
-.entry .big:hover{transform:translateY(-2px)}
-.entry .big b{display:block;font-size:1.12rem;margin:.15rem 0}
+.entry .big{display:block;padding:.9rem;border-radius:1rem;border:1px solid var(--line);background:var(--card);text-align:left;cursor:pointer;color:var(--text);font-family:inherit}
+.entry .big b{display:block;font-size:1.1rem;margin:.15rem 0}
 .entry .big span{color:var(--muted);font-size:.85rem}
-.station{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.8rem;margin-bottom:.8rem;box-shadow:var(--shadow)}
+.station{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.8rem;margin-bottom:.8rem}
 .st-head{display:flex;align-items:center;gap:.5rem;font-weight:800;margin-bottom:.4rem}
 .dot{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:.8rem}
-.demo{display:flex;align-items:center;gap:.65rem;padding:.55rem;border-radius:.8rem;border:1px dashed var(--line);margin-top:.5rem;cursor:pointer;transition:.15s}
-.demo:hover{border-color:var(--red);background:rgba(192,57,43,.05)}
+.demo{display:flex;align-items:center;gap:.6rem;padding:.55rem;border-radius:.8rem;border:1px dashed var(--line);margin-top:.45rem;cursor:pointer}
+.demo:hover{border-color:var(--red)}
 .demo.done{border-style:solid;background:rgba(46,158,91,.08)}
 .demo small{display:block;color:var(--muted)}
-.stage{position:relative;background:rgba(241,196,15,.05);border:1px solid var(--line);border-radius:1rem;overflow:hidden}
-.stagesvg{display:block;width:100%;height:auto}
-.bignum{position:absolute;left:50%;top:.45rem;transform:translateX(-50%);font-weight:900;font-size:1.9rem;color:var(--red);background:var(--card);border:1px solid var(--line);border-radius:.8rem;padding:.05rem .7rem;text-align:center}
-.bignum small{display:block;font-size:.7rem;color:var(--muted);font-weight:600}
-.subtitle{min-height:3.4rem;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--yellow);border-radius:.8rem;padding:.55rem .8rem;margin-top:.65rem;font-size:1.05rem;font-weight:600}
+.stagewrap{position:relative}
+.stage{background:rgba(241,196,15,.05);border:1px solid var(--line);border-radius:1rem;overflow:hidden}
+.stagesvg{display:block;width:100%;height:auto;touch-action:none}
+.infobar{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:.8rem;padding:.4rem .6rem;margin-top:.5rem;font-size:.95rem;font-weight:700}
+.overlay{position:absolute;left:0;right:0;top:.5rem;text-align:center;pointer-events:none}
+.bignum{display:inline-block;font-size:1.8rem;font-weight:900;color:var(--red);background:var(--card);border:1px solid var(--line);border-radius:.8rem;padding:.02rem .7rem;line-height:1.3}
+.bignum.flash{animation:flash .6s}
+@keyframes flash{0%,100%{background:var(--card)}35%{background:var(--yellow)}}
+.nametag{display:inline-block;margin-top:.3rem;font-size:.88rem;font-weight:700;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.06rem .6rem;color:var(--muted)}
+.nametag.key{color:#fff;background:var(--red);border-color:var(--red)}
+.subtitle{min-height:3rem;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--yellow);border-radius:.8rem;padding:.5rem .8rem;margin-top:.6rem;font-size:1rem;font-weight:600}
 .phases{display:flex;gap:.4rem;margin:.6rem 0}
-.ph{flex:1;text-align:center;font-size:.8rem;padding:.28rem;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted);cursor:pointer}
+.ph{flex:1;text-align:center;font-size:.8rem;padding:.3rem;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted);cursor:pointer}
 .ph.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .ph.done{background:var(--ok);color:#fff;border-color:var(--ok)}
-.controls{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.6rem;align-items:center}
-button.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:.8rem;padding:.55rem .95rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
-button.btn:hover{transform:translateY(-1px)}
-button.btn.primary{background:var(--red);color:#fff;border-color:var(--red)}
-button.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
-button.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-button.btn.mini{padding:.35rem .65rem;font-size:.88rem}
-.slider{display:flex;align-items:center;gap:.55rem;flex:1;min-width:13rem}
-input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:1.1rem;background:transparent;cursor:pointer}
-input[type=range]::-webkit-slider-runnable-track{height:.5rem;border-radius:999px;background:linear-gradient(90deg,var(--yellow),var(--red))}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1.7rem;height:1.7rem;margin-top:-.6rem;border-radius:50%;background:#fff;border:3px solid var(--red);box-shadow:0 2px 6px rgba(0,0,0,.25)}
-input[type=range]:active::-webkit-slider-thumb{transform:scale(1.15)}
-input[type=range]::-moz-range-thumb{width:1.5rem;height:1.5rem;border-radius:50%;background:#fff;border:3px solid var(--red)}
 .tasks{display:grid;gap:.35rem}
 .task{background:var(--card);border:1px solid var(--line);border-radius:.7rem;padding:.45rem .65rem;font-size:.9rem}
 .task b{color:var(--red)}
-.opt{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.7rem .85rem;border-radius:.8rem;border:1.5px solid var(--line);background:var(--card);font-size:1rem;cursor:pointer;font-family:inherit;color:var(--text)}
-.opt:hover{border-color:var(--red)}
-.opt.sel{border-color:var(--red);background:rgba(192,57,43,.08)}
-.opt.ok{border-color:var(--ok);background:rgba(46,158,91,.12)}
-.opt.no{border-color:var(--tip);background:rgba(230,126,34,.1)}
-.blank{display:inline-block;min-width:4.5rem;border-bottom:3px solid var(--red);text-align:center;font-weight:900;font-size:1.3rem;color:var(--red)}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;max-width:15rem;margin-top:.5rem}
-.keypad button{padding:.7rem;font-size:1.1rem;font-weight:800;border-radius:.7rem;border:1px solid var(--line);background:var(--card);cursor:pointer;font-family:inherit;color:var(--text)}
-.basket-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
-.basket{border:2px dashed var(--line);border-radius:.8rem;padding:.5rem;min-width:6.5rem;flex:1;cursor:pointer}
-.basket b{display:block;font-size:.85rem;margin-bottom:.25rem}
-.chip{display:inline-block;padding:.28rem .55rem;border-radius:.6rem;background:var(--card);border:1.5px solid var(--line);margin:.15rem;cursor:pointer;font-size:.9rem}
-.chip.picked{border-color:var(--red);background:rgba(192,57,43,.1);font-weight:700}
-.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.fb{border-radius:.9rem;padding:.75rem;margin-top:.65rem;font-size:1rem;border:1px solid var(--line);background:var(--card)}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+button.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:.8rem;padding:.5rem .9rem;font-size:.98rem;font-weight:700;cursor:pointer;font-family:inherit}
+button.btn.primary{background:var(--red);color:#fff;border-color:var(--red)}
+button.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+button.btn.mini{padding:.32rem .65rem;font-size:.86rem}
+button.btn.mini.on{background:var(--ok);color:#fff;border-color:var(--ok)}
+button.btn:disabled{opacity:.45}
+.slider{display:flex;align-items:center;gap:.5rem;min-width:12rem}
+.slider span{font-size:.85rem;color:var(--muted);white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:1.1rem;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:.5rem;border-radius:999px;background:linear-gradient(90deg,var(--yellow),var(--red))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1.6rem;height:1.6rem;margin-top:-.55rem;border-radius:50%;background:#fff;border:3px solid var(--red)}
+input[type=range]::-moz-range-thumb{width:1.4rem;height:1.4rem;border-radius:50%;background:#fff;border:3px solid var(--red)}
+.fb{border-radius:.9rem;padding:.7rem;margin-top:.6rem;font-size:.96rem;border:1px solid var(--line);background:var(--card)}
 .fb.tip{border-left:6px solid var(--tip)}
 .fb.good{border-left:6px solid var(--ok)}
-.steps{margin:.45rem 0 0;padding-left:1.15rem}
-.steps li{margin:.15rem 0}
+.goals{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.5rem}
+.goal{min-width:4.6rem;text-align:center;font-weight:900;font-size:1.15rem;padding:.35rem .3rem;border-radius:.8rem;border:1.5px solid var(--line);background:var(--card);color:var(--muted)}
+.goal.now{border-color:var(--red);color:var(--red);background:rgba(192,57,43,.08)}
+.goal.done{border-color:var(--ok);background:rgba(46,158,91,.12);color:var(--ok)}
+.hnd{cursor:grab;transform-box:fill-box;transform-origin:center}
+.hnd.dragging{cursor:grabbing;filter:drop-shadow(0 5px 10px rgba(0,0,0,.35))}
+.hnd .halo{animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.12}50%{opacity:.28}}
+.svgtxt{font-size:14px;font-weight:700;fill:var(--text)}
+.svgtxt.sm{font-size:11px;fill:var(--muted)}
+.thin{stroke:var(--line);stroke-width:2}
 .mask{position:fixed;inset:0;background:rgba(15,15,20,.55);display:none;place-items:center;z-index:99;padding:.9rem}
 .mask.on{display:grid}
 .modal{background:var(--card);border-radius:1.1rem;padding:1rem;max-width:32rem;width:100%;max-height:88vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.35)}
-.toast{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%) translateY(1rem);background:var(--ink);color:#fff;padding:.55rem 1.05rem;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;z-index:120;font-size:.9rem;max-width:90vw;text-align:center}
+.toast{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%) translateY(1rem);background:var(--ink);color:#fff;padding:.55rem 1rem;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;z-index:120;font-size:.9rem;max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-.row{display:flex;gap:.55rem;flex-wrap:wrap;align-items:center}
-.progress{height:.5rem;background:var(--line);border-radius:999px;overflow:hidden;margin:.45rem 0}
-.progress>i{display:block;height:100%;background:var(--red);width:0;transition:width .3s}
-.starbar{font-size:1.4rem;letter-spacing:.08em;color:var(--yellow)}
-.half{display:inline-block;position:relative;width:.85em;color:var(--line)}
-.half::before{content:"★";position:absolute;left:0;width:50%;overflow:hidden;color:var(--yellow)}
-.small{font-size:.85rem;color:var(--muted)}
-.tabbtn{padding:.35rem .75rem;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:.9rem;font-family:inherit;color:var(--text)}
+.small{font-size:.84rem;color:var(--muted)}
+.tabbtn{padding:.32rem .65rem;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:.86rem;font-family:inherit;color:var(--text);margin:.12rem}
 .tabbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.ta{width:100%;min-height:6rem;font-family:Consolas,monospace;font-size:.78rem;padding:.5rem;border-radius:.7rem;border:1px solid var(--line);background:var(--card);color:var(--text);margin-top:.4rem}
-.qitem{border-bottom:1px dashed var(--line);padding:.4rem 0;font-size:.88rem;display:flex;gap:.5rem;align-items:center}
-.qitem span{flex:1}
-@media(max-width:520px){.entry{grid-template-columns:1fr}.bignum{font-size:1.5rem}}
+.chipin{min-width:8rem;padding:.42rem .6rem;border-radius:.6rem;border:1px solid var(--line);background:var(--card);color:var(--text);font-family:inherit}
+.ta{width:100%;min-height:5rem;font-family:Consolas,monospace;font-size:.78rem;padding:.5rem;border-radius:.7rem;border:1px solid var(--line);background:var(--card);color:var(--text);margin-top:.4rem}
+.flagbtn{border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:.7rem;padding:.3rem .6rem;font-size:.82rem;cursor:pointer;font-family:inherit;margin-top:.5rem}
+@media(max-width:520px){.entry{grid-template-columns:1fr}.bignum{font-size:1.45rem}.slider{min-width:9rem}}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="tb-left">
-    <button class="iconbtn" onclick="goBack()">←</button>
+    <button class="iconbtn" onclick="goBack()" title="返回上一层">←</button>
+    <button class="iconbtn" onclick="goHome()" title="回到主页">🏠</button>
     <span id="crumb">角的度量</span>
   </div>
   <div class="tb-right">
-    <span class="pill" id="pillStar">⭐ 0</span>
+    <span class="pill" id="pillStar">⭐ ×0</span>
     <span class="pill" id="pillCoin">🪙 0</span>
     <button class="iconbtn" title="教师端" onclick="openTeacher()">🧑‍🏫</button>
     <button class="iconbtn" title="设置" onclick="openSettings()">⚙️</button>
@@ -135,1260 +120,1210 @@ input[type=range]::-moz-range-thumb{width:1.5rem;height:1.5rem;border-radius:50%
 </div>
 <div class="errbar" id="err"></div>
 <div id="view"></div>
-<div id="mask" class="mask" onclick="if(event.target.id==='mask')closeMask()"><div class="modal" id="modal"></div></div>
+<div class="mask" id="mask" onclick="if(event.target.id==='mask')closeMask()"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"></div>
 
-<!-- ========== 第 1 段：工具 / 状态 / 音效 / 绘图小工具 ========== -->
+<!-- ============ 1. 工具 / 状态 / 音效 / 几何 / 拖拽 ============ -->
 <script>
 function $(s,r){return (r||document).querySelector(s);}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
 function E(id){return document.getElementById(id);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-window.onerror=function(m,u,l){var e=E('err');if(e){e.style.display='block';e.textContent='⚠️ 页面出错：'+m+'（第 '+l+' 行）。把这句话发给老师就能定位问题。';}};
-
-var DEF={theme:'green',font:1,sound:true,star:0,coin:0,done:{},wrong:[],stat:{},name:'',bank:[]};
-var S=(function(){
-  var d=JSON.parse(JSON.stringify(DEF));
-  try{var s=JSON.parse(localStorage.getItem('jdm_v1')||'{}');for(var k in d){if(s[k]!==undefined)d[k]=s[k];}}catch(e){}
-  return d;
-})();
-function save(){try{localStorage.setItem('jdm_v1',JSON.stringify(S));}catch(e){}}
-function toast(t){var e=E('toast');if(!e)return;e.textContent=t;e.className='toast on';clearTimeout(e._t);e._t=setTimeout(function(){e.className='toast';},1900);}
-function starIcons(u){var s='';for(var i=0;i<Math.floor(u/2);i++)s+='★';if(u%2)s+='<span class="half"></span>';return s||'☆';}
-function hud(){var a=E('pillStar'),b=E('pillCoin');if(a)a.innerHTML='⭐ '+starIcons(S.star);if(b)b.innerHTML='🪙 '+S.coin;}
+window.onerror=function(m,u,l){var e=E('err');if(e){e.style.display='block';e.textContent='⚠️ 页面出错：'+m+'（第 '+l+' 行）。把这句话发给老师。';}};
+var DEF={theme:'green',font:1,sound:true,star:0,coin:0,done:{},wrong:[],stat:{},name:'',bank:[],flags:[]};
+var S=(function(){var d=JSON.parse(JSON.stringify(DEF));try{var s=JSON.parse(localStorage.getItem('jdm_v2')||'{}');for(var k in d){if(s[k]!==undefined)d[k]=s[k];}}catch(e){}return d;})();
+function save(){try{localStorage.setItem('jdm_v2',JSON.stringify(S));}catch(e){}}
+function toast(t){var e=E('toast');if(!e)return;e.textContent=t;e.className='toast on';clearTimeout(e._t);e._t=setTimeout(function(){e.className='toast';},2200);}
+function hud(){
+  var a=E('pillStar'),b=E('pillCoin');
+  if(a)a.innerHTML='⭐ ×'+Math.floor(S.star/2)+(S.star%2?'◐':'');
+  if(b)b.innerHTML='🪙 '+S.coin;
+}
 function addStar(u){S.star+=u;save();hud();}
 function addCoin(n){S.coin+=n;save();hud();}
-
 var AC=null;
 function sfx(kind){
   if(!S.sound)return;
   try{
     if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();
     var t=AC.currentTime;
-    function p(f,d,type,v,delay){
-      var o=AC.createOscillator(),g=AC.createGain();
-      o.type=type||'sine';o.frequency.value=f;
-      g.gain.setValueAtTime(v||.05,t+(delay||0));
-      g.gain.exponentialRampToValueAtTime(.001,t+(delay||0)+d);
-      o.connect(g);g.connect(AC.destination);o.start(t+(delay||0));o.stop(t+(delay||0)+d);
-    }
+    function p(f,d,type,v,delay){var o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.05,t+(delay||0));g.gain.exponentialRampToValueAtTime(.001,t+(delay||0)+d);o.connect(g);g.connect(AC.destination);o.start(t+(delay||0));o.stop(t+(delay||0)+d);}
     if(kind==='ok'){p(660,.12,'sine',.06,0);p(990,.16,'sine',.05,.1);}
-    else if(kind==='snap'){p(880,.09,'triangle',.05,0);}
-    else if(kind==='tip'){p(300,.16,'triangle',.05,0);}
+    else if(kind==='snap'){p(880,.1,'triangle',.055,0);p(1320,.14,'triangle',.04,.09);}
+    else if(kind==='tip'){p(300,.16,'triangle',.045,0);}
     else if(kind==='star'){p(784,.18,'sine',.06,0);p(988,.18,'sine',.06,.11);p(1175,.2,'sine',.06,.22);}
-    else{p(520,.07,'square',.03,0);}
+    else{p(520,.06,'square',.025,0);}
   }catch(e){}
 }
-var TAU=6.283185307;
-function rayS(cx,cy,len,deg,color,w){
-  return '<g transform="rotate('+(90-deg)+' '+cx+' '+cy+')"><line x1="'+cx+'" y1="'+cy+'" x2="'+cx+'" y2="'+(cy-len)+'" stroke="'+(color||'var(--ink)')+'" stroke-width="'+(w||5)+'" stroke-linecap="round"/></g>';
+function ptOn(cx,cy,r,deg){var a=deg*Math.PI/180;return{x:cx+r*Math.cos(a),y:cy-r*Math.sin(a)};}
+function norm180(a){while(a>180)a-=360;while(a<-180)a+=360;return a;}
+function norm360(a){a=a%360;if(a<0)a+=360;return a;}
+function mod180(a){a=norm360(a);if(a>=180)a-=180;return a;}
+function dist(x1,y1,x2,y2){return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));}
+function arcPath(cx,cy,r,a,b){var s=ptOn(cx,cy,r,a),e=ptOn(cx,cy,r,b),L=((b-a)>180)?1:0;return 'M'+s.x.toFixed(1)+','+s.y.toFixed(1)+' A'+r+','+r+' 0 '+L+' 0 '+e.x.toFixed(1)+','+e.y.toFixed(1);}
+function strokeArc(cx,cy,r,a,b,color,w){return '<path d="'+arcPath(cx,cy,r,a,b)+'" fill="none" stroke="'+color+'" stroke-width="'+(w||5)+'" stroke-linecap="round"/>';}
+function uprightS(cx,cy,r,deg,txt,cls){return '<g transform="translate('+cx+','+cy+') rotate('+deg+') translate(0,'+(-r)+') rotate('+(-deg)+')"><text class="'+(cls||'svgtxt')+'" text-anchor="middle" dominant-baseline="middle">'+txt+'</text></g>';}
+function scaleHandle(g,k){if(!g)return;var es=g.querySelectorAll('[data-r]');for(var i=0;i<es.length;i++){es[i].setAttribute('r',(parseFloat(es[i].getAttribute('data-r'))*k).toFixed(1));}}
+function svgFrame(inner,h){return '<svg viewBox="0 0 480 '+(h||330)+'" class="stagesvg" preserveAspectRatio="xMidYMid meet">'+inner+'</svg>';}
+function toPt(svg,ev){var r=svg.getBoundingClientRect();var k=r.width/480;if(!k||k<0.01)k=1;return {x:(ev.clientX-r.left)/k,y:(ev.clientY-r.top)/k};}
+function makeDraggable(el,opt){
+  if(!el)return;
+  var pid=null,moved=false,raf=0,last=null,start=null;
+  el.style.touchAction='none';el.style.cursor='grab';
+  function flush(){raf=0;if(last&&opt.move)opt.move(last.x,last.y);last=null;}
+  el.addEventListener('pointerdown',function(e){
+    if(pid!==null)return;
+    pid=e.pointerId;start={x:e.clientX,y:e.clientY};moved=false;
+    try{el.setPointerCapture(pid);}catch(err){}
+    el.classList.add('dragging');
+    if(opt.start)opt.start();
+    sfx('click');e.preventDefault();
+  });
+  el.addEventListener('pointermove',function(e){
+    if(pid===null||e.pointerId!==pid)return;
+    if(!moved&&(Math.abs(e.clientX-start.x)+Math.abs(e.clientY-start.y)>4))moved=true;
+    if(!moved)return;
+    last=opt.toXY?opt.toXY(e):{x:e.clientX,y:e.clientY};
+    if(!raf)raf=requestAnimationFrame(flush);
+    e.preventDefault();
+  });
+  function end(e){
+    if(pid===null||e.pointerId!==pid)return;
+    pid=null;last=null;
+    if(raf){cancelAnimationFrame(raf);raf=0;}
+    el.classList.remove('dragging');
+    if(opt.end)opt.end();
+  }
+  el.addEventListener('pointerup',end);
+  el.addEventListener('pointercancel',end);
+  el.addEventListener('lostpointercapture',end);
 }
-function sectorS(cx,cy,r,a,b,color,w){
-  var C=TAU*r,L=C*(b-a)/360;
-  return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+(color||'var(--yellow)')+'" stroke-width="'+(w||22)+'" stroke-dasharray="'+L.toFixed(2)+' '+C.toFixed(2)+'" transform="rotate('+(-b)+' '+cx+' '+cy+')"/>';
-}
-function uprightS(cx,cy,r,deg,txt,cls){
-  return '<g transform="translate('+cx+','+cy+') rotate('+deg+') translate(0,'+(-r)+') rotate('+(-deg)+')"><text class="'+(cls||'svgtxt')+'" text-anchor="middle" dominant-baseline="middle">'+txt+'</text></g>';
-}
-var SVGSTYLE='<style>.svgtxt{font-size:15px;font-weight:700;fill:var(--text)}.svgtxt.sm{font-size:12px}.ln{stroke:var(--ink);stroke-width:4;stroke-linecap:round}.thin{stroke:var(--muted);stroke-width:2}.axis{stroke:var(--line);stroke-width:1.5;fill:none}.ghost{stroke:var(--line);stroke-width:2;stroke-dasharray:6 6;fill:none}.pt{fill:var(--red)}.shake{animation:shk .45s ease-in-out 2}@keyframes shk{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}</style>';
-function svgFrame(inner){return '<svg viewBox="0 0 480 330" class="stagesvg" preserveAspectRatio="xMidYMid meet">'+SVGSTYLE+inner+'</svg>';}
-function showBig(html){var b=E('bignum');if(b){b.style.display='block';b.innerHTML=html;}}
-function modal(html){var m=E('modal');if(m)m.innerHTML=html;var k=E('mask');if(k)k.className='mask on';}
+var stack=[];
+function setView(h){var v=E('view');if(v)v.innerHTML=h;}
+function go(fn,crumb){if(crumb){var c=E('crumb');if(c)c.textContent=crumb;}stack.push(fn);try{fn();}catch(e){if(window.onerror)window.onerror(e.message,'',0);}window.scrollTo(0,0);}
+function goBack(){if(CUR&&CUR.stop)CUR.stop();if(stack.length>1)stack.pop();var f=stack[stack.length-1];if(f)f();else home();window.scrollTo(0,0);}
+function goHome(){if(CUR&&CUR.stop)CUR.stop();stack=[home];home();window.scrollTo(0,0);}
+function modal(h){var m=E('modal');if(m)m.innerHTML=h;var k=E('mask');if(k)k.className='mask on';}
 function closeMask(){var k=E('mask');if(k)k.className='mask';}
 var UNITS=['万以上数的认识','角的度量','多位数乘两位数','加法模型和乘法模型','平行四边形和梯形','条形统计图','寻找宝藏','复习与关联'];
+var TOPICS=['线的认识','角的分类','量角读数','画角','平角周角','时间中的角','边长与角','折纸推理'];
 </script>
 
-<!-- ========== 第 2 段：内置题库 ========== -->
-<script>
-var BUILTIN=[
-{id:'L1',topic:'线的认识',demo:'D1',mini:1,diff:1,type:'choice',stem:'下面哪个图形像"竹竿"，是线段？',
- options:['两头都有端点，拉不长','只有一个端点，一直延伸','一个端点都没有，两头都望不到头'],answer:0,
- hint1:'数一数它的端点有几个。',hint2:'线段有2个端点，像竹竿，两头都到头了。',
- solution:['线段有2个端点','竹竿两头都到头了，就是线段'],explain:'线段有2个端点，两头都到头了。',culture:'竹竿'},
-{id:'L2',topic:'线的认识',demo:'D1',mini:1,diff:1,type:'choice',stem:'"火把的光"从一点射出去，永远射不完。它像哪种线？',
- options:['线段','射线','直线'],answer:1,
- hint1:'它的端点有几个？',hint2:'只有一个端点，往一头无限延伸，这是射线。',
- solution:['火把的光只有1个端点','一头一直延伸，就是射线'],explain:'射线有1个端点，可以往一头无限延伸。',culture:'火把的光'},
-{id:'L3',topic:'线的认识',demo:'D1',mini:1,diff:2,type:'choice',stem:'望不到头的山路，一个端点也没有。它像哪种线？',
- options:['线段','射线','直线'],answer:2,
- hint1:'端点有几个？一个都没有的是谁？',hint2:'一个端点都没有，两头都望不到头，这是直线。',
- solution:['山路两头都望不到头','没有端点，就是直线'],explain:'直线没有端点，两头都可以无限延伸。',culture:'山路'},
-{id:'L4',topic:'线的认识',demo:'D1',mini:0,diff:2,type:'classify',stem:'把下面的图形分到它该住的筐里：先点图形，再点筐。',
- items:[{id:'A',t:'两头都有端点'},{id:'B',t:'只有1个端点（向右伸）'},{id:'C',t:'两头都有端点（短一些）'},{id:'D',t:'两头都没有端点'},{id:'E',t:'只有1个端点（向左伸）'},{id:'F',t:'两头都没有端点（长一些）'}],
- baskets:['线段','射线','直线'],answer:{线段:['A','C'],射线:['B','E'],直线:['D','F']},
- hint1:'先数端点，同一个筐里的图形端点个数一样多。',hint2:'线段2个端点，射线1个端点，直线0个端点。',
- solution:['A、C 各2个端点，是线段','B、E 各1个端点，是射线','D、F 没有端点，是直线'],explain:'端点个数决定名字。',culture:'竹竿、火把、山路'},
-{id:'A1',topic:'角的分类',demo:'D2',mini:1,diff:1,type:'choice',stem:'一条射线绕端点转出来的角比直角小，它叫什么角？',
- options:['锐角','直角','钝角'],answer:0,hint1:'比直角小，说明张口还不够大。',hint2:'门只开一条小缝时，那个角就是锐角。',
- solution:['比直角小的角，是锐角'],explain:'比直角小的角叫锐角。',culture:'火把只转一点点'},
-{id:'A2',topic:'角的分类',demo:'D2',mini:1,diff:2,type:'choice',stem:'把一周角平均分成4份，其中的1份是什么角？',
- options:['锐角','直角','钝角'],answer:1,hint1:'周角是360°，平均分成4份，每份是多少度？',hint2:'360÷4＝90，90°的角就是直角。',
- solution:['周角＝360°','360°÷4＝90°','90°的角是直角'],explain:'周角平均分成4份，每份是直角。',culture:'火把转四分之一圈'},
-{id:'A3',topic:'角的分类',demo:'D2',mini:1,diff:2,type:'classify',stem:'把五个角的名字分到对应的描述旁边。',
- items:[{id:'x1',t:'比直角小'},{id:'x2',t:'刚好90°'},{id:'x3',t:'比90°大，比180°小'},{id:'x4',t:'两条边连成一条直线，180°'},{id:'x5',t:'转满一整圈，360°'}],
- baskets:['锐角','直角','钝角','平角','周角'],answer:{锐角:['x1'],直角:['x2'],钝角:['x3'],平角:['x4'],周角:['x5']},
- hint1:'想想门一点点开大的过程。',hint2:'贴在墙上就是平角180°，再转满一圈才是周角360°。',
- solution:['比直角小，是锐角','刚好90°，是直角','90°到180°之间，是钝角','180°是平角','360°是周角'],explain:'五类角按张口大小排队。',culture:'木门开合'},
-{id:'A4',topic:'角的分类',demo:'D2',mini:0,diff:3,type:'choice',stem:'一个角比直角大，但比平角小。它一定是什么角？',
- options:['锐角','钝角','周角'],answer:1,hint1:'比90°大、比180°小的角叫什么？',hint2:'它比直角大，又没到平角，那就是钝角。',
- solution:['比直角90°大','比平角180°小','所以是钝角'],explain:'比直角大且比平角小的角是钝角。',culture:'木门开到一半多'},
-{id:'P1',topic:'量角读数',demo:'D4',mini:1,diff:2,type:'choice',stem:'量角器的中心对准顶点，0刻度线在右边、对准一条边，另一条边压在内圈65°的刻度上。这个角是多少度？',
- options:['65°','115°','25°'],answer:0,hint1:'先看0刻度线在哪一边。',hint2:'0在右边就读内圈，另一条边指着65°。',
- solution:['0刻度线在右边，读内圈','另一条边指着内圈65°','所以是65°'],explain:'先找0刻度线，再决定读哪一圈。',culture:'量角器就是180个1°'},
-{id:'P2',topic:'量角读数',demo:'D4',mini:1,diff:3,type:'keypad',stem:'小雨把外圈刻度看成了内圈，读出115°。这个角实际是多少度？',
- answer:65,unit:'°',hint1:'同一个角，内圈读数和外圈读数加起来是多少？',hint2:'内圈读数加外圈读数等于180°。180减115等于多少？',
- solution:['内圈读数＋外圈读数＝180°','180°−115°＝65°'],explain:'两圈读数合起来正好是半圆180°。',culture:'看错一圈就差一大截'},
-{id:'P3',topic:'量角读数',demo:'D4',mini:0,diff:2,type:'choice',stem:'量角时，另一条边压在外圈120°的刻度上，0刻度线在左边。这个角是多少度？',
- options:['60°','120°','240°'],answer:1,hint1:'0刻度线在左边，该读哪一圈？',hint2:'0在左边读外圈，外圈指着120°，那就是120°。',
- solution:['0在左边，读外圈','外圈指着120°','所以是120°'],explain:'0刻度线在哪边，就读哪一圈。',culture:'量角器的两圈刻度'},
-{id:'P4',topic:'量角读数',demo:'D4',mini:0,diff:3,type:'choice',stem:'量角时度数差了1到2度，下面哪个原因最可能？',
- options:['量角器中心没对准顶点','铅笔太粗','角画得不够好看'],answer:0,
- hint1:'量角三步走，哪一步最容易歪？',hint2:'中心点没对准顶点，读数就会差一点点。',
- solution:['中心对顶点是量角的第一步','中心偏了，读数就差1到2度'],explain:'中心没对准顶点，是常见的误差来源。',culture:'火塘边量角'},
-{id:'D1q',topic:'画角',demo:'D4',mini:1,diff:2,type:'order',stem:'画一个75°的角。按顺序点一点，把步骤排好。',
- steps:['画一条射线','量角器中心对准射线的端点','0刻度线对准这条射线','在75°刻度上点一个点','从端点连接这个点'],answer:[0,1,2,3,4],
- hint1:'画角之前，得先有一条边做起点。',hint2:'先画射线，再摆量角器，接着点刻度，最后连线。',
- solution:['画一条射线','中心对端点、0刻度线对射线','在75°刻度处点一个点','连接端点和这个点'],explain:'画角就是先定一条边，再按刻度找方向。',culture:'在火塘灰地上画角'},
-{id:'D2q',topic:'画角',demo:'D4',mini:1,diff:2,type:'choice',stem:'用一副三角尺上的角拼一拼，哪两个角拼起来正好是75°？',
- options:['30°和45°','60°和45°','90°和30°'],answer:0,hint1:'先把两个角加起来算一算。',hint2:'30°＋45°＝75°。',
- solution:['30°＋45°＝75°'],explain:'30°和45°拼起来正好是75°。',culture:'用木片拼角'},
-{id:'D3q',topic:'画角',demo:'D4',mini:0,diff:3,type:'keypad',stem:'用三角尺拼一个105°的角，已经放了60°的角，另一个角是多少度？',
- answer:45,unit:'°',hint1:'两个角加起来是105°，其中一个知道是60°。',hint2:'105减60等于多少？',
- solution:['105°−60°＝45°','45°正是三角尺上的角'],explain:'60°和45°能拼成105°。',culture:'拼木片'},
-{id:'D4q',topic:'画角',demo:'D4',mini:0,diff:3,type:'draw',stem:'拖动滑块，画出一个正好90°的角。',target:90,
- hint1:'直角就是90°，把滑块拖到90。',hint2:'滑块上的数字会实时显示，找到90再松手。',
- solution:['直角＝90°','把射线停在90°处'],explain:'90°的角就是直角。',culture:'木门开到立起来'},
-{id:'S1',topic:'平角周角',demo:'D2',mini:1,diff:1,type:'keypad',stem:'1平角等于几个直角？',answer:2,unit:'个',
- hint1:'平角180°，直角90°。180°里面有几个90°？',hint2:'180除以90等于多少？',
- solution:['平角180°，直角90°','180°÷90°＝2'],explain:'1平角＝2直角。',culture:'木门开到贴墙'},
-{id:'S2',topic:'平角周角',demo:'D2',mini:1,diff:2,type:'keypad',stem:'1周角等于几个直角？',answer:4,unit:'个',
- hint1:'周角360°，直角90°。',hint2:'360除以90等于多少？',
- solution:['周角360°，直角90°','360°÷90°＝4'],explain:'1周角＝4直角。',culture:'火把转一整圈'},
-{id:'S3',topic:'平角周角',demo:'D2',mini:0,diff:2,type:'choice',stem:'一个角正好是一个平角的一半。它是什么角？',
- options:['锐角','直角','钝角'],answer:1,hint1:'平角180°，平均分成2份。',hint2:'180÷2＝90，90就是直角。',
- solution:['平角＝180°','180°÷2＝90°','90°是直角'],explain:'平角的一半是直角。',culture:'木柴对折'},
-{id:'S4',topic:'平角周角',demo:'D2',mini:0,diff:3,type:'keypad',stem:'∠1是35°。∠2比∠1的2倍还多10°。∠2是多少度？',
- answer:80,unit:'°',hint1:'先算∠1的2倍，再加上10°。',hint2:'35乘2等于70，70加10等于多少？',
- solution:['35°×2＝70°','70°＋10°＝80°'],explain:'先乘后加，∠2是80°。',culture:'火把烧得更旺'},
-{id:'T1',topic:'时间中的角',demo:'D6',mini:1,diff:2,type:'keypad',stem:'时针从12走到3，转过的角是多少度？',
- answer:90,unit:'°',hint1:'钟面一圈360°，平均分成12大格，每格多少度？',hint2:'360除以12等于30，从12走到3走了3大格。',
- solution:['钟面一圈＝360°','360°÷12＝30°','30°×3＝90°'],explain:'时针从12走到3，转过90°。',culture:'看日头估时辰'},
-{id:'T2',topic:'时间中的角',demo:'D6',mini:1,diff:2,type:'choice',stem:'3时整，时针和分针的夹角是多少度？',
- options:['30°','90°','180°'],answer:1,hint1:'时针指3，分针指12，中间隔了几大格？',hint2:'每大格30°，隔了3大格。',
- solution:['相隔3大格','30°×3＝90°'],explain:'3时整，时针和分针成90°。',culture:'看太阳判断时辰'},
-{id:'T3',topic:'时间中的角',demo:'D6',mini:0,diff:1,type:'keypad',stem:'6时整，时针和分针的夹角是多少度？',answer:180,unit:'°',
- hint1:'6和12正好相对，两条边连成一条直线。',hint2:'一条直线就是平角，平角是180°。',
- solution:['6和12正好相对','连成一条直线，就是平角','平角＝180°'],explain:'6时整成平角180°。',culture:'看星星辨方位'},
-{id:'T4',topic:'时间中的角',demo:'D6',mini:0,diff:3,type:'clock',stem:'拖动滑块，让时针和分针的夹角正好是90°。应该停在几点整？',target:90,
- hint1:'每走1大格是30°，90°要走几大格？',hint2:'90除以30等于3，走3大格就是3时整。',
- solution:['每大格30°','90°÷30°＝3','停在3时整'],explain:'3时整时针与分针成90°。',culture:'看日头'},
-{id:'H1',topic:'边长与角',demo:'D2',mini:1,diff:2,type:'choice',stem:'用一个放大3倍的放大镜去看一个45°的角，看到的角是多少度？',
- options:['45°','135°','15°'],answer:0,hint1:'放大镜把边拉长了，可是两条边张开的程度变了吗？',hint2:'角的大小只跟张口有关，跟边的长短无关。',
- solution:['放大镜只把边变长','张口没有变','角还是45°'],explain:'放大镜只放大边的长短，不改变角的度数。',culture:'用放大镜看头巾花纹'},
-{id:'H2',topic:'边长与角',demo:'D2',mini:1,diff:1,type:'choice',stem:'两个角张开的程度一样，一个边画得长，一个边画得短。谁更大？',
- options:['边长的那个','一样大','边短的那个'],answer:1,hint1:'角的大小跟什么有关？',hint2:'只跟两条边张开的程度有关，跟边长没关系。',
- solution:['张口一样','角的大小只与张口有关','所以一样大'],explain:'张口一样，两个角就一样大。',culture:'两根不同长的竹竿摆同样的张口'},
-{id:'H3',topic:'边长与角',demo:'D2',mini:0,diff:2,type:'choice',stem:'角的两条边都延长到原来的2倍，这个角的度数会怎样？',
- options:['变成原来的2倍','不变','变成原来的一半'],answer:1,hint1:'回想演示里把边拉长、缩短时，度数动了吗？',hint2:'边的长短不改变张口的大小。',
- solution:['把边延长，只是边变长了','张口没有变','所以度数不变'],explain:'延长边不会改变角的度数。',culture:'把竹竿接长，张口不变'},
-{id:'H4',topic:'边长与角',demo:'D2',mini:0,diff:3,type:'choice',stem:'小红画了一个锐角，把两条边都擦短了一点。这个角现在是什么角？',
- options:['还是锐角','变成直角','变成钝角'],answer:0,hint1:'擦短边，张口变了吗？',hint2:'边长不影响角的度数，所以它还是锐角。',
- solution:['擦短边只是边变短','张口没变','仍然是锐角'],explain:'边的长短不改变角的类型。',culture:'竹竿剪短，张口不变'},
-{id:'F1',topic:'折叠推理',demo:'D5',mini:1,diff:2,type:'keypad',stem:'长方形纸折叠后，三个一样大的角拼成一条直线。其中∠1是多少度？',
- answer:60,unit:'°',hint1:'三个角拼成一条直线，加起来是多少度？',hint2:'180平均分成3份，180除以3等于多少？',
- solution:['三个角拼成平角＝180°','180°÷3＝60°'],explain:'180°平均分成3份，每份是60°。',culture:'折察尔瓦的褶皱'},
-{id:'F2',topic:'折叠推理',demo:'D5',mini:1,diff:3,type:'keypad',stem:'折好的彝族头巾铺平后是一个周角。已知∠1＝40°，另外两个角是同样大的∠2。∠2是多少度？',
- answer:160,unit:'°',hint1:'铺平后一共360°，先减去∠1。',hint2:'360减40等于320，320再平均分成2份。',
- solution:['周角＝360°','360°−40°＝320°','320°÷2＝160°'],explain:'先减后分，∠2是160°。',culture:'折彝族头巾'},
-{id:'F3',topic:'折叠推理',demo:'D6',mini:1,diff:3,type:'keypad',stem:'三根木柴交叉在一点，∠1和∠2都是20°，它们和∠3拼成一条直线。∠3是多少度？',
- answer:140,unit:'°',hint1:'拼成一条直线就是180°。',hint2:'180减20再减20，等于多少？',
- solution:['拼成一条直线＝180°','180°−20°＝160°','160°−20°＝140°'],explain:'找平角，一路减下去。',culture:'火塘边木柴交叉'},
-{id:'F4',topic:'折叠推理',demo:'D6',mini:0,diff:3,type:'keypad',stem:'火塘边三根木柴交叉，∠1＝30°，∠2＝40°，它们和∠3拼成一条直线。∠3是多少度？',
- answer:110,unit:'°',hint1:'先找平角180°。',hint2:'180减30再减40，等于多少？',
- solution:['180°−30°＝150°','150°−40°＝110°'],explain:'∠3是110°。',culture:'火塘边木柴交叉'}
-];
-function allQ(){return BUILTIN.concat(S.bank||[]);}
-function allTopics(){
-  var t=['线的认识','角的分类','量角读数','画角','平角周角','时间中的角','边长与角','折叠推理'];
-  allQ().forEach(function(q){if(q.topic&&t.indexOf(q.topic)<0)t.push(q.topic);});
-  return t;
-}
-function demoName(id){return (typeof DEMOS!=='undefined'&&DEMOS[id])?DEMOS[id].name:'演示';}
-</script>
-
-<!-- ========== 第 3 段：七个演示 ========== -->
+<!-- ============ 2. 七个演示 ============ -->
 <script>
 var DEMOS={};
-DEMOS.D1={name:'线段、射线、直线"三兄弟"',icon:'📏',desc:'数一数它们各有几个端点',
- mount:function(el){
-  el.innerHTML=svgFrame(
-   '<text x="22" y="70" class="svgtxt">线段</text>'+
-   '<g id="d1a"><rect x="120" y="46" width="9" height="34" rx="3" fill="#8d6e63"/><rect x="351" y="46" width="9" height="34" rx="3" fill="#8d6e63"/>'+
-   '<line x1="129" y1="63" x2="351" y2="63" class="ln" stroke="#C0392B"/><circle cx="129" cy="63" r="6" fill="#1A1A1A"/><circle cx="351" cy="63" r="6" fill="#1A1A1A"/>'+
-   '<text id="d1hit" x="240" y="34" class="svgtxt sm" text-anchor="middle" fill="#C0392B" opacity="0">撞墙啦，跑不出去</text></g>'+
-   '<text x="22" y="160" class="svgtxt">射线</text>'+
-   '<g id="d1b"><circle cx="129" cy="153" r="6" fill="#1A1A1A"/><line x1="129" y1="153" x2="351" y2="153" class="ln" stroke="#C0392B"/>'+
-   '<line id="d1bext" x1="351" y1="153" x2="470" y2="153" stroke="#C0392B" stroke-width="4" stroke-dasharray="7 7" opacity="0"/></g>'+
-   '<text x="22" y="250" class="svgtxt">直线</text>'+
-   '<g id="d1c"><line x1="129" y1="243" x2="351" y2="243" class="ln" stroke="#C0392B"/>'+
-   '<line id="d1cle" x1="20" y1="243" x2="129" y2="243" stroke="#C0392B" stroke-width="4" stroke-dasharray="7 7" opacity="0"/>'+
-   '<line id="d1cre" x1="351" y1="243" x2="460" y2="243" stroke="#C0392B" stroke-width="4" stroke-dasharray="7 7" opacity="0"/></g>'+
-   '<text id="d1count" x="240" y="312" class="svgtxt" text-anchor="middle"></text>');
+/* ---------- D1 三兄弟 ---------- */
+DEMOS.D1={name:'线段、射线、直线"三兄弟"',icon:'📏',desc:'拖端点、拖方向，看看到底能不能量出长度',ready:true,
+ st:{A:{x:110,y:85},B:{x:330,y:85},P:{x:110,y:200},Q:{x:240,y:180},C:{x:130,y:290},D:{x:350,y:290}},
+ mount:function(stage){
+  var self=this;this.stage=stage;
+  stage.innerHTML=svgFrame(
+   '<defs><clipPath id="d1clip"><rect x="0" y="0" width="480" height="330"/></clipPath></defs>'+
+   '<line id="d1ray" x1="0" y1="0" x2="0" y2="0" stroke="#C0392B" stroke-width="4" stroke-linecap="round" clip-path="url(#d1clip)"/>'+
+   '<line id="d1inf" x1="0" y1="0" x2="0" y2="0" stroke="#4E6B62" stroke-width="4" stroke-linecap="round" clip-path="url(#d1clip)"/>'+
+   '<line id="d1seg" x1="0" y1="0" x2="0" y2="0" stroke="#C0392B" stroke-width="6" stroke-linecap="round"/>'+
+   '<circle id="d1c1" class="hnd" data-r="12" r="12" fill="#C0392B" stroke="#fff" stroke-width="3"/>'+
+   '<circle id="d1c2" class="hnd" data-r="12" r="12" fill="#C0392B" stroke="#fff" stroke-width="3"/>'+
+   '<circle id="d1cp" class="hnd" data-r="12" r="12" fill="#1A1A1A" stroke="#fff" stroke-width="3"/>'+
+   '<circle id="d1cq" class="hnd" data-r="11" r="11" fill="#F1C40F" stroke="#fff" stroke-width="3"/>'+
+   '<circle id="d1cA" class="hnd" data-r="12" r="12" fill="#4E6B62" stroke="#fff" stroke-width="3"/>'+
+   '<circle id="d1cB" class="hnd" data-r="12" r="12" fill="#4E6B62" stroke="#fff" stroke-width="3"/>'+
+   '<circle id="d1cM" class="hnd" data-r="10" r="10" fill="#fff" stroke="#4E6B62" stroke-width="3"/>'+
+   '<text id="d1t1" class="svgtxt" x="10" y="34"></text>'+
+   '<text id="d1t2" class="svgtxt" x="10" y="164"></text>'+
+   '<text id="d1t3" class="svgtxt" x="10" y="256"></text>',330);
+  this.svg=stage.querySelector('svg');
+  var el={seg:stage.querySelector('#d1seg'),ray:stage.querySelector('#d1ray'),inf:stage.querySelector('#d1inf'),
+   c1:stage.querySelector('#d1c1'),c2:stage.querySelector('#d1c2'),cp:stage.querySelector('#d1cp'),cq:stage.querySelector('#d1cq'),
+   cA:stage.querySelector('#d1cA'),cB:stage.querySelector('#d1cB'),cM:stage.querySelector('#d1cM'),
+   t1:stage.querySelector('#d1t1'),t2:stage.querySelector('#d1t2'),t3:stage.querySelector('#d1t3')};
+  this.el=el;
+  function cl(p){p.x=Math.max(26,Math.min(454,p.x));p.y=Math.max(56,Math.min(300,p.y));return p;}
+  function bind(node,set){
+    makeDraggable(node,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();scaleHandle(node,1.3);},
+     move:function(x,y){set(cl({x:x,y:y}));self.render();},end:function(){scaleHandle(node,1);}});
+  }
+  bind(el.c1,function(p){self.st.A=p;});bind(el.c2,function(p){self.st.B=p;});
+  bind(el.cp,function(p){self.st.P=p;});bind(el.cq,function(p){self.st.Q=p;});
+  bind(el.cA,function(p){self.st.C=p;});bind(el.cB,function(p){self.st.D=p;});
+  var d0=null;
+  makeDraggable(el.cM,{toXY:function(e){return toPt(self.svg,e);},
+   start:function(){scaleHandle(el.cM,1.3);d0={x:self.st.C.x,y:self.st.C.y,x2:self.st.D.x,y2:self.st.D.y,p:null};},
+   move:function(x,y){if(!d0.p)d0.p={x:x,y:y};var dx=x-d0.p.x,dy=y-d0.p.y;
+    self.st.C={x:Math.max(26,Math.min(454,d0.x+dx)),y:Math.max(56,Math.min(300,d0.y+dy))};
+    self.st.D={x:Math.max(26,Math.min(454,d0.x2+dx)),y:Math.max(56,Math.min(300,d0.y2+dy))};self.render();},
+   end:function(){scaleHandle(el.cM,1);}});
+  this.render();
  },
- update:function(el,p){
-  p=p||{};
-  var a=$('#d1a',el),hit=$('#d1hit',el),be=$('#d1bext',el),cle=$('#d1cle',el),cre=$('#d1cre',el),ct=$('#d1count',el);
-  if(a)a.setAttribute('class',p.shake?'shake':'');
-  if(hit)hit.setAttribute('opacity',(p.ext>=1)?1:0);
-  if(be)be.setAttribute('opacity',(p.ext>=2)?1:0);
-  if(cle)cle.setAttribute('opacity',(p.ext>=3)?1:0);
-  if(cre)cre.setAttribute('opacity',(p.ext>=3)?1:0);
-  if(ct)ct.textContent=(p.ext===1)?'线段：2个端点':(p.ext===2)?'射线：1个端点':(p.ext===3)?'直线：0个端点':'';
-  if(p.ext)showBig(p.ext===1?'2 个端点':p.ext===2?'1 个端点':'0 个端点');
+ render:function(){
+  var s=this.st,e=this.el;
+  e.c1.setAttribute('cx',s.A.x);e.c1.setAttribute('cy',s.A.y);
+  e.c2.setAttribute('cx',s.B.x);e.c2.setAttribute('cy',s.B.y);
+  e.seg.setAttribute('x1',s.A.x);e.seg.setAttribute('y1',s.A.y);e.seg.setAttribute('x2',s.B.x);e.seg.setAttribute('y2',s.B.y);
+  e.cp.setAttribute('cx',s.P.x);e.cp.setAttribute('cy',s.P.y);
+  e.cq.setAttribute('cx',s.Q.x);e.cq.setAttribute('cy',s.Q.y);
+  var a=Math.atan2(-(s.Q.y-s.P.y),s.Q.x-s.P.x)*180/Math.PI,f=ptOn(s.P.x,s.P.y,900,a);
+  e.ray.setAttribute('x1',s.P.x);e.ray.setAttribute('y1',s.P.y);e.ray.setAttribute('x2',f.x);e.ray.setAttribute('y2',f.y);
+  e.cA.setAttribute('cx',s.C.x);e.cA.setAttribute('cy',s.C.y);
+  e.cB.setAttribute('cx',s.D.x);e.cB.setAttribute('cy',s.D.y);
+  e.cM.setAttribute('cx',(s.C.x+s.D.x)/2);e.cM.setAttribute('cy',(s.C.y+s.D.y)/2);
+  var a2=Math.atan2(-(s.D.y-s.C.y),s.D.x-s.C.x)*180/Math.PI;
+  var p1=ptOn(s.C.x,s.C.y,900,a2),p2=ptOn(s.C.x,s.C.y,900,a2+180);
+  e.inf.setAttribute('x1',p1.x);e.inf.setAttribute('y1',p1.y);e.inf.setAttribute('x2',p2.x);e.inf.setAttribute('y2',p2.y);
+  var L=dist(s.A.x,s.A.y,s.B.x,s.B.y);
+  e.t1.textContent='线段：2个端点 ｜ 能量出长度 ＝ '+Math.round(L/10)+' 格';
+  e.t2.textContent='射线：1个端点 ｜ 量不出长度，它能一直跑';
+  e.t3.textContent='直线：0个端点 ｜ 量不出长度，两头都望不到头';
  },
- script:[
-  {t:3,text:'今天认识三位"线"兄弟。',p:{ext:0}},
-  {t:7,text:'老大叫线段。两头都有端点，像一根竹竿，两头都到头了。',p:{ext:0}},
-  {t:9,text:'老二叫射线。它只有一个端点，像火把的光，从这个点一直射出去，永远射不完。',p:{ext:0}},
-  {t:10,text:'老三叫直线。它一个端点都没有，两头都望不到头，像大凉山深处那条盘到云里的山路。',p:{ext:0}},
-  {t:5,text:'点一下按钮，让它们一起往外跑——看，线段撞到墙上了。',p:{ext:1,shake:true}},
-  {t:6,text:'它怎么跑都跑不出去，因为它只有2个端点。',p:{ext:1,shake:false}},
-  {t:7,text:'射线往一头跑，跑多远前面都还有路。',p:{ext:2}},
-  {t:7,text:'直线两头一起跑，永远没有尽头。',p:{ext:3}},
-  {t:8,text:'记住三句话：线段2个端点，射线1个端点，直线0个端点。',p:{ext:3}},
-  {t:6,text:'再送一个小秘密：线段和射线，都是直线的一部分。',p:{ext:3}}
+ reset:function(){this.st={A:{x:110,y:85},B:{x:330,y:85},P:{x:110,y:200},Q:{x:240,y:180},C:{x:130,y:290},D:{x:350,y:290}};this.render();},
+ syncUI:function(){},
+ controlsHTML:function(){return '<div class="tasks"><div class="task"><b>任务1</b> 拖线段两个红点，看"格数"怎么变。</div><div class="task"><b>任务2</b> 拖黄点让射线转向；拖黑点移动射线的端点。</div><div class="task"><b>任务3</b> 拖绿点转直线，拖白点整体平移——两头始终望不到头。</div></div><div class="row" style="margin-top:.6rem"><button class="btn" onclick="DEMOS.D1.reset();toast(\'复位啦\');">🔁 重置</button></div>';},
+ panelHTML:function(){return '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D1\')">三条线都能量出长度</button><button class="btn mini" onclick="DQ(this,\'b\',\'D1\')">只有线段能量出长度</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:5,text:'线段有两个端点，拖一拖，长度就变了。',before:function(d){d.reset();},tick:function(k,d){d.st.B={x:330-120*k,y:85};}},
+  {t:5,text:'射线只有一个端点，拖黄点，它就换个方向射出去。',before:function(d){d.reset();},tick:function(k,d){d.st.Q=ptOn(d.st.P.x,d.st.P.y,140,34+50*k);}},
+  {t:5,text:'直线没有端点，拖绿点它就转；两头永远望不到头。',before:function(d){d.reset();},tick:function(k,d){d.st.D=ptOn(d.st.C.x,d.st.C.y,220,20+40*k);}},
+  {t:4,text:'记住：只有线段能量出长度。',before:function(d){d.reset();},tick:function(k,d){}}
  ],
- explore:{tasks:['让三条线各跑一次，数一数：它们分别有几个端点？','找一找：竹竿像哪种线？火把的光像哪种线？山路像哪种线？','想一想：端点越少，这条线能跑得越远吗？'],
-  controls:'<div class="row" style="margin-top:.5rem"><button class="btn mini" onclick="D1go(1)">让线段跑</button><button class="btn mini" onclick="D1go(2)">让射线跑</button><button class="btn mini" onclick="D1go(3)">让直线跑</button><button class="btn mini" onclick="D1go(0)">全部复位</button></div>',
-  discover:[['端点越多越远','no'],['端点越少越远','yes']],answer:'yes',right:'端点越少，线能跑得越远：2个端点的线段跑不动，0个端点的直线两头都跑不完。'}
-};
-DEMOS.D2={name:'角的诞生 · 旋转视角',icon:'🌀',desc:'拖一拖，看角的名字怎么变',
- mount:function(el){
-  el.innerHTML=svgFrame('<g id="d2sec"></g><g id="d2base"></g><g id="d2mov"></g><circle cx="200" cy="240" r="8" class="pt"/>'+
-   '<text x="300" y="272" class="svgtxt sm">起始边</text>');
+ challenge:{kind:'ask',subtitle:'🎯 小挑战：想一想，再点答案。',items:[
+  {q:'线段有几个端点？',opts:['1个','2个','0个'],a:1,h:'想一想竹竿有几头。'},
+  {q:'哪种线能量出长度？',opts:['线段','射线','直线'],a:0,h:'两头都到头了，才能量。'},
+  {q:'拖黄点时，射线会怎样？',opts:['端点变多','方向改变','变成线段'],a:1,h:'黄点在射线的另一头。'}]}};
+
+/* ---------- D2 旋转视角 ---------- */
+DEMOS.D2={name:'角的诞生 · 旋转视角',icon:'🌀',desc:'抓住红点，亲手把角转出来',ready:true,
+ state:{angle:45,edge:125},limit:{minA:1,maxA:360,minE:70,maxE:155},
+ tasks:['抓住大红点，沿着虚线转一圈，看度数怎么变。','在 90°、180°、270°、360° 停一停，看角的名字。','抓青绿小点把边拉长、缩短，看度数有没有变。'],
+ mount:function(stage){
+  var self=this;this.stage=stage;var V={x:240,y:160};this.V=V;
+  var ticks='';
+  [[90,'90°'],[180,'180°'],[270,'270°']].forEach(function(t){
+   var p1=ptOn(V.x,V.y,112,t[0]),p2=ptOn(V.x,V.y,126,t[0]),p3=ptOn(V.x,V.y,146,t[0]);
+   ticks+='<line x1="'+p1.x+'" y1="'+p1.y+'" x2="'+p2.x+'" y2="'+p2.y+'" class="thin"/>'+
+    '<text x="'+p3.x+'" y="'+p3.y+'" class="svgtxt sm" text-anchor="middle" dominant-baseline="middle">'+t[1]+'</text>';
+  });
+  ticks+='<text x="400" y="185" class="svgtxt sm" text-anchor="middle">360°</text>';
+  stage.innerHTML=svgFrame('<circle cx="240" cy="160" r="119" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>'+ticks+
+   '<path id="d2fill" fill="#C0392B" opacity="0.08"/><path id="d2arc" fill="none" stroke="#C0392B" stroke-width="3" opacity="0.6"/>'+
+   '<line id="d2base" x1="240" y1="160" x2="365" y2="160" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>'+
+   '<line id="d2rot" x1="240" y1="160" x2="240" y2="35" stroke="#C0392B" stroke-width="5" stroke-linecap="round"/>'+
+   '<circle cx="240" cy="160" r="7" fill="#1A1A1A"/>'+
+   '<g id="d2midPos"><g id="d2mid" class="hnd"><circle class="halo" data-r="20" r="20" fill="#4E6B62"/><circle data-r="9" r="9" fill="#4E6B62" stroke="#fff" stroke-width="3"/><circle data-r="28" r="28" fill="rgba(0,0,0,0.01)"/></g></g>'+
+   '<g id="d2mainPos"><g id="d2main" class="hnd"><circle class="halo" data-r="26" r="26" fill="#C0392B"/><circle data-r="14" r="14" fill="#C0392B" stroke="#fff" stroke-width="3"/><circle data-r="31" r="31" fill="rgba(0,0,0,0.01)"/></g></g>',330);
+  this.svg=stage.querySelector('svg');
+  this.el={base:stage.querySelector('#d2base'),rot:stage.querySelector('#d2rot'),arc:stage.querySelector('#d2arc'),fill:stage.querySelector('#d2fill'),
+   mp:stage.querySelector('#d2mainPos'),dp:stage.querySelector('#d2midPos'),mh:stage.querySelector('#d2main'),dh:stage.querySelector('#d2mid')};
+  var L=this.limit;
+  makeDraggable(this.el.mh,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();self.hinted=false;scaleHandle(self.el.mh,1.25);},
+   move:function(x,y){
+    var ang=Math.atan2(-(y-V.y),(x-V.x))*180/Math.PI;if(ang<0)ang+=360;
+    var prev=self.state.angle;
+    if(ang<L.minA){ang=(prev>180)?360:1;if(!self.hinted){self.hinted=true;toast('最小 1°，再合上就没有角啦');}}
+    var keys=[90,180,270,360],hit=null;
+    for(var i=0;i<keys.length;i++){if(Math.abs(ang-keys[i])<=3){ang=keys[i];hit=keys[i];break;}}
+    if(hit&&self.last!==hit){self.last=hit;sfx('snap');var bn=E('bignum');if(bn){bn.className='bignum flash';setTimeout(function(){bn.className='bignum';},650);}}
+    if(!hit)self.last=null;
+    self.state.angle=Math.round(ang);self.render();if(window.checkGoal)checkGoal();},
+   end:function(){scaleHandle(self.el.mh,1);}});
+  makeDraggable(this.el.dh,{toXY:function(e){return toPt(self.svg,e);},start:function(){scaleHandle(self.el.dh,1.35);self.lh=false;},
+   move:function(x,y){var d=dist(V.x,V.y,x,y);if(d>L.maxE){d=L.maxE;if(!self.lh){self.lh=true;toast('边已经拉到最长啦，可角的度数一点没变');}}if(d<L.minE)d=L.minE;var n=Math.round(d);if(n!==self.state.edge){self.state.edge=n;self.syncUI();self.render();}},end:function(){scaleHandle(self.el.dh,1);}});
+  this.render();
  },
- update:function(el,p){
-  p=p||{};
-  var a=Math.max(1,Math.min(360,p.angle||90)),len=p.edge||150;
-  var sec=$('#d2sec',el),base=$('#d2base',el),mov=$('#d2mov',el);
-  if(sec)sec.innerHTML=(a>=360)?sectorS(200,240,44,0,359.7,'var(--red)'):sectorS(200,240,44,0,a,'var(--red)');
-  if(base)base.innerHTML=rayS(200,240,len,0);
-  if(mov)mov.innerHTML=rayS(200,240,len,a,'var(--red)');
-  var nm=(a<90)?'锐角':(a===90?'直角':(a<180?'钝角':(a===180?'平角':(a<360?'钝角，还在转':'周角'))));
-  showBig(a+'°<small>'+nm+'</small>');
+ render:function(){
+  var V=this.V,a=this.state.angle,e=this.state.edge,p=ptOn(V.x,V.y,e,a),q=ptOn(V.x,V.y,e,0),m=ptOn(V.x,V.y,e*0.55,a);
+  this.el.base.setAttribute('x2',q.x);this.el.base.setAttribute('y2',q.y);
+  this.el.rot.setAttribute('x2',p.x);this.el.rot.setAttribute('y2',p.y);
+  this.el.mp.setAttribute('transform','translate('+p.x+','+p.y+')');
+  this.el.dp.setAttribute('transform','translate('+m.x+','+m.y+')');
+  var ar=Math.min(a,359.9),A=ptOn(V.x,V.y,46,0),B=ptOn(V.x,V.y,46,ar),L=(ar>180)?1:0;
+  this.el.arc.setAttribute('d','M'+A.x+','+A.y+' A46,46 0 '+L+' 0 '+B.x+','+B.y);
+  this.el.fill.setAttribute('d','M'+V.x+','+V.y+' L'+A.x+','+A.y+' A46,46 0 '+L+' 0 '+B.x+','+B.y+' Z');
+  var bn=E('bignum'),nt=E('nametag'),ib=E('infobar');
+  if(bn)bn.textContent=a+'°';
+  if(nt){nt.textContent=angleName(a);nt.className='nametag'+((a===90||a===180||a===360)?' key':'');}
+  if(ib)ib.innerHTML='<span>边长 '+e+' 格</span><span>角度 '+a+'°</span><span>'+angleName(a)+'</span>';
  },
- script:[
-  {t:5,text:'角的秘密，藏在一个动作里——旋转。',p:{angle:1}},
-  {t:8,text:'一条射线绕着自己的端点转，转出来的图形，就是角。',p:{angle:45}},
-  {t:8,text:'不动的那条边，叫起始边；转过去的那条边，叫旋转边。',p:{angle:60}},
-  {t:7,text:'门只打开一条小缝，这个角比直角小，叫锐角。',p:{angle:40}},
-  {t:6,text:'门开到90°，门板立得笔直，这是直角。',p:{angle:90}},
-  {t:7,text:'门开得比直角大，还没到180°，这是钝角。',p:{angle:130}},
-  {t:8,text:'门一直开到贴在墙上，两条边连成一条直线，这是平角，180°。',p:{angle:180}},
-  {t:7,text:'再转下去，转满一整圈回到原地，这是周角，360°。',p:{angle:360}},
-  {t:7,text:'注意看：我把边拉长，角的张口变了吗？没有。',p:{angle:120,edge:210}},
-  {t:6,text:'再把边缩短，张口还是没变。',p:{angle:120,edge:90}},
-  {t:9,text:'所以记住：角的大小，只跟两条边张开的程度有关，跟边的长短没有关系。',p:{angle:120,edge:150}},
-  {t:4,text:'滑块交给你，去转一转。',p:{angle:30,edge:150}}
+ syncUI:function(){var s=E('d2edge'),l=E('d2edgev');if(s)s.value=this.state.edge;if(l)l.textContent=this.state.edge+' 格';this.render();},
+ reset:function(){this.state.angle=45;this.state.edge=125;this.last=null;this.syncUI();this.render();},
+ controlsHTML:function(){return '<div class="tasks">'+this.tasks.map(function(t,i){return '<div class="task"><b>任务'+(i+1)+'</b> '+t+'</div>';}).join('')+'</div><div class="row" style="margin-top:.6rem"><button class="btn" onclick="DEMOS.D2.reset();toast(\'回到 45°\');">🔁 重置</button><div class="slider"><span>边长（辅助）</span><input id="d2edge" type="range" min="70" max="155" value="125" oninput="DEMOS.D2.state.edge=+this.value;E(\'d2edgev\').textContent=this.value+\' 格\';DEMOS.D2.render();"><b id="d2edgev">125 格</b></div></div>';},
+ panelHTML:function(){return '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D2\')">边变长，角的度数也会变大</button><button class="btn mini" onclick="DQ(this,\'b\',\'D2\')">边变长，角的度数一点不变</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:4,text:'看好了：抓住这个红点，沿着虚线慢慢转。',before:function(d){d.state.angle=45;},tick:function(k,d){d.state.angle=Math.round(45+45*k);}},
+  {t:5,text:'转到 90°，门板立起来，这是直角。',before:function(d){d.state.angle=90;},tick:function(k,d){d.state.angle=90;}},
+  {t:5,text:'转到 180°，两条边连成一条直线，这是平角。',before:function(d){d.state.angle=90;},tick:function(k,d){d.state.angle=Math.round(90+90*k);}},
+  {t:6,text:'再转满一整圈回到原地，这是周角 360°。',before:function(d){d.state.angle=180;},tick:function(k,d){d.state.angle=Math.round(180+180*k);}},
+  {t:4,text:'换你上手。',before:function(d){d.state.angle=360;},tick:function(k,d){}}
  ],
- explore:{tasks:['慢慢拖滑块，在 90°、180°、270°、360° 各停一下，看看名字变了没有。','先转到 60°，再转到 300°，哪个张口更大？','点"把边拉长"，再点"把边缩短"，度数变了没有？'],
-  controls:'<div class="slider"><span>转动</span><input type="range" min="1" max="360" value="45" oninput="D2set(this.value,0)"><b id="d2v">45°</b></div>'+
-   '<div class="row"><button class="btn mini" onclick="D2set(null,1)">把边拉长</button><button class="btn mini" onclick="D2set(null,-1)">把边缩短</button></div>',
-  discover:[['有关','no'],['无关','yes']],answer:'yes',right:'角的大小，只和两条边张开的程度有关，和边的长短没有关系。'}
-};
-DEMOS.D3={name:'1°角的诞生',icon:'🌗',desc:'把圆平均分成360份，其中1份就是1°',
- mount:function(el){
-  var cx=240,cy=180,r=118;
-  el.innerHTML=svgFrame('<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="26"/>'+
-   '<circle id="d3dash" cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="var(--muted)" stroke-width="26" stroke-dasharray="1.1 0.96" opacity="0"/>'+
-   '<g id="d3one" opacity="0">'+sectorS(cx,cy,r,0,1,'var(--red)',26)+'</g>'+
-   '<g id="d3half" opacity="0">'+sectorS(cx,cy,r,0,180,'var(--yellow)',26)+'</g>'+
-   '<circle cx="'+cx+'" cy="'+cy+'" r="6" class="pt"/>'+
-   '<text x="'+cx+'" y="'+(cy+r+46)+'" class="svgtxt" text-anchor="middle" id="d3cap">把圆平均分成360份</text>');
- },
- update:function(el,p){
-  p=p||{};
-  var d=$('#d3dash',el),o=$('#d3one',el),h=$('#d3half',el),c=$('#d3cap',el);
-  if(d)d.setAttribute('opacity',p.step>=1?1:0);
-  if(o)o.setAttribute('opacity',p.step>=1?1:0);
-  if(h)h.setAttribute('opacity',p.step>=2?1:0);
-  if(c)c.textContent=(p.step>=2)?'量角器就是180个1°小角拼成的':'把圆平均分成360份，其中1份就是1°';
-  showBig(p.step>=2?'半圆里的 1°':'1°');
- },
- script:[
-  {t:8,text:'量角器凭什么能量出角度？因为它身上藏着一个小得不能再小的角。',p:{step:0}},
-  {t:9,text:'把一个大圆平均分成360份，其中1份的角，就是1度，写作1°。',p:{step:1}},
-  {t:8,text:'1°有多小？比你眨一下眼睛时眼珠转过的角度还小一点点。',p:{step:1}},
-  {t:8,text:'现在把它放大——这是半圆，被平均分成了180份。',p:{step:2}},
-  {t:7,text:'量角器，其实就是180个1°小角手拉手拼成的。',p:{step:2}},
-  {t:9,text:'所以量角不是魔法，它是在数：这个角里面装了几个1°。',p:{step:2}},
-  {t:7,text:'装了30个1°，就是30°；装了90个1°，就是90°。',p:{step:2}},
-  {t:6,text:'记住这句话：度量，就是数单位。',p:{step:2}},
-  {t:4,text:'来，把1°放大看看它到底长什么样。',p:{step:2}}
- ],
- explore:{tasks:['点"走一格"，一格就是 1°，走到 30 格停下来看看。','猜一猜：从12点方向转到3点方向，走了多少个1°？','比一比：30个1°拼起来和90个1°拼起来，谁的张口大？'],
-  controls:'<div class="row"><button class="btn mini" onclick="D3walk(1)">走一格（1°）</button><button class="btn mini" onclick="D3walk(10)">走十格（10°）</button><button class="btn mini" onclick="D3walk(-999)">清零</button><b id="d3n">已经装了 0 个1°</b></div>',
-  discover:[['越大','yes'],['越小','no']],answer:'yes',right:'角里装的1°越多，角就越大。角的大小，就是数出来的。'}
-};
-DEMOS.D4={name:'量角器的秘密',icon:'📐',desc:'中心对顶点，0线对一边，再看另一条边',
- mount:function(el){
-  var cx=240,cy=250,R=170,i,t='',n='';
+ challenge:{kind:'drag',goals:[60,90,120],tip:'把红点慢慢拖过去，不用着急。'}};
+
+/* ---------- D4 量角器（可调角度 + 透明度 + 内外圈修正） ---------- */
+DEMOS.D4={name:'量角器的秘密',icon:'📐',desc:'自己拖量角器，摆对了才读得出度数',ready:true,
+ R:165,V:{x:240,y:275},pool:[{A:52,dir:'right'},{A:128,dir:'left'},{A:35,dir:'right'},{A:115,dir:'left'}],pi:0,
+ state:{px:300,py:170,rot:30,dir:'right',A:52,op:0.72},msg:'',aligned:false,
+ mount:function(stage){
+  var self=this,R=this.R;this.stage=stage;var ticks='',nums='',i;
   for(i=0;i<=180;i++){
-   var L=(i%10===0)?22:((i%5===0)?14:8);
-   t+='<line x1="'+cx+'" y1="'+(cy-R)+'" x2="'+cx+'" y2="'+(cy-R+L)+'" class="thin" transform="rotate('+(90-i)+' '+cx+' '+cy+')"/>';
+   var len=(i%10===0)?22:((i%5===0)?15:9),p1=ptOn(0,0,R,i),p2=ptOn(0,0,R-len,i);
+   var col=(i===0)?'#4E6B62':((i===180)?'#C0392B':'var(--muted)'),w=(i===0||i===180)?3.5:1.2;
+   ticks+='<line x1="'+p1.x.toFixed(1)+'" y1="'+p1.y.toFixed(1)+'" x2="'+p2.x.toFixed(1)+'" y2="'+p2.y.toFixed(1)+'" stroke="'+col+'" stroke-width="'+w+'"/>';
   }
   for(i=0;i<=180;i+=10){
-   n+=uprightS(cx,cy,R-36,90-i,i,'svgtxt sm');
-   n+=uprightS(cx,cy,R-58,90-(180-i),180-i,'svgtxt sm');
+   nums+=uprightS(0,0,R-34,90-i,180-i,'d4n d4out');
+   nums+=uprightS(0,0,R-62,90-i,i,'d4n d4in');
   }
-  el.innerHTML=svgFrame('<g id="d4proto">'+
-   '<path d="M'+(cx-R)+','+cy+' A'+R+','+R+' 0 0 1 '+(cx+R)+','+cy+' Z" fill="var(--card)" stroke="var(--line)" stroke-width="3"/>'+
-   t+n+'<text x="'+cx+'" y="'+(cy-26)+'" class="svgtxt sm" text-anchor="middle">中心对顶点，0线对一边</text></g>'+
-   '<g id="d4sec"></g><g id="d4base"></g><g id="d4mov"></g>'+
-   '<circle cx="'+cx+'" cy="'+cy+'" r="7" class="pt"/>'+
-   '<text x="'+(cx-R+4)+'" y="'+(cy+26)+'" class="svgtxt sm">右边这条是 0 刻度线</text>');
+  stage.innerHTML='<svg viewBox="0 0 480 460" class="stagesvg" preserveAspectRatio="xMidYMid meet">'+
+   '<style>.d4n{font-size:9px;font-weight:700}.d4in{fill:#4E6B62}.d4out{fill:#C0392B}.d4lb{font-size:11px;fill:var(--muted);font-weight:700}</style>'+
+   '<g id="d4dyn"></g>'+
+   '<g id="d4proto" transform="translate(300,170) rotate(30)" opacity="0.72">'+
+    '<path d="M-165,0 A165,165 0 0 1 165,0 Z" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>'+ticks+nums+
+    '<line x1="-165" y1="0" x2="165" y2="0" stroke="var(--line)" stroke-width="2"/>'+
+    '<text x="118" y="-14" class="d4lb" text-anchor="middle">内圈0（右）</text>'+
+    '<text x="-118" y="-14" class="d4lb" text-anchor="middle">外圈0（左）</text>'+
+    '<g transform="translate(165,0)"><g id="d4rot" class="hnd">'+
+      '<circle class="halo" data-r="16" r="16" fill="#C0392B"/><circle data-r="11" r="11" fill="#C0392B" stroke="#fff" stroke-width="3"/>'+
+      '<text y="4" text-anchor="middle" style="font-size:12px;fill:#fff;font-weight:700">↻</text><circle data-r="30" r="30" fill="rgba(0,0,0,0.01)"/></g></g>'+
+    '<g id="d4ctr" class="hnd"><circle class="halo" data-r="18" r="18" fill="#4E6B62"/>'+
+      '<circle data-r="12" r="12" fill="#fff" stroke="#4E6B62" stroke-width="4"/><circle data-r="3.5" r="3.5" fill="#4E6B62"/>'+
+      '<circle data-r="28" r="28" fill="rgba(0,0,0,0.01)"/></g>'+
+   '</g>'+
+   '<g id="d4apos"><g id="d4ahnd" class="hnd"><circle class="halo" data-r="20" r="20" fill="#C0392B"/><circle data-r="13" r="13" fill="#fff" stroke="#C0392B" stroke-width="4"/><circle data-r="4.5" r="4.5" fill="#C0392B"/><circle data-r="34" r="34" fill="rgba(0,0,0,0.01)"/></g></g>'+
+   '<text x="240" y="446" class="svgtxt sm" text-anchor="middle">拖白心红点＝改角的大小　拖中心白环＝移动量角器　拖右边 ↻ ＝旋转量角器</text></svg>';
+  this.svg=stage.querySelector('svg');
+  this.el={proto:stage.querySelector('#d4proto'),dyn:stage.querySelector('#d4dyn'),ctr:stage.querySelector('#d4ctr'),rot:stage.querySelector('#d4rot'),
+   apos:stage.querySelector('#d4apos'),ahnd:stage.querySelector('#d4ahnd')};
+  var V=this.V;
+  makeDraggable(this.el.ahnd,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();scaleHandle(self.el.ahnd,1.3);},
+   move:function(x,y){
+    var a=Math.atan2(-(y-V.y),x-V.x)*180/Math.PI;if(a<0)a+=360;
+    if(a>180)a=180;
+    if(a<1)a=1;
+    if(Math.round(a)!==self.state.A){self.state.A=Math.round(a);self.render();self.syncUI();self.tryOptions();}
+   },end:function(){scaleHandle(self.el.ahnd,1);}});
+  makeDraggable(this.el.ctr,{toXY:function(e){return toPt(self.svg,e);},start:function(){self.d0=null;scaleHandle(self.el.ctr,1.35);},
+   move:function(x,y){if(!self.d0)self.d0={x:x,y:y,px:self.state.px,py:self.state.py};
+    var nx=self.d0.px+(x-self.d0.x),ny=self.d0.py+(y-self.d0.y);
+    nx=Math.max(120,Math.min(360,nx));ny=Math.max(140,Math.min(275,ny));
+    if(dist(nx,ny,V.x,V.y)<=16){nx=V.x;ny=V.y;}
+    self.state.px=nx;self.state.py=ny;self.render();},
+   end:function(){scaleHandle(self.el.ctr,1);self.check();}});
+  makeDraggable(this.el.rot,{toXY:function(e){return toPt(self.svg,e);},start:function(){scaleHandle(self.el.rot,1.3);},
+   move:function(x,y){var a=Math.atan2(-(y-self.state.py),x-self.state.px)*180/Math.PI;var r=norm180(-a);if(Math.abs(r)<=4)r=0;self.state.rot=r;self.render();},
+   end:function(){scaleHandle(self.el.rot,1);self.check();}});
+  this.render();
  },
- update:function(el,p){
-  p=p||{};
-  var cx=240,cy=250,R=170,a=Math.max(1,Math.min(180,p.angle||65)),flip=!!p.flip;
-  var pr=$('#d4proto',el);
-  if(pr)pr.setAttribute('transform',flip?'translate('+(2*cx)+',0) scale(-1,1)':'scale(1)');
-  var sc=$('#d4sec',el);if(sc)sc.innerHTML=sectorS(cx,cy,58,0,a,'var(--yellow)');
-  var b=$('#d4base',el);if(b)b.innerHTML=rayS(cx,cy,R-12,0,'#2E9E5B',5);
-  var m=$('#d4mov',el);if(m)m.innerHTML=rayS(cx,cy,R-12,a,'#C0392B',5);
-  showBig((flip?180-a:a)+'°<small>'+(flip?'0在左边，读外圈':'0在右边，读内圈')+'</small>');
- },
- script:[
-  {t:8,text:'量角器上每一小格，都是1°；它一共有180个1°。',p:{angle:65}},
-  {t:8,text:'量角三步走。第一步：中心点，对准角的顶点。',p:{angle:65}},
-  {t:7,text:'第二步：0刻度线，对准角的一条边。',p:{angle:65}},
-  {t:9,text:'第三步：看另一条边压在哪条刻度线上，读出来，就是度数。',p:{angle:65}},
-  {t:9,text:'小心！量角器上有两圈刻度：一圈从右边0开始，一圈从左边0开始。',p:{angle:65,flip:false}},
-  {t:9,text:'0刻度线在右边，就读内圈；0刻度线在左边，就读外圈。现在把量角器翻过来看看。',p:{angle:65,flip:true}},
-  {t:8,text:'本来是65°的角，如果读错一圈，就会读成115°，那就差了一大截。',p:{angle:65,flip:false}},
-  {t:8,text:'所以量角之前，先看0刻度线在哪边，再决定读哪一圈。',p:{angle:65}},
-  {t:4,text:'现在，量角器归你管了。',p:{angle:30}}
- ],
- explore:{tasks:['拖动滑块，量出 5 个不同的角，把度数记下来。','点"翻转量角器"，把0刻度线换到左边，再读同一个角。','找规律：内圈读数加外圈读数，等于多少？'],
-  controls:'<div class="slider"><span>角的另一条边</span><input type="range" min="1" max="180" value="65" oninput="D4set(this.value)"><b id="d4v">65°</b></div>'+
-   '<button class="btn mini" onclick="D4flip()">翻转量角器</button>',
-  discover:[['90°','no'],['180°','yes'],['360°','no']],answer:'yes',right:'内圈读数＋外圈读数＝180°，因为它俩合起来正好是半个圆。'}
-};
-DEMOS.D5={name:'折彝族头巾 · 周角折叠',icon:'🧣',desc:'铺平看周角：先减一减，再平均分',
- mount:function(el){
-  var cx=240,cy=170,r=112;
-  el.innerHTML=svgFrame('<g id="d5fold"><rect x="150" y="62" width="180" height="180" rx="10" fill="var(--card)" stroke="var(--line)" stroke-width="3"/>'+
-   '<path d="M240,62 L240,242" class="ghost"/><path d="M150,152 L330,152" class="ghost"/>'+
-   '<text x="240" y="290" class="svgtxt sm" text-anchor="middle">折好的头巾</text></g>'+
-   '<g id="d5flat" opacity="0"><circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="26"/>'+
-   '<g id="d5secs"></g><g id="d5lines"></g><circle cx="'+cx+'" cy="'+cy+'" r="7" class="pt"/>'+
-   '<text x="240" y="322" class="svgtxt sm" text-anchor="middle">铺平 = 周角 360°</text></g>'+
-   '<text x="240" y="34" class="svgtxt" text-anchor="middle" id="d5t1"></text>'+
-   '<text x="240" y="58" class="svgtxt" text-anchor="middle" id="d5t2"></text>');
- },
- update:function(el,p){
-  p=p||{};
-  var a1=Math.max(30,Math.min(80,p.a1||70));
-  a1=a1-(a1%2);
-  var a2=(360-a1)/2;
-  var fl=$('#d5flat',el),fo=$('#d5fold',el);
-  if(fl)fl.setAttribute('opacity',p.unfold?1:0);
-  if(fo)fo.setAttribute('opacity',p.unfold?0:1);
-  var sc=$('#d5secs',el);
-  if(sc)sc.innerHTML=sectorS(240,170,112,0,a1,'var(--red)')+sectorS(240,170,112,a1,a1+a2,'var(--yellow)')+sectorS(240,170,112,a1+a2,359.7,'#2E9E5B');
-  var ln=$('#d5lines',el);
-  if(ln)ln.innerHTML=rayS(240,170,126,0,'var(--muted)',2)+rayS(240,170,126,a1,'var(--muted)',2)+rayS(240,170,126,a1+a2,'var(--muted)',2);
-  var t1=$('#d5t1',el),t2=$('#d5t2',el);
-  if(t1)t1.textContent='∠1 = '+a1+'°　∠2 = '+a2+'°';
-  if(t2)t2.textContent=(p.step>=2)?('360° − '+a1+'° = '+(360-a1)+'°，再平均分成2份，∠2 = '+a2+'°'):((p.step>=1)?'两块一样大的 ∠2 加一块 ∠1 = 360°':'');
-  showBig('∠1 = '+a1+'°　∠2 = '+a2+'°');
- },
- script:[
-  {t:7,text:'妈妈的头巾折起来，再铺平，会露出一个数学秘密。',p:{unfold:0}},
-  {t:6,text:'猜猜看：铺平以后，它会变成什么图形？',p:{unfold:0}},
-  {t:8,text:'看！铺平以后，是一个完整的周角——360°。',p:{unfold:1,step:0,a1:70}},
-  {t:9,text:'这360°里面，装了两块一样大的∠2，还有一块∠1。',p:{unfold:1,step:0,a1:70}},
-  {t:9,text:'已知∠1是70°。先从360°里减去70°：360°−70°＝290°。',p:{unfold:1,step:1,a1:70}},
-  {t:8,text:'剩下的290°，正好是两块一样大的∠2。',p:{unfold:1,step:1,a1:70}},
-  {t:8,text:'把290°平均分成2份：290°÷2＝145°。',p:{unfold:1,step:2,a1:70}},
-  {t:8,text:'所以∠2＝145°。看明白了吗？先减一减，再平均分。',p:{unfold:1,step:2,a1:70}},
-  {t:6,text:'不管是折头巾，还是折察尔瓦，方法都一样。',p:{unfold:1,step:2,a1:50}},
-  {t:5,text:'现在滑块给你，换一个∠1试试看。',p:{unfold:1,step:2,a1:40}}
- ],
- explore:{tasks:['拖动滑块，把∠1从30°改到80°，看看∠2变成多少。','边拖边想：∠1变大，∠2是变大还是变小？','找规律：两块∠2加上一块∠1，合起来是多少度？'],
-  controls:'<div class="slider"><span>∠1</span><input type="range" min="30" max="80" step="2" value="40" oninput="D5set(this.value)"><b id="d5v">40°</b></div>',
-  discover:[['变大','no'],['变小','yes']],answer:'yes',right:'∠1越大，剩下的就越少，∠2就越小。'}
-};
-DEMOS.D6={name:'火塘边的木柴 · 交点角度推理',icon:'🔥',desc:'找平角，一路减下去',
- mount:function(el){
-  el.innerHTML=svgFrame('<g id="d6ln"></g><g id="d6arc"></g><g id="d6lbl"></g>'+
-   '<circle cx="240" cy="165" r="8" class="pt"/>'+
-   '<text x="240" y="322" class="svgtxt sm" text-anchor="middle" id="d6cap"></text>');
- },
- update:function(el,p){
-  p=p||{};
-  var cx=240,cy=165,a1=Math.max(10,Math.min(80,p.a1||20)),a2=Math.max(10,Math.min(80,p.a2||20));
-  if(a1+a2>160)a2=160-a1;
-  var a3=180-a1-a2;
-  var ln=$('#d6ln',el);
-  if(ln)ln.innerHTML=rayS(cx,cy,150,0)+rayS(cx,cy,150,180)+rayS(cx,cy,150,180-a1)+rayS(cx,cy,150,-a1)+rayS(cx,cy,150,180-a1-a2)+rayS(cx,cy,150,-a1-a2);
-  var ar=$('#d6arc',el);
-  if(ar)ar.innerHTML=sectorS(cx,cy,54,-a1,0,'var(--red)',7)+sectorS(cx,cy,54,-a1-a2,-a1,'var(--yellow)',7)+sectorS(cx,cy,54,-180,-a1-a2,'#2E9E5B',7);
-  var lb=$('#d6lbl',el);
-  if(lb)lb.innerHTML=uprightS(cx,cy,80,90+a1/2,'∠1','svgtxt')+uprightS(cx,cy,80,90+a1+a2/2,'∠2','svgtxt')+uprightS(cx,cy,86,90+a1+a2+a3/2,'∠3','svgtxt')+
-   uprightS(cx,cy,80,90-a1/2,'∠4','svgtxt')+uprightS(cx,cy,80,90-a1-a2/2,'∠5','svgtxt')+uprightS(cx,cy,86,90-a1-a2-a3/2,'∠6','svgtxt');
-  var cp=$('#d6cap',el);
-  if(cp)cp.textContent='∠1 = '+a1+'°　∠2 = '+a2+'°　→　∠3 = 180° − '+a1+'° − '+a2+'° = '+a3+'°';
-  showBig('∠3 = '+a3+'°');
- },
- script:[
-  {t:8,text:'火塘边，三根木柴交叉在一个点上，交叉出好几个角。',p:{a1:20,a2:20}},
-  {t:7,text:'不用背公式，我们只找一样东西——平角。',p:{a1:20,a2:20}},
-  {t:6,text:'哪几个角拼起来，正好是一条直线？',p:{a1:20,a2:20}},
-  {t:10,text:'看这里：∠1、∠2和∠3，正好排在一条直线上，三个角合起来是180°。',p:{a1:20,a2:20}},
-  {t:9,text:'已知∠1是20°，∠2是20°。从180°里先减20°，再减20°。',p:{a1:20,a2:20}},
-  {t:9,text:'180°−20°＝160°，160°−20°＝140°，所以∠3是140°。',p:{a1:20,a2:20}},
-  {t:8,text:'再看另一条直线：∠2、∠3和∠4也排在一条直线上。',p:{a1:20,a2:20}},
-  {t:9,text:'180°−20°＝160°，160°−140°＝20°，所以∠4也是20°。',p:{a1:20,a2:20}},
-  {t:10,text:'继续：∠3、∠4和∠5又拼成一条直线，180°−140°−20°＝20°，∠5还是20°。',p:{a1:20,a2:20}},
-  {t:7,text:'发现了吗？只要找到平角，一路减下去就行。',p:{a1:30,a2:40}}
- ],
- explore:{tasks:['拖动滑块改变∠1和∠2，看看∠3自动变成多少。','试一试：让∠1是30°，∠2是40°，∠3是多少？','找规律：∠3 等于 180° 先减去∠1，再减去∠2。'],
-  controls:'<div class="slider"><span>∠1</span><input type="range" min="10" max="80" value="20" oninput="D6set(this.value,null)"><b id="d6v1">20°</b></div>'+
-   '<div class="slider"><span>∠2</span><input type="range" min="10" max="80" value="20" oninput="D6set(null,this.value)"><b id="d6v2">20°</b></div>',
-  discover:[['变大','no'],['变小','yes']],answer:'yes',right:'∠1和∠2占得越多，留给∠3的就越少。'}
-};
-DEMOS.D7={name:'风筝能飞多高',icon:'🪁',desc:'线一样长，夹角越大飞得越高，最大90°',
- mount:function(el){
-  var ticks='',i;
-  for(i=0;i<=9;i++)ticks+='<line x1="404" y1="'+(285-i*25)+'" x2="418" y2="'+(285-i*25)+'" class="thin"/>';
-  el.innerHTML=svgFrame('<line id="d7ground" x1="30" y1="285" x2="450" y2="285" stroke="#8d6e63" stroke-width="6" stroke-linecap="round"/>'+
-   '<rect x="58" y="286" width="9" height="26" fill="#8d6e63"/>'+
-   '<g id="d7cmp" opacity="0"></g><g id="d7line"></g><g id="d7kite"></g>'+
-   '<line id="d7ruler" x1="410" y1="285" x2="410" y2="60" class="thin"/>'+ticks+
-   '<rect id="d7bar" x="398" y="285" width="12" height="0" fill="var(--yellow)" opacity=".85"/>'+
-   '<text x="428" y="292" class="svgtxt sm">格</text>'+
-   '<text x="64" y="318" class="svgtxt sm" text-anchor="middle">木桩</text>'+
-   '<text x="330" y="140" class="svgtxt sm">呼——</text>');
- },
- update:function(el,p){
-  p=p||{};
-  var a=Math.max(1,Math.min(90,p.angle||40));
-  var ln=$('#d7line',el);
-  if(ln)ln.innerHTML=rayS(64,285,210,a,'#C0392B',5);
-  var kt=$('#d7kite',el);
-  if(kt)kt.innerHTML='<g transform="rotate('+(-a)+' 64 285)"><g transform="translate(274,285) rotate('+a+')">'+
-   '<polygon points="0,-24 17,0 0,32 -17,0" fill="var(--yellow)" stroke="#D9B400" stroke-width="3"/>'+
-   '<path d="M0,32 L-11,52 M0,32 L11,52" stroke="#D9B400" stroke-width="3" fill="none"/></g></g>';
-  var cmp=$('#d7cmp',el);
-  if(cmp){
-   cmp.setAttribute('opacity',p.cmp?1:0);
-   cmp.innerHTML=rayS(64,285,210,50,'var(--muted)',3)+rayS(64,285,210,65,'var(--ink)',3);
+ render:function(){
+  var st=this.state,V=this.V;
+  this.el.proto.setAttribute('transform','translate('+st.px.toFixed(1)+','+st.py.toFixed(1)+') rotate('+st.rot.toFixed(1)+')');
+  this.el.proto.setAttribute('opacity',st.op);
+  var ba=(st.dir==='right')?0:180,oa=(st.dir==='right')?st.A:(180-st.A),Lb=195,Lr=218;
+  var pb=ptOn(V.x,V.y,Lb,ba),po=ptOn(V.x,V.y,Lr,oa),s='';
+  s+='<line x1="'+V.x+'" y1="'+V.y+'" x2="'+pb.x.toFixed(1)+'" y2="'+pb.y.toFixed(1)+'" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>';
+  s+='<line x1="'+V.x+'" y1="'+V.y+'" x2="'+po.x.toFixed(1)+'" y2="'+po.y.toFixed(1)+'" stroke="#C0392B" stroke-width="5" stroke-linecap="round"/>';
+  s+='<path d="'+arcPath(V.x,V.y,58,Math.min(ba,oa),Math.max(ba,oa))+'" fill="none" stroke="#F1C40F" stroke-width="6" opacity="0.9"/>';
+  s+='<circle cx="'+V.x+'" cy="'+V.y+'" r="7" fill="#1A1A1A"/><text x="'+(V.x+10)+'" y="'+(V.y+24)+'" class="svgtxt sm">顶点</text>';
+  if(this.aligned){
+   var phi=norm180(oa+st.rot),px2=V.x+(this.R-10)*Math.cos(phi*Math.PI/180),py2=V.y-(this.R-10)*Math.sin(phi*Math.PI/180);
+   s+='<circle cx="'+px2.toFixed(1)+'" cy="'+py2.toFixed(1)+'" r="9" fill="#C0392B" opacity="0.85"><animate attributeName="r" values="7;12;7" dur="1.2s" repeatCount="indefinite"/></circle>';
   }
-  var bars=0;
-  try{
-   var g=$('#d7ground',el).getBoundingClientRect();
-   var k=$('#d7kite',el).getBoundingClientRect();
-   var rr=$('#d7ruler',el).getBoundingClientRect();
-   var rise=g.top-k.top;
-   if(rr.height>0)bars=Math.round(rise/rr.height*9);
-   if(bars<0)bars=0;
-   if(bars>9)bars=9;
-  }catch(e){bars=Math.round(a/10);}
-  var bar=$('#d7bar',el);
-  if(bar){bar.setAttribute('y',285-bars*25);bar.setAttribute('height',bars*25);}
-  showBig(a+'°<small>高度标尺：'+bars+' 格</small>');
+  this.el.dyn.innerHTML=s;
+  this.el.apos.setAttribute('transform','translate('+po.x.toFixed(1)+','+po.y.toFixed(1)+')');
  },
- script:[
-  {t:7,text:'先看一件你熟悉的事：小羊拴在木桩上，绳子绷得直直的。',p:{angle:25}},
-  {t:9,text:'绳子一样长，小羊站的位置越高，绳子离地面的角度就越大。',p:{angle:55}},
-  {t:8,text:'现在把绳子换成一架风筝。风筝线长100米，固定不动。',p:{angle:40}},
-  {t:9,text:'同同把线举得低一点，这时候夹角是40°，风筝挂在半空。',p:{angle:40}},
-  {t:9,text:'华华把线举高一点，夹角变成65°，风筝一下子就蹿上去了。',p:{angle:65}},
-  {t:8,text:'拖一拖滑块：线没有变长，角越大，风筝飞得越高。',p:{angle:80}},
-  {t:10,text:'那有没有上限？有。90°的时候，线直直地冲向天空，风筝到了最高点。',p:{angle:90}},
-  {t:9,text:'再往后仰，线倒向身后，风就托不住风筝了，它会往下掉。',p:{angle:90}},
-  {t:8,text:'所以：线一样长的时候，夹角最大就是90°。',p:{angle:90}},
-  {t:10,text:'现在轮到梦梦的50°了——你猜，它会不会正好在40°和65°中间？',p:{angle:50,cmp:true}}
+ check:function(){
+  var st=this.state,V=this.V,dc=dist(st.px,st.py,V.x,V.y);
+  var cOk=(dc<=16),rOk=(Math.abs(norm180(st.rot))<=4),flip=(Math.abs(norm180(st.rot-180))<=6);
+  this.aligned=(cOk&&rOk);this.cOk=cOk;this.rOk=rOk;
+  var m;
+  if(flip)m='量角器倒过来啦，让弯弯朝上。';
+  else if(!cOk&&!rOk)m='先把中心白环拖到角的顶点上。';
+  else if(cOk&&!rOk)m='中心对好啦！再转一转，让 0 刻度线对准角的一条边。';
+  else if(!cOk&&rOk)m='0 刻度线对准啦！再把中心白环拖到顶点上。';
+  else m='对准啦！';
+  if(m!==this.msg){this.msg=m;if(this.aligned){sfx('snap');toast('对准啦！');}else if(cOk||rOk)sfx('tip');}
+  this.syncUI();this.render();this.tryOptions();
+ },
+ read:function(){var st=this.state,oa=(st.dir==='right')?st.A:(180-st.A),phi=norm180(oa+st.rot);return {inner:Math.round(phi),outer:Math.round(180-phi),useInner:(st.dir==='right')};},
+ syncUI:function(){
+  var st=this.state,V=this.V,dc=Math.round(dist(st.px,st.py,V.x,V.y));
+  var c1=E('d4c1');if(c1)c1.innerHTML='中心：'+(this.cOk?'✅ 对准顶点':'还差 '+dc+' 格');
+  var c2=E('d4c2');if(c2)c2.innerHTML='0刻度线：'+(this.rOk?'✅ 摆正啦':'还没对到边上');
+  var din=E('d4in'),dout=E('d4out'),rule=E('d4rule');
+  if(this.aligned){
+   var r=this.read();
+   if(din)din.innerHTML='内圈：<b>'+r.inner+'°</b>';
+   if(dout)dout.innerHTML='外圈：<b>'+r.outer+'°</b>';
+   if(rule)rule.innerHTML=r.useInner?('0 刻度线在<b>右边</b> → 读<b>内圈</b>，这个角是 <b>'+r.inner+'°</b>。（内圈读数＋外圈读数＝'+r.inner+'°＋'+r.outer+'°＝180°）'):('0 刻度线在<b>左边</b> → 读<b>外圈</b>，这个角是 <b>'+r.outer+'°</b>。（内圈读数＋外圈读数＝'+r.inner+'°＋'+r.outer+'°＝180°）');
+  }else{
+   if(din)din.innerHTML='内圈：—';if(dout)dout.innerHTML='外圈：—';
+   if(rule)rule.innerHTML=this.msg||'先把中心点拖到角的顶点上。';
+  }
+ },
+ tryOptions:function(){if(CUR&&CUR.phase===3&&CUR.id==='D4'&&CUR.demo.challenge.kind==='custom')renderChalOpts();},
+ reset:function(){this.pi=0;this.state.dir='right';this.state.A=52;this.scramble(0);},
+ scramble:function(t){
+  this.state.px=270+((this.pi*37)%60);this.state.py=150+((this.pi*23)%40);this.state.rot=25+((this.pi*41)%40);
+  this.aligned=false;this.cOk=false;this.rOk=false;this.msg='';
+  this.render();this.syncUI();if(t)toast('量角器被打乱啦，重新摆一次');
+ },
+ controlsHTML:function(){return '<div class="row"><button class="btn" onclick="DEMOS.D4.scramble(1)">🔁 打乱重摆</button><button class="btn" onclick="D4new()">🔀 换一个角</button><div class="slider"><span>量角器透明度</span><input id="d4op" type="range" min="20" max="100" value="72" oninput="DEMOS.D4.state.op=this.value/100;DEMOS.D4.render();"></div></div>'+
+  '<div class="tasks" style="margin-top:.5rem"><div class="task"><b>玩法</b> 拖<b>白心红点</b>可以改角的大小（最大就是平角 180°）；拖<b>中心白环</b>移动量角器；拖右边 <b>↻</b> 旋转量角器。</div></div>';},
+ panelHTML:function(){return '<div class="card"><b>读数面板</b><div class="row" style="margin-top:.45rem"><span class="pill" id="d4c1">中心：—</span><span class="pill" id="d4c2">0刻度线：—</span></div><div class="row" style="margin-top:.45rem"><span class="pill" id="d4in">内圈：—</span><span class="pill" id="d4out">外圈：—</span></div><div class="fb tip" id="d4rule" style="margin-top:.55rem">先把中心点拖到角的顶点上。</div></div>'+
+  '<div class="card"><b>动手任务</b><div class="tasks" style="margin-top:.4rem"><div class="task"><b>任务1</b> 拖中心白环，让它落在角的顶点上。</div><div class="task"><b>任务2</b> 拖右边红色 ↻ 手柄，让 0 刻度线压在角的一条边上。</div><div class="task"><b>任务3</b> 拖白心红点改角的大小，再看读数怎么变。</div></div></div>'+
+  '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D4\')">永远读内圈就对了</button><button class="btn mini" onclick="DQ(this,\'b\',\'D4\')">0 刻度线在哪一边，就读哪一圈</button><button class="btn mini" onclick="DQ(this,\'c\',\'D4\')">两圈都要读出来相加</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:6,text:'看好了：先把量角器的中心白环，拖到角的顶点上。',before:function(d){d.state.px=300;d.state.py=160;d.state.rot=30;},tick:function(k,d){d.state.px=300+(d.V.x-300)*k;d.state.py=160+(d.V.y-160)*k;d.state.rot=30*(1-k);}},
+  {t:6,text:'再把 0 刻度线转正，正好压在角的一条边上。',before:function(d){d.state.px=d.V.x;d.state.py=d.V.y;},tick:function(k,d){d.state.rot=0;d.check();}},
+  {t:6,text:'对准啦！另一条边压着的刻度，就是要读的度数。',before:function(d){d.state.rot=0;d.check();},tick:function(k,d){d.state.rot=0;}},
+  {t:7,text:'0 刻度线在右边读内圈，在左边读外圈——跟 0 走，就不会读错。',before:function(d){D4new(1);},tick:function(k,d){d.state.px=d.V.x;d.state.py=d.V.y;d.state.rot=0;}},
+  {t:4,text:'换你来摆一摆，还能拖红点把角变大变小。',before:function(d){DEMOS.D4.scramble(0);},tick:function(k,d){}}
  ],
- explore:{tasks:['拖动滑块（1°到90°），看风筝和旁边的高度标尺一起变。','分别停在 40°、50°、65°，比一比谁飞得高。','把滑块一直拖到 90°，看看还能不能再往上一格？'],
-  controls:'<div class="slider"><span>夹角</span><input type="range" min="1" max="90" value="40" oninput="D7set(this.value)"><b id="d7v">40°</b></div>'+
-   '<div class="row"><button class="btn mini" onclick="D7set(40)">40°</button><button class="btn mini" onclick="D7set(50)">50°</button><button class="btn mini" onclick="D7set(65)">65°</button></div>'+
-   '<div class="small">90°的时候，线已经垂直地面啦，再倾斜就没有风能托住它了，所以最大夹角是90°哦！</div>',
-  discover:[['越高','yes'],['越低','no']],answer:'yes',right:'线一样长，角越大，风筝飞得越高，最高就是90°。'}
-};
-/* ---- 演示里的滑块回调 ---- */
-var D2p={angle:45,edge:150},D3n={n:0},D4p={angle:65,flip:false},D5p={a1:40,unfold:1,step:2},D6p={a1:20,a2:20},D7p={angle:40};
-function D1go(k){sfx('click');DEMOS.D1.update(E('stage'),{ext:k,shake:(k===1)});}
-function D2set(v,len){
-  if(v!==null&&v!==undefined)D2p.angle=+v;
-  if(len===1)D2p.edge=210;
-  if(len===-1)D2p.edge=90;
-  var e=E('d2v');if(e)e.textContent=D2p.angle+'°';
-  DEMOS.D2.update(E('stage'),D2p);
+ challenge:{kind:'custom',subtitle:'🎯 小挑战：自己摆好量角器，再选出正确读数。',
+  controlsHTML:function(){return '<div class="row"><button class="btn" onclick="setPhase(3)">🔁 重来</button><button class="btn" onclick="setPhase(2)">回到动手玩</button></div>';},
+  panelHTML:function(){return '<div class="card"><b>先摆好量角器</b><div class="row" style="margin-top:.45rem"><span class="pill" id="d4c1">中心：—</span><span class="pill" id="d4c2">0刻度线：—</span></div><div class="fb tip" id="d4rule" style="margin-top:.55rem">把中心白环拖到顶点上，再转 0 刻度线。</div></div><div class="card"><b>读一读，这个角是多少度？</b><div class="row" style="margin-top:.45rem" id="d4opts"><button class="btn mini" onclick="D4ans(-999)">先摆好量角器</button></div><div id="d4res" class="fb tip" style="display:none"></div></div>';},
+  onStart:function(){D4new(1);DEMOS.D4.scramble(0);}}};
+function D4new(silent){
+  var d=DEMOS.D4;d.pi=(d.pi+1)%d.pool.length;var p=d.pool[d.pi];
+  d.state.A=p.A;d.state.dir=p.dir;d.aligned=false;d.cOk=false;d.rOk=false;d.msg='';
+  d.render();d.syncUI();
+  if(!silent)toast('换了一个'+(p.dir==='left'?'朝左':'朝右')+'的角');
+  if(CUR&&CUR.phase===3&&CUR.id==='D4')renderChalOpts();
 }
-function D3walk(k){
-  sfx('click');
-  D3n.n=(k===-999)?0:Math.min(360,D3n.n+k);
-  var e=E('d3n');if(e)e.textContent='已经装了 '+D3n.n+' 个1°';
-  showBig(D3n.n+' 个1° ＝ '+D3n.n+'°');
+function renderChalOpts(){
+  var d=DEMOS.D4,box=E('d4opts');if(!box)return;
+  if(!d.aligned){box.innerHTML='<button class="btn mini" onclick="D4ans(-999)">先摆好量角器</button>';return;}
+  var r=d.read(),right=r.useInner?r.inner:r.outer,wrong=r.useInner?r.outer:r.inner;
+  var opts=[right,wrong,right+10],seen=[],h='';
+  for(var i=opts.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=opts[i];opts[i]=opts[j];opts[j]=t;}
+  for(var k=0;k<opts.length;k++){if(seen.indexOf(opts[k])>=0)continue;seen.push(opts[k]);if(seen.length>3)break;h+='<button class="btn mini" onclick="D4ans('+opts[k]+')">'+opts[k]+'°</button>';}
+  box.innerHTML=h;
 }
-function D4set(v){D4p.angle=+v;var e=E('d4v');if(e)e.textContent=v+'°';DEMOS.D4.update(E('stage'),D4p);}
-function D4flip(){D4p.flip=!D4p.flip;sfx('click');DEMOS.D4.update(E('stage'),D4p);}
-function D5set(v){D5p.a1=+v;var e=E('d5v');if(e)e.textContent=v+'°';DEMOS.D5.update(E('stage'),D5p);}
-function D6set(a,b){
-  if(a)D6p.a1=+a;
-  if(b)D6p.a2=+b;
-  if(D6p.a1+D6p.a2>160)D6p.a2=160-D6p.a1;
-  var e1=E('d6v1');if(e1)e1.textContent=D6p.a1+'°';
-  var e2=E('d6v2');if(e2)e2.textContent=D6p.a2+'°';
-  DEMOS.D6.update(E('stage'),D6p);
+function D4ans(v){
+  var d=DEMOS.D4,box=E('d4res');
+  if(!d.aligned){sfx('tip');if(box){box.style.display='block';box.innerHTML='还没对准哦——先把中心白环拖到顶点，再让 0 刻度线压到边上。';}return;}
+  var r=d.read(),right=r.useInner?r.inner:r.outer;
+  if(v===right){
+   sfx('ok');
+   if(box)box.innerHTML='🎉 量对了！这个角是 <b>'+right+'°</b>。'+(r.useInner?'0 刻度线在右边，读的是内圈。':'0 刻度线在左边，读的是外圈。');
+   var pn=E('panel');if(pn)pn.innerHTML+='<div class="card"><b>🏆 挑战完成</b><div class="small">拿到 1 颗星和 5 枚金币。</div><div class="row" style="margin-top:.5rem"><button class="btn primary" onclick="go(exploreMap,\'探索馆\')">回到路线图</button><button class="btn" onclick="setPhase(2)">再摆一会儿</button></div></div>';
+   sfx('star');addStar(2);addCoin(5);
+   S.done.D4=S.done.D4||{};S.done.D4.c=1;S.done.D4.star=Math.max(S.done.D4.star||0,2);save();
+   var p3=E('ph3');if(p3)p3.className='ph on done';
+  }else{sfx('tip');if(box){box.style.display='block';box.innerHTML='这里有个小陷阱：先看 0 刻度线在<b>左边还是右边</b>，再决定读哪一圈。再试一次吧！';}}
 }
-function D7set(v){D7p.angle=Math.max(1,Math.min(90,+v));var e=E('d7v');if(e)e.textContent=D7p.angle+'°';DEMOS.D7.update(E('stage'),D7p);}
-</script>
 
-<!-- ========== 第 4 段：页面 / 演示引擎 / 答题 / 教师端 ========== -->
-<script>
+/* ---------- D5 折纸（长方形纸片 + 真实折角） ---------- */
+var D5N={1:'① 对折一次',2:'② 折起一角·平角',3:'③ 折起一角·直角',4:'④ 铺平看周角',5:'⑤ 三等分平角'};
+DEMOS.D5={name:'折纸问题 · 折纸中的角',icon:'📄',desc:'拖折痕，∠1 和 ∠2 一起变',ready:true,
+ state:{type:2,theta:30,ghost:false},
+ cfg:{1:{min:20,max:160,def:90},2:{min:10,max:80,def:30},3:{min:5,max:40,def:20},4:{min:20,max:120,def:40},5:{min:20,max:85,def:30}},
+ mount:function(stage){
+  var self=this;this.stage=stage;
+  stage.innerHTML=svgFrame(
+   '<rect x="60" y="52" width="370" height="248" rx="6" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>'+
+   '<text class="svgtxt sm" x="74" y="44">长方形纸片</text>'+
+   '<text id="d5ttl" class="svgtxt" x="240" y="34" text-anchor="middle"></text>'+
+   '<g id="d5dyn"></g>'+
+   '<g id="d5hp"><g id="d5hnd" class="hnd"><circle class="halo" data-r="24" r="24" fill="#C0392B"/><circle data-r="13" r="13" fill="#C0392B" stroke="#fff" stroke-width="3"/><circle data-r="30" r="30" fill="rgba(0,0,0,0.01)"/></g></g>'+
+   '<text id="d5tip" class="svgtxt sm" x="240" y="330" text-anchor="middle"></text>',340);
+  this.svg=stage.querySelector('svg');
+  this.el={dyn:stage.querySelector('#d5dyn'),hnd:stage.querySelector('#d5hnd'),hp:stage.querySelector('#d5hp'),ttl:stage.querySelector('#d5ttl'),tip:stage.querySelector('#d5tip')};
+  makeDraggable(this.el.hnd,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();scaleHandle(self.el.hnd,1.25);},
+   move:function(x,y){
+    var C=self.center(),c=self.cfg[self.state.type];
+    var a=Math.atan2(-(y-C.y),x-C.x)*180/Math.PI;if(a<0)a+=360;
+    var th=(self.state.type===5)?(a-120):a;
+    if(self.state.type===4)th=Math.round(th/2)*2;
+    if(th>c.max){th=c.max;if(!self.hint){self.hint=true;toast('再大就折不下啦，到头了');}}
+    if(th<c.min)th=c.min;
+    self.state.theta=Math.round(th);self.render();if(window.checkGoal)checkGoal();},
+   end:function(){scaleHandle(self.el.hnd,1);self.hint=false;self.settle();}});
+  this.render();
+ },
+ center:function(){return this.state.type===4?{x:245,y:185}:((this.state.type===3)?{x:60,y:300}:{x:245,y:300});},
+ creaseLen:function(){return this.state.type===3?145:175;},
+ hang:function(){return this.state.type===5?120+this.state.theta:this.state.theta;},
+ settle:function(){
+  var t=this.state.type,th=this.state.theta;
+  if(t===1&&Math.abs(th-90)<=3){this.state.theta=90;this.render();sfx('snap');toast('两边一样大，正好对折！180° ÷ 2 = 90°');}
+  if(t===5&&Math.abs(th-60)<=2){this.state.theta=60;this.render();if(!this.ok5){this.ok5=true;sfx('snap');toast('严丝合缝！三块一样大，每块 60°');}}
+ },
+ render:function(){
+  if(!this.el)return;
+  var st=this.state,t=st.type,th=st.theta,s='',C,hp={x:0,y:0};
+  if(t===4){
+   C={x:245,y:185};var a2=(360-th)/2,R4=110;
+   s+=strokeArc(C.x,C.y,58,0,th,'#C0392B',5);
+   s+=strokeArc(C.x,C.y,58,th,th+a2,'#F1C40F',5);
+   s+=strokeArc(C.x,C.y,58,th+a2,359.9,'#2E9E5B',5);
+   [0,th,th+a2].forEach(function(aa){var p=ptOn(C.x,C.y,R4,aa);
+    s+='<line x1="'+C.x+'" y1="'+C.y+'" x2="'+p.x.toFixed(1)+'" y2="'+p.y.toFixed(1)+'" stroke="#1A1A1A" stroke-width="3.5" stroke-linecap="round"/>';});
+   var m1=ptOn(C.x,C.y,82,th/2),m2=ptOn(C.x,C.y,82,th+a2/2),m3=ptOn(C.x,C.y,82,th+a2+(360-th-a2)/2);
+   s+='<text x="'+m1.x.toFixed(1)+'" y="'+m1.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠1</text>';
+   s+='<text x="'+m2.x.toFixed(1)+'" y="'+m2.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠2</text>';
+   s+='<text x="'+m3.x.toFixed(1)+'" y="'+m3.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠2</text>';
+   hp=ptOn(C.x,C.y,R4,th);
+  }else{
+   var O=this.center(),R2=this.creaseLen(),end=(t===3)?90:180;
+   var e1=ptOn(O.x,O.y,R2,0),e2=ptOn(O.x,O.y,R2,end),ep=ptOn(O.x,O.y,170,end);
+   s+='<line x1="'+e2.x.toFixed(1)+'" y1="'+e2.y.toFixed(1)+'" x2="'+e1.x.toFixed(1)+'" y2="'+e1.y.toFixed(1)+'" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>';
+   if(t===3)s+='<line x1="'+O.x+'" y1="'+O.y+'" x2="'+ptOn(O.x,O.y,150,90).x.toFixed(1)+'" y2="'+ptOn(O.x,O.y,150,90).y.toFixed(1)+'" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>';
+   var Rf=Math.max(30,R2-25);
+   var cr=ptOn(O.x,O.y,R2,th),fp=ptOn(O.x,O.y,Rf,0),fr=ptOn(O.x,O.y,Rf,th),fp2=ptOn(O.x,O.y,Rf,2*th);
+   if(t===1){
+    s+='<line x1="'+O.x+'" y1="'+O.y+'" x2="'+cr.x.toFixed(1)+'" y2="'+cr.y.toFixed(1)+'" stroke="#C0392B" stroke-width="4" stroke-dasharray="8 5" stroke-linecap="round"/>';
+    s+=strokeArc(O.x,O.y,54,0,th,'#C0392B',5)+strokeArc(O.x,O.y,54,th,180,'#2E9E5B',5);
+    var q1=ptOn(O.x,O.y,86,th/2),q2=ptOn(O.x,O.y,86,(th+180)/2);
+    s+='<text x="'+q1.x.toFixed(1)+'" y="'+q1.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠1</text>';
+    s+='<text x="'+q2.x.toFixed(1)+'" y="'+q2.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠2</text>';
+   }else if(t===2||t===3){
+    s+='<path d="M'+O.x+','+O.y+' L'+fp.x.toFixed(1)+','+fp.y.toFixed(1)+' L'+fr.x.toFixed(1)+','+fr.y.toFixed(1)+' Z" fill="#F1C40F" opacity="0.26"/>';
+    if(st.ghost)s+='<path d="M'+O.x+','+O.y+' L'+fr.x.toFixed(1)+','+fr.y.toFixed(1)+' L'+fp2.x.toFixed(1)+','+fp2.y.toFixed(1)+' Z" fill="#C0392B" opacity="0.14"/>';
+    s+='<line x1="'+O.x+'" y1="'+O.y+'" x2="'+cr.x.toFixed(1)+'" y2="'+cr.y.toFixed(1)+'" stroke="#C0392B" stroke-width="4" stroke-dasharray="9 6" stroke-linecap="round"/>';
+    s+='<line x1="'+O.x+'" y1="'+O.y+'" x2="'+fp2.x.toFixed(1)+'" y2="'+fp2.y.toFixed(1)+'" stroke="#C0392B" stroke-width="3" stroke-dasharray="7 6" stroke-linecap="round"/>';
+    if(st.ghost)s+='<text x="240" y="330" class="svgtxt sm" text-anchor="middle">折过去的那块，和原来的角一样大</text>';
+    s+=strokeArc(O.x,O.y,44,0,th,'#C0392B',5)+strokeArc(O.x,O.y,44,th,2*th,'#F1C40F',5)+strokeArc(O.x,O.y,44,2*th,end,'#2E9E5B',5);
+    var a1=ptOn(O.x,O.y,72,th*0.5),a2b=ptOn(O.x,O.y,72,th*1.5),a3=ptOn(O.x,O.y,72,(2*th+end)/2);
+    s+='<text x="'+a1.x.toFixed(1)+'" y="'+a1.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠1</text>';
+    s+='<text x="'+a2b.x.toFixed(1)+'" y="'+a2b.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠1</text>';
+    s+='<text x="'+a3.x.toFixed(1)+'" y="'+a3.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">∠2</text>';
+   }else{
+    s+='<line x1="'+O.x+'" y1="'+O.y+'" x2="'+cr.x.toFixed(1)+'" y2="'+cr.y.toFixed(1)+'" stroke="#2E9E5B" stroke-width="4" stroke-dasharray="8 5" stroke-linecap="round"/>';
+    s+=strokeArc(O.x,O.y,54,0,60,'#C0392B',5)+strokeArc(O.x,O.y,54,60,120,'#F1C40F',5);
+    s+=strokeArc(O.x,O.y,54,120,120+th,(th===60?'#2E9E5B':'#4E6B62'),5);
+    var b1=ptOn(O.x,O.y,84,30),b2=ptOn(O.x,O.y,84,90),b3=ptOn(O.x,O.y,84,120+th/2);
+    s+='<text x="'+b1.x.toFixed(1)+'" y="'+b1.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">60°</text>';
+    s+='<text x="'+b2.x.toFixed(1)+'" y="'+b2.y.toFixed(1)+'" class="svgtxt" text-anchor="middle">60°</text>';
+    s+='<text x="'+b3.x.toFixed(1)+'" y="'+b3.y.toFixed(1)+'" class="svgtxt" text-anchor="middle" fill="#4E6B62">'+th+'°</text>';
+   }
+   s+='<circle cx="'+O.x+'" cy="'+O.y+'" r="5" fill="#1A1A1A"/>';
+   hp=cr;
+  }
+  this.el.dyn.innerHTML=s;
+  this.el.hp.setAttribute('transform','translate('+hp.x.toFixed(1)+','+hp.y.toFixed(1)+')');
+  this.el.ttl.textContent=D5N[t];
+  if(this.el.tip)this.el.tip.textContent=(t===4)?'拖红点，改变 ∠1 的大小':((t===5)?'拖红点，把第三块角拉到正好填满空档':((t===1)?'拖红点，让折痕把平角分成一样大的两份':'拖红点，折痕跟着动'));
+  this.syncUI();
+ },
+ data:function(){
+  var t=this.state.type,th=this.state.theta;
+  if(t===1)return {a1:'∠1＝'+th+'°',a2:'∠2＝'+(180-th)+'°',sl:'把平角平均分成两份，两份要一样大',calc:'180° − '+th+'° = '+(180-th)+'°',res:(th===90?'两份一样大：180° ÷ 2 = 90°':'两边不一样大，再调调看')};
+  if(t===2)return {a1:'∠1＝'+th+'°',a2:'∠2＝'+(180-2*th)+'°',sl:'两个 ∠1 再加 ∠2，合起来是平角 180°',calc:'180° − '+th+'° − '+th+'° = '+(180-2*th)+'°',res:'∠2 ＝ '+(180-2*th)+'°'};
+  if(t===3)return {a1:'∠1＝'+th+'°',a2:'∠2＝'+(90-2*th)+'°',sl:'两个 ∠1 再加 ∠2，合起来是直角 90°',calc:'90° − '+th+'° − '+th+'° = '+(90-2*th)+'°',res:'∠2 ＝ '+(90-2*th)+'°'};
+  if(t===4){var a2=(360-th)/2;return {a1:'∠1＝'+th+'°',a2:'∠2＝'+a2+'°',sl:'铺平是周角 360°，两个 ∠2 一样大',calc:'360° − '+th+'° = '+(360-th)+'°　→　'+(360-th)+'° ÷ 2 = '+a2+'°',res:'∠2 ＝ '+a2+'°'};}
+  return {a1:'第三块＝'+th+'°',a2:'',sl:'三个一样大的角，合起来是平角 180°',calc:'180° ÷ 3 = 60°',res:(th===60?'严丝合缝！每块 60°':'空档还没填满，再拖一拖')};
+ },
+ syncUI:function(){
+  var f=E('d5formula');
+  if(f){var d=this.data();f.innerHTML='<div class="small">'+d.sl+'</div><div class="row" style="margin-top:.3rem"><span class="pill">'+d.a1+'</span>'+(d.a2?'<span class="pill">'+d.a2+'</span>':'')+'</div><div style="margin-top:.45rem;font-size:1.1rem;font-weight:800">'+d.calc+'</div><div class="fb tip" style="margin-top:.45rem"><b>'+d.res+'</b></div>';}
+  for(var i=1;i<=5;i++){var b=E('d5b'+i);if(b)b.className='tabbtn'+(this.state.type===i?' on':'');}
+  var sl=E('d5sl'),lb=E('d5slv'),c=this.cfg[this.state.type];
+  if(sl){sl.min=c.min;sl.max=c.max;sl.step=(this.state.type===4?2:1);sl.value=this.state.theta;}
+  if(lb)lb.textContent=this.state.theta+'°';
+ },
+ reset:function(){var c=this.cfg[this.state.type];this.state.theta=c.def;this.state.ghost=false;this.ok5=false;this.render();},
+ controlsHTML:function(){
+  var b='';for(var i=1;i<=5;i++)b+='<button class="tabbtn" id="d5b'+i+'" onclick="D5type('+i+')">'+D5N[i]+'</button>';
+  return '<div class="row" style="margin-bottom:.5rem">'+b+'</div><div class="row"><button class="btn" onclick="D5reset()">🔁 重置</button><button class="btn" onclick="D5ghost()">👀 折过去看看</button><div class="slider"><span>折角（辅助）</span><input id="d5sl" type="range" min="10" max="80" value="30" oninput="D5theta(this.value)"><b id="d5slv">30°</b></div></div>';
+ },
+ panelHTML:function(){return '<div class="card"><b>算式面板</b><div id="d5formula" style="margin-top:.4rem"></div></div>'+
+  '<div class="card"><b>动手任务</b><div class="tasks" style="margin-top:.4rem"><div class="task"><b>任务1</b> 拖红点，让折痕张开或合拢，看 ∠1 和 ∠2 一起变。</div><div class="task"><b>任务2</b> 五个题型按钮都点一遍，每种都拖一拖。</div><div class="task"><b>任务3</b> 点"折过去看看"，能看到纸角翻过去的样子。</div></div></div>'+
+  '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D5\')">∠1 变大，∠2 也变大</button><button class="btn mini" onclick="DQ(this,\'b\',\'D5\')">∠1 变大，∠2 就变小</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:6,text:'长方形纸折起一角，折痕一压就出来一个角。',before:function(d){d.state.type=2;d.state.theta=15;d.state.ghost=false;},tick:function(k,d){d.state.theta=Math.round(15+45*k);}},
+  {t:6,text:'折过去的那块和原来的角一样大，所以有两个 ∠1。',before:function(d){d.state.theta=30;d.state.ghost=true;},tick:function(k,d){}},
+  {t:6,text:'纸的下边是平角 180°：180° − 30° − 30° = 120°。',before:function(d){d.state.theta=30;d.state.ghost=false;},tick:function(k,d){d.state.theta=Math.round(30+20*k);}},
+  {t:6,text:'换个折法，在纸的直角处折：两个 ∠1 加 ∠2 就是 90°。',before:function(d){d.state.type=3;d.state.theta=15;},tick:function(k,d){d.state.theta=Math.round(15+15*k);}},
+  {t:4,text:'五种折法留给你，自己拖。',before:function(d){d.state.type=2;d.state.theta=30;},tick:function(k,d){}}
+ ],
+ challenge:{kind:'drag',goals:[120,100,90],tip:'先点"② 折起一角·平角"，再拖红点，让 ∠2 变成目标度数。',
+  value:function(){return DEMOS.D5.state.type!==2?-1:(180-2*DEMOS.D5.state.theta);}}};
+function D5type(n){var d=DEMOS.D5;d.state.type=n;d.state.ghost=false;d.ok5=false;d.state.theta=d.cfg[n].def;d.render();sfx('click');}
+function D5reset(){DEMOS.D5.reset();toast('回到这一题的初始角度啦');}
+function D5ghost(){DEMOS.D5.state.ghost=!DEMOS.D5.state.ghost;DEMOS.D5.render();sfx('click');}
+function D5theta(v){var d=DEMOS.D5,c=d.cfg[d.state.type],t=Math.round(+v);if(t>c.max)t=c.max;if(t<c.min)t=c.min;if(d.state.type===4)t=Math.round(t/2)*2;d.state.theta=t;d.render();}
+
+/* ---------- D6 火塘木柴（去掉圆环 + 修好算式） ---------- */
+DEMOS.D6={name:'火塘边的木柴 · 交点角度',icon:'🔥',desc:'拖木柴，看哪三个角拼成平角',ready:true,
+ C:{x:240,y:165},L:150,st:{dirs:[0,40,100],active:0},
+ mount:function(stage){
+  var self=this;this.stage=stage;var C=this.C;
+  stage.innerHTML=svgFrame('<g id="d6ln"></g><g id="d6arc"></g><g id="d6lbl"></g>'+
+   '<circle cx="'+C.x+'" cy="'+C.y+'" r="9" fill="#C0392B" opacity="0.85"/><circle cx="'+C.x+'" cy="'+C.y+'" r="4" fill="#F1C40F"/>'+
+   '<text id="d6cap" class="svgtxt" x="240" y="322" text-anchor="middle" fill="#C0392B"></text>',340);
+  this.svg=stage.querySelector('svg');
+  this.el={ln:stage.querySelector('#d6ln'),arc:stage.querySelector('#d6arc'),lbl:stage.querySelector('#d6lbl'),cap:stage.querySelector('#d6cap')};
+  this.hnds=[];
+  for(var i=0;i<3;i++){
+   for(var j=0;j<2;j++){
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','hnd');
+    g.innerHTML='<circle class="halo" data-r="17" r="17" fill="#4E6B62"/><circle data-r="10" r="10" fill="#4E6B62" stroke="#fff" stroke-width="3"/><circle data-r="26" r="26" fill="rgba(0,0,0,0.01)"/>';
+    this.svg.appendChild(g);
+    (function(idx,gg){
+      makeDraggable(gg,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();self.st.active=idx;scaleHandle(gg,1.3);},
+       move:function(x,y){var a=Math.atan2(-(y-C.y),x-C.x)*180/Math.PI;self.st.dirs[idx]=norm360(a);self.render();if(window.checkGoal)checkGoal();},
+       end:function(){scaleHandle(gg,1);}});
+    })(i,g);
+    this.hnds.push(g);
+   }
+  }
+  this.render();
+ },
+ gaps:function(){
+  var base=mod180(this.st.dirs[this.st.active]);
+  var offs=[0,0,0],i;
+  for(i=0;i<3;i++)offs[i]=mod180(this.st.dirs[i]-base);
+  offs.sort(function(a,b){return a-b;});
+  return {base:base,g:[Math.round(offs[1]-offs[0]),Math.round(offs[2]-offs[1]),Math.round(180-offs[2])]};
+ },
+ render:function(){
+  var C=this.C,L=this.L,s='',arcs='',lbls='',i;
+  for(i=0;i<3;i++){
+   var a=this.st.dirs[i],p1=ptOn(C.x,C.y,L,a),p2=ptOn(C.x,C.y,L,a+180),act=(i===this.st.active);
+   s+='<line x1="'+p1.x.toFixed(1)+'" y1="'+p1.y.toFixed(1)+'" x2="'+p2.x.toFixed(1)+'" y2="'+p2.y.toFixed(1)+'" stroke="'+(act?'#C0392B':'#8d6e63')+'" stroke-width="'+(act?7:5)+'" stroke-linecap="round"/>';
+   this.hnds[i*2].setAttribute('transform','translate('+p1.x.toFixed(1)+','+p1.y.toFixed(1)+')');
+   this.hnds[i*2+1].setAttribute('transform','translate('+p2.x.toFixed(1)+','+p2.y.toFixed(1)+')');
+  }
+  var gp=this.gaps(),acc=gp.base,cols=['#C0392B','#F1C40F','#2E9E5B'];
+  for(var k=0;k<3;k++){
+   var a1=acc,a2=acc+gp.g[k];
+   arcs+=strokeArc(C.x,C.y,48,a1,a2,cols[k],5);
+   var mid=ptOn(C.x,C.y,80,(a1+a2)/2);
+   lbls+='<text x="'+mid.x.toFixed(1)+'" y="'+mid.y.toFixed(1)+'" class="svgtxt" text-anchor="middle" fill="'+cols[k]+'">∠'+(k+1)+'</text>';
+   acc=a2;
+  }
+  this.el.ln.innerHTML=s;
+  this.el.arc.innerHTML=arcs;
+  this.el.lbl.innerHTML=lbls;
+  this.el.cap.textContent='∠1 ＋ ∠2 ＋ ∠3 ＝ '+gp.g[0]+'° ＋ '+gp.g[1]+'° ＋ '+gp.g[2]+'° ＝ 180°';
+  var ib=E('infobar');
+  if(ib)ib.innerHTML='<span>正在拖第 '+(this.st.active+1)+' 根木柴</span><span>'+gp.g[0]+'° ＋ '+gp.g[1]+'° ＋ '+gp.g[2]+'° ＝ 180°</span>';
+ },
+ syncUI:function(){this.render();},
+ reset:function(){this.st.dirs=[0,40,100];this.st.active=0;this.render();},
+ controlsHTML:function(){return '<div class="tasks"><div class="task"><b>任务1</b> 拖任意一个绿点，木柴就绕火塘中心转，两端一起动。</div><div class="task"><b>任务2</b> 看你正在拖的那根木柴：它一侧的三个角（红、黄、绿三小段弧），加起来正好 180°。</div><div class="task"><b>任务3</b> 把一根木柴拖到水平或竖直，看看角度变成多少。</div></div><div class="row" style="margin-top:.6rem"><button class="btn" onclick="DEMOS.D6.reset();toast(\'复位啦\');">🔁 重置</button></div>';},
+ panelHTML:function(){return '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D6\')">三个角加起来永远是 180°</button><button class="btn mini" onclick="DQ(this,\'b\',\'D6\')">三个角加起来有时大有时小</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:6,text:'三根木柴交叉在一个点上，交叉出好几个角。',before:function(d){d.st.dirs=[0,40,100];d.st.active=0;},tick:function(k,d){d.st.dirs=[0,40+40*k,100];}},
+  {t:6,text:'拖哪根木柴，就看它一侧的三个角：红、黄、绿。',before:function(d){d.st.active=0;d.st.dirs=[0,80,130];},tick:function(k,d){d.st.dirs=[0,80,130+20*k];}},
+  {t:7,text:'这三个角拼成一条直线，也就是平角 180°，一路减下去就能求出每个角。',before:function(d){d.st.dirs=[0,30,70];},tick:function(k,d){}},
+  {t:4,text:'换你来拖。',before:function(d){d.st.dirs=[0,40,100];d.st.active=0;},tick:function(k,d){}}
+ ],
+ challenge:{kind:'ask',subtitle:'🎯 小挑战：想一想平角，再点答案。',items:[
+  {q:'一根木柴一侧的三个角，合起来是多少度？',opts:['90°','180°','360°'],a:1,h:'木柴把火塘分成两半，一条直线就是平角。'},
+  {q:'如果 ∠1＝30°，∠2＝40°，那么 ∠3 是多少度？',opts:['110°','120°','70°'],a:0,h:'180° 先减 30°，再减 40°。'},
+  {q:'如果 ∠1 和 ∠2 都是 60°，∠3 是多少度？',opts:['60°','90°','120°'],a:0,h:'180° − 60° − 60°。'}]}};
+
+/* ---------- D7 风筝 ---------- */
+DEMOS.D7={name:'风筝能飞多高',icon:'🪁',desc:'拖风筝，看线一样长时谁飞得高',ready:true,
+ A:{x:110,y:288},L:200,state:{angle:40,wind:0},
+ mount:function(stage){
+  var self=this;this.stage=stage;var A=this.A,L=this.L;
+  var ticks='',i;
+  for(i=0;i<=10;i++)ticks+='<line x1="418" y1="'+(A.y-i*20)+'" x2="432" y2="'+(A.y-i*20)+'" class="thin"/><text x="438" y="'+(A.y-i*20+4)+'" class="svgtxt sm">'+i+'</text>';
+  stage.innerHTML=svgFrame('<line x1="20" y1="'+A.y+'" x2="460" y2="'+A.y+'" stroke="#8d6e63" stroke-width="6" stroke-linecap="round"/>'+
+   '<g id="d7gh"></g><path id="d7arc" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="6 6"/>'+
+   '<line id="d7rope" x1="'+A.x+'" y1="'+A.y+'" x2="310" y2="160" stroke="#C0392B" stroke-width="4" stroke-linecap="round"/>'+
+   '<g id="d7kite"><g id="d7kg"><polygon points="0,-26 18,0 0,34 -18,0" fill="#F1C40F" stroke="#D9B400" stroke-width="3"/><path d="M0,34 L-12,56 M0,34 L12,56" stroke="#D9B400" stroke-width="3" fill="none"/></g></g>'+
+   '<circle cx="'+A.x+'" cy="'+A.y+'" r="8" fill="#1A1A1A"/><text x="'+A.x+'" y="'+(A.y+24)+'" class="svgtxt sm" text-anchor="middle">手（固定）</text>'+
+   '<line x1="425" y1="'+A.y+'" x2="425" y2="'+(A.y-200)+'" class="thin"/>'+ticks+
+   '<rect id="d7bar" x="412" y="'+A.y+'" width="12" height="0" fill="#F1C40F" opacity="0.85"/>'+
+   '<text x="425" y="'+(A.y-208)+'" class="svgtxt sm" text-anchor="middle">高度（格）</text>'+
+   '<text id="d7wind" class="svgtxt" x="360" y="90" text-anchor="middle" fill="#4E6B62"></text>',340);
+  this.svg=stage.querySelector('svg');
+  this.el={rope:stage.querySelector('#d7rope'),kite:stage.querySelector('#d7kg'),kp:stage.querySelector('#d7kite'),bar:stage.querySelector('#d7bar'),gh:stage.querySelector('#d7gh'),arc:stage.querySelector('#d7arc'),wind:stage.querySelector('#d7wind')};
+  makeDraggable(this.el.kp,{toXY:function(e){return toPt(self.svg,e);},
+   start:function(){if(CUR)CUR.stop();self.warned=false;self.el.kp.setAttribute('opacity','0.85');},
+   move:function(x,y){
+    var a=Math.atan2(-(y-A.y),x-A.x)*180/Math.PI;
+    if(a>90){if(!self.warned){self.warned=true;toast('90°时线已经垂直地面啦，再倾斜就没有风能托住它了，所以最大夹角是90°哦！');}a=90+(a-90)*0.15;}
+    if(a<0){a=a*0.15;if(!self.warned){self.warned=true;toast('风筝贴到地上啦，往高处拖一拖');}}
+    self.state.angle=Math.round(Math.max(0,Math.min(100,a)));self.render();if(window.checkGoal)checkGoal();},
+   end:function(){self.el.kp.setAttribute('opacity','1');if(self.state.angle>90){self.state.angle=90;self.render();}}});
+  this.render();
+ },
+ render:function(){
+  var A=this.A,L=this.L,a=Math.max(0,Math.min(100,this.state.angle)),w=this.state.wind||0;
+  var p=ptOn(A.x,A.y,L,a);
+  this.el.rope.setAttribute('x2',p.x.toFixed(1));this.el.rope.setAttribute('y2',p.y.toFixed(1));
+  this.el.kite.setAttribute('transform','translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+')');
+  this.el.arc.setAttribute('d',arcPath(A.x,A.y,L,0,90));
+  var g='';[40,50,65].forEach(function(k){var q=ptOn(A.x,A.y,L,k);g+='<line x1="'+A.x+'" y1="'+A.y+'" x2="'+q.x.toFixed(1)+'" y2="'+q.y.toFixed(1)+'" stroke="var(--line)" stroke-width="2" stroke-dasharray="5 5"/><text x="'+q.x.toFixed(1)+'" y="'+(q.y-6).toFixed(1)+'" class="svgtxt sm" text-anchor="middle">'+k+'°</text>';});
+  this.el.gh.innerHTML=g;
+  var h=Math.round(200*Math.sin(Math.max(0,Math.min(90,a))*Math.PI/180));
+  var bars=Math.max(0,Math.min(10,Math.round(h/200*10)));
+  this.el.bar.setAttribute('y',A.y-bars*20);this.el.bar.setAttribute('height',bars*20);
+  this.el.wind.textContent=w?('🌬️ 风向变了（'+w+'°）'):'';
+  var bn=E('bignum'),nt=E('nametag'),ib=E('infobar');
+  if(bn)bn.textContent=a+'°';
+  if(nt){nt.textContent=(bars>=10?'最高点':(bars>=6?'很高':(bars>=3?'中等':'还很低')));nt.className='nametag'+(bars>=10?' key':'');}
+  if(ib)ib.innerHTML='<span>夹角 '+a+'°</span><span>高度 '+bars+' 格</span><span>'+(bars>=10?'最高点！':'')+'</span>';
+ },
+ syncUI:function(){var s=E('d7sl'),l=E('d7slv');if(s)s.value=Math.min(90,this.state.angle);if(l)l.textContent=this.state.angle+'°';this.render();},
+ reset:function(){this.state.angle=40;this.state.wind=0;this.syncUI();this.render();},
+ blow:function(){
+  var d=this.state.angle;
+  if(d<90){toast('风还没到最猛的时候，先拖到 90° 试试');sfx('tip');return;}
+  var to=(Math.random()<0.5)?62:70;
+  this.state.wind=25+Math.round(Math.random()*20);
+  toast('🌬️ 风向转了！风筝顺势偏到 '+to+'°');
+  var self=this,tok=++windTok,t0=null;
+  (function step(ts){
+   if(tok!==windTok)return;
+   if(t0===null)t0=ts;
+   var k=Math.min(1,(ts-t0)/900);
+   self.state.angle=Math.round(90+(to-90)*k);self.render();
+   if(k<1)requestAnimationFrame(step);else self.syncUI();
+  })(0);
+  setTimeout(function(){if(tok===windTok){self.state.wind=0;self.render();}},4200);
+ },
+ controlsHTML:function(){return '<div class="tasks"><div class="task"><b>任务1</b> 拖着风筝在空中划弧——线一直绷直，长度没变。</div><div class="task"><b>任务2</b> 停在 40°、50°、65°，比一比谁飞得高（看右边格数）。</div><div class="task"><b>任务3</b> 拖到 90° 后点"🌬️ 风变了"，看看真实的风筝会怎样。</div></div><div class="row" style="margin-top:.6rem"><button class="btn" onclick="DEMOS.D7.reset()">🔁 重置</button><button class="btn" onclick="D7set(40)">40°</button><button class="btn" onclick="D7set(50)">50°</button><button class="btn" onclick="D7set(65)">65°</button><button class="btn dark" onclick="DEMOS.D7.blow()">🌬️ 风变了</button><div class="slider"><span>夹角（辅助）</span><input id="d7sl" type="range" min="0" max="90" value="40" oninput="D7set(this.value)"><b id="d7slv">40°</b></div></div>';},
+ panelHTML:function(){return '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D7\')">线一样长，角越大飞得越高</button><button class="btn mini" onclick="DQ(this,\'b\',\'D7\')">线一样长，角越大飞得越低</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:6,text:'小羊拴在木桩上，绳子一样长，往坡上走就更高。',before:function(d){d.state.angle=20;},tick:function(k,d){d.state.angle=Math.round(20+35*k);}},
+  {t:6,text:'把绳子换成一架风筝，线长还是固定不变。',before:function(d){d.state.angle=55;},tick:function(k,d){}},
+  {t:6,text:'拖一拖：线没变长，角越大，风筝飞得越高。',before:function(d){d.state.angle=55;},tick:function(k,d){d.state.angle=Math.round(55+35*k);}},
+  {t:7,text:'到 90° 就是最高点。可是风一变，风筝就会偏下来。',before:function(d){d.state.angle=90;},tick:function(k,d){if(k>0.5)d.state.angle=Math.round(90-25*(k-0.5)*2);}},
+  {t:4,text:'换你来拖。',before:function(d){d.state.angle=40;},tick:function(k,d){}}
+ ],
+ challenge:{kind:'drag',goals:[40,65,90],tip:'把风筝拖到目标角度，线一直绷直，注意看右边的格数。',
+  value:function(){return DEMOS.D7.state.angle;}}};
+var windTok=0;
+function D7set(v){var d=DEMOS.D7;d.state.angle=Math.round(Math.max(0,Math.min(90,+v)));d.syncUI();d.render();if(window.checkGoal)checkGoal();}
+
+/* ---------- D8 钟表上的角 ---------- */
+DEMOS.D8={name:'钟表上的角',icon:'🕐',desc:'拖时针、分针，看看夹角是多少度',ready:true,
+ C:{x:240,y:165},R:118,state:{h:3,m:0},
+ mount:function(stage){
+  var self=this;this.stage=stage;var C=this.C,R=this.R;
+  var marks='',i;
+  for(i=0;i<12;i++){
+   var p1=ptOn(C.x,C.y,R,i*30+90),p2=ptOn(C.x,C.y,R-14,i*30+90);
+   marks+='<line x1="'+p1.x+'" y1="'+p1.y+'" x2="'+p2.x+'" y2="'+p2.y+'" class="thin" stroke-width="3"/>';
+   var pt=ptOn(C.x,C.y,R-34,i*30+90);
+   marks+='<text x="'+pt.x.toFixed(1)+'" y="'+pt.y.toFixed(1)+'" class="svgtxt" text-anchor="middle" dominant-baseline="middle">'+(i===0?12:i)+'</text>';
+  }
+  stage.innerHTML=svgFrame('<circle cx="'+C.x+'" cy="'+C.y+'" r="'+R+'" fill="var(--card)" stroke="var(--line)" stroke-width="3"/>'+marks+
+   '<path id="d8arc" fill="none" stroke="#F1C40F" stroke-width="8" opacity="0.7"/>'+
+   '<line id="d8h" x1="'+C.x+'" y1="'+C.y+'" x2="'+C.x+'" y2="'+(C.y-70)+'" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round"/>'+
+   '<line id="d8m" x1="'+C.x+'" y1="'+C.y+'" x2="'+C.x+'" y2="'+(C.y-105)+'" stroke="#C0392B" stroke-width="6" stroke-linecap="round"/>'+
+   '<circle cx="'+C.x+'" cy="'+C.y+'" r="7" fill="#1A1A1A"/>'+
+   '<g id="d8hp"><g id="d8hnd" class="hnd"><circle class="halo" data-r="20" r="20" fill="#1A1A1A"/><circle data-r="12" r="12" fill="#1A1A1A" stroke="#fff" stroke-width="3"/><circle data-r="28" r="28" fill="rgba(0,0,0,0.01)"/></g></g>'+
+   '<g id="d8mp"><g id="d8mnd" class="hnd"><circle class="halo" data-r="20" r="20" fill="#C0392B"/><circle data-r="12" r="12" fill="#C0392B" stroke="#fff" stroke-width="3"/><circle data-r="28" r="28" fill="rgba(0,0,0,0.01)"/></g></g>'+
+   '<text id="d8cap" class="svgtxt" x="240" y="322" text-anchor="middle" fill="#C0392B"></text>',340);
+  this.svg=stage.querySelector('svg');
+  this.el={h:stage.querySelector('#d8h'),m:stage.querySelector('#d8m'),arc:stage.querySelector('#d8arc'),
+   hp:stage.querySelector('#d8hp'),mp:stage.querySelector('#d8mp'),hnd:stage.querySelector('#d8hnd'),mnd:stage.querySelector('#d8mnd'),cap:stage.querySelector('#d8cap')};
+  makeDraggable(this.el.hnd,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();scaleHandle(self.el.hnd,1.3);},
+   move:function(x,y){var a=Math.atan2(-(y-C.y),x-C.x)*180/Math.PI;var h=Math.round((90-a)/30);h=((h%12)+12)%12;if(h!==self.state.h){self.state.h=h;self.render();if(window.checkGoal)checkGoal();}},
+   end:function(){scaleHandle(self.el.hnd,1);}});
+  makeDraggable(this.el.mnd,{toXY:function(e){return toPt(self.svg,e);},start:function(){if(CUR)CUR.stop();scaleHandle(self.el.mnd,1.3);},
+   move:function(x,y){var a=Math.atan2(-(y-C.y),x-C.x)*180/Math.PI;var m=Math.round((90-a)/6);m=((m%60)+60)%60;if(m!==self.state.m){self.state.m=m;self.render();if(window.checkGoal)checkGoal();}},
+   end:function(){scaleHandle(self.el.mnd,1);}});
+  this.render();
+ },
+ angle:function(){
+  var ha=(this.state.h%12)*30+(this.state.m)*0.5,ma=this.state.m*6,d=Math.abs(ha-ma);
+  d=d%360;if(d>180)d=360-d;return Math.round(d);
+ },
+ render:function(){
+  var C=this.C,st=this.state;
+  var ha=90-(st.h%12)*30-st.m*0.5,ma=90-st.m*6;
+  var ph=ptOn(C.x,C.y,70,ha),pm=ptOn(C.x,C.y,105,ma);
+  this.el.h.setAttribute('x2',ph.x.toFixed(1));this.el.h.setAttribute('y2',ph.y.toFixed(1));
+  this.el.m.setAttribute('x2',pm.x.toFixed(1));this.el.m.setAttribute('y2',pm.y.toFixed(1));
+  this.el.hp.setAttribute('transform','translate('+ph.x.toFixed(1)+','+ph.y.toFixed(1)+')');
+  this.el.mp.setAttribute('transform','translate('+pm.x.toFixed(1)+','+pm.y.toFixed(1)+')');
+  var d=this.angle(),ha2=norm360(ha),ma2=norm360(ma);
+  var a1=Math.min(ha2,ma2),a2=Math.max(ha2,ma2);
+  if(a2-a1>180){var t=a1;a1=a2;a2=t+360;}
+  this.el.arc.setAttribute('d',arcPath(C.x,C.y,88,a1,a2));
+  var hh=(st.h===0?12:st.h),mm=(st.m<10?'0'+st.m:''+st.m);
+  this.el.cap.textContent='现在 '+hh+' 时 '+mm+' 分　夹角 '+d+'°';
+  var bn=E('bignum'),nt=E('nametag'),ib=E('infobar');
+  if(bn)bn.textContent=d+'°';
+  if(nt){nt.textContent=angleName(d);nt.className='nametag'+((d===90||d===180)?' key':'');}
+  if(ib)ib.innerHTML='<span>'+hh+' 时 '+mm+' 分</span><span>夹角 '+d+'°</span><span>'+(st.m===0?('30° × '+hh+' = '+d+'°'):'分针每小格 6°')+'</span>';
+ },
+ syncUI:function(){this.render();},
+ reset:function(){this.state.h=3;this.state.m=0;this.render();},
+ controlsHTML:function(){return '<div class="tasks"><div class="task"><b>任务1</b> 拖黑点（时针），它会一格一格地跳，看看夹角怎么变。</div><div class="task"><b>任务2</b> 拖红点（分针），绕一圈，看看夹角最大到多少。</div><div class="task"><b>任务3</b> 拖出 3 时整、6 时整、9 时整，说说夹角各是多少度。</div></div>'+
+  '<div class="row" style="margin-top:.6rem"><button class="btn" onclick="DEMOS.D8.reset();toast(\'回到 3 时整\');">🔁 重置</button>'+
+  '<button class="btn" onclick="D8set(3,0)">3 时</button><button class="btn" onclick="D8set(6,0)">6 时</button><button class="btn" onclick="D8set(9,0)">9 时</button><button class="btn" onclick="D8set(4,0)">4 时</button></div>'+
+  '<div class="small" style="margin-top:.4rem">小提示：钟面一圈 360°，平均分成 12 大格，每大格 30°；分针每走 1 小格是 6°。</div>';},
+ panelHTML:function(){return '<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.45rem"><button class="btn mini" onclick="DQ(this,\'a\',\'D8\')">钟面一大格是 30°</button><button class="btn mini" onclick="DQ(this,\'b\',\'D8\')">钟面一大格是 60°</button></div><div id="dsc" class="fb tip" style="display:none"></div><div class="row" style="justify-content:flex-end;margin-top:.6rem"><button class="btn primary" onclick="setPhase(3)">去小挑战 →</button></div></div>';},
+ micro:[
+  {t:6,text:'钟面一圈是 360°，平均分成 12 大格，每大格 30°。',before:function(d){d.state.h=12;d.state.m=0;},tick:function(k,d){d.state.h=12;d.state.m=0;}},
+  {t:6,text:'时针从 12 走到 3，走了 3 大格：30° × 3 = 90°。',before:function(d){d.state.h=12;},tick:function(k,d){var h=Math.round(12-9*k);d.state.h=(h===12?12:(h<1?1:h));}},
+  {t:6,text:'6 时整，时针和分针正好相对，是平角 180°。',before:function(d){d.state.h=6;d.state.m=0;},tick:function(k,d){}},
+  {t:5,text:'拖一拖时针和分针，夹角会实时变。',before:function(d){d.state.h=3;d.state.m=0;},tick:function(k,d){d.state.m=Math.round(40*k);}}
+ ],
+ challenge:{kind:'drag',goals:[90,180,60],tip:'拖时针或分针，让夹角变成目标度数（可以停在整时上）。',value:function(){return DEMOS.D8.angle();}}};
+function D8set(h,m){var d=DEMOS.D8;d.state.h=h%12;d.state.m=m;d.render();if(window.checkGoal)checkGoal();}
+
+function angleName(a){if(a<90)return '锐角';if(a===90)return '直角';if(a<180)return '钝角';if(a===180)return '平角';return '比平角还大';}
+function DQ(btn,val,id){
+  var box=E('dsc');
+  var ok={D1:'b',D2:'b',D4:'b',D5:'b',D6:'a',D7:'a',D8:'a'}[id];
+  var right={
+   D1:'只有线段有 2 个端点，两头都到头了，才能量出长度。',
+   D2:'角的大小，只跟两条边张开的程度有关，跟边的长短没有关系。',
+   D4:'0 刻度线在哪一边，就读哪一圈。同一个角，内圈读数加外圈读数正好是 180°。',
+   D5:'折痕张开得越大，∠1 越大，留给 ∠2 的就越小。',
+   D6:'一根木柴一侧的三个角拼成一条直线，合起来永远是 180°。',
+   D7:'线一样长，夹角越大，风筝飞得越高，最大是 90°。',
+   D8:'钟面一圈 360°，平均分成 12 大格，每大格 30°。'}[id];
+  if(val===ok){
+    sfx('ok');btn.className='btn mini on';
+    $$('#panel .btn.mini').forEach(function(b){b.disabled=true;});
+    if(box){box.style.display='block';box.innerHTML='🎉 你自己发现啦！<b>'+right+'</b>';}
+    S.done[id]=S.done[id]||{};
+    if(!S.done[id].e){S.done[id].e=1;save();addStar(2);addCoin(3);}
+  }else{sfx('tip');if(box){box.style.display='block';box.innerHTML='回到上面的图形里再拖一拖，答案自己会冒出来。';}}
+}
 var STATIONS=[
  {id:1,name:'线的世界',demos:['D1']},
- {id:2,name:'角的诞生',demos:['D2','D3']},
- {id:3,name:'量角器的秘密',demos:['D4','D5']},
- {id:4,name:'角的应用',demos:['D6','D7']}
+ {id:2,name:'角的诞生',demos:['D2']},
+ {id:3,name:'量角器的秘密',demos:['D4']},
+ {id:4,name:'角的应用',demos:['D5','D6','D7','D8']}
 ];
-var stack=[];
-function go(fn,crumb){if(crumb){var c=E('crumb');if(c)c.textContent=crumb;}stack.push(fn);try{fn();}catch(e){if(window.onerror)window.onerror(e.message,'',0);}window.scrollTo(0,0);}
-function goBack(){
-  if(typeof CUR!=='undefined'&&CUR&&CUR.timer)clearTimeout(CUR.timer);
-  stack.pop();
-  var f=stack[stack.length-1];
-  if(f)f();else home();
-  window.scrollTo(0,0);
-}
-function setView(h){var v=E('view');if(v)v.innerHTML=h;}
+</script>
 
-/* ---------- 主页：单元地图 ---------- */
+<!-- ============ 3. 题库 ============ -->
+<script>
+var RAW=[
+{id:'L1',tp:'线的认识',dm:'D1',k:'c',q:'下面哪个图形像"竹竿"，是线段？',o:['两头都有端点，拉不长','只有一个端点，一直延伸','一个端点都没有，两头都望不到头'],a:0,h1:'数一数它的端点有几个。',h2:'线段有 2 个端点，像竹竿，两头都到头了。',so:['线段有 2 个端点','竹竿两头都到头了，就是线段'],ex:'线段有 2 个端点，两头都到头了。',df:1},
+{id:'L2',tp:'线的认识',dm:'D1',k:'c',q:'"火把的光"从一点射出去，永远射不完。它像哪种线？',o:['线段','射线','直线'],a:1,h1:'它的端点有几个？',h2:'只有一个端点，往一头无限延伸，这是射线。',so:['火把的光只有 1 个端点','一头一直延伸，就是射线'],ex:'射线有 1 个端点，可以往一头无限延伸。',df:1},
+{id:'L3',tp:'线的认识',dm:'D1',k:'k',q:'线段有几个端点？（填数字）',a:2,unit:'个',h1:'想一想竹竿有几头。',h2:'两头都到头了，就是 2 个。',so:['线段两头都到头了','所以是 2 个端点'],ex:'线段有 2 个端点。',df:1},
+{id:'L4',tp:'线的认识',dm:'D1',k:'c',q:'过一点可以画几条直线？',o:['1条','2条','无数条'],a:2,h1:'在纸上点一个点，试着多画几条。',h2:'方向可以一直变，所以能画无数条。',so:['过一个点，方向可以随便改','所以能画无数条直线'],ex:'过一点可以画无数条直线。',df:2},
+{id:'A1',tp:'角的分类',dm:'D2',k:'c',q:'一条射线绕端点转出来的角比直角小，它叫什么角？',o:['锐角','直角','钝角'],a:0,h1:'比直角小，说明张口还不够大。',h2:'门只开一条小缝时，那个角就是锐角。',so:['比直角小的角，是锐角'],ex:'比直角小的角叫锐角。',df:1},
+{id:'A2',tp:'角的分类',dm:'D2',k:'k',q:'把一周角平均分成 4 份，其中的 1 份是多少度？',a:90,unit:'°',h1:'周角是 360°。',h2:'360° ÷ 4 等于多少？',so:['周角＝360°','360°÷4＝90°'],ex:'每份 90°，正好是直角。',df:2},
+{id:'A3',tp:'角的分类',dm:'D2',k:'s',q:'把五个角的名字分到对应的描述旁边。',it:[{id:'x1',t:'比直角小'},{id:'x2',t:'刚好 90°'},{id:'x3',t:'比 90° 大，比 180° 小'},{id:'x4',t:'两条边连成一条直线，180°'},{id:'x5',t:'转满一整圈，360°'}],bk:['锐角','直角','钝角','平角','周角'],a:{锐角:['x1'],直角:['x2'],钝角:['x3'],平角:['x4'],周角:['x5']},h1:'想想门一点点开大的过程。',h2:'贴在墙上就是平角 180°，再转一圈才是周角 360°。',so:['比直角小→锐角','刚好 90°→直角','90°到180°之间→钝角','180°→平角','360°→周角'],ex:'五类角按张口大小排队。',df:2},
+{id:'A4',tp:'角的分类',dm:'D2',k:'c',q:'一个角比直角大，但比平角小，它一定是什么角？',o:['锐角','钝角','周角'],a:1,h1:'比 90° 大、比 180° 小的角叫什么？',h2:'它比直角大，又没到平角，那就是钝角。',so:['比直角 90° 大','比平角 180° 小','所以是钝角'],ex:'比直角大且比平角小的角是钝角。',df:2},
+{id:'P1',tp:'量角读数',dm:'D4',k:'c',q:'量角器 0 刻度线在右边、对准一条边，另一条边压在内圈 65° 上。这个角是多少度？',o:['65°','115°','25°'],a:0,h1:'先看 0 刻度线在哪一边。',h2:'0 在右边就读内圈。',so:['0 刻度线在右，读内圈','另一条边指着 65°'],ex:'先找 0 刻度线，再决定读哪一圈。',df:2},
+{id:'P2',tp:'量角读数',dm:'D4',k:'k',q:'同一个角，内圈读数是 115°，外圈读数是多少度？',a:65,unit:'°',h1:'内圈读数加外圈读数等于多少？',h2:'两个加起来正好是 180°。',so:['内圈读数＋外圈读数＝180°','180°−115°＝65°'],ex:'两圈读数合起来正好是半圆 180°。',df:3},
+{id:'P3',tp:'量角读数',dm:'D4',k:'c',q:'0 刻度线在左边、对准一条边，另一条边压在外圈 120° 上。这个角是多少度？',o:['60°','120°','240°'],a:1,h1:'0 刻度线在左边，该读哪一圈？',h2:'0 在左边读外圈。',so:['0 在左边，读外圈','外圈指着 120°'],ex:'0 刻度线在哪边，就读哪一圈。',df:2},
+{id:'P4',tp:'量角读数',dm:'D4',k:'c',q:'量角时度数差了 1 到 2 度，最可能是什么原因？',o:['量角器中心没对准顶点','铅笔太粗','角画得不好看'],a:0,h1:'量角第一步是做什么？',h2:'中心偏了，读数就会差一点点。',so:['中心对顶点是量角第一步','中心偏了，读数就差 1 到 2 度'],ex:'中心没对准顶点是常见的误差来源。',df:3},
+{id:'D1q',tp:'画角',dm:'D4',k:'o',q:'画一个 75° 的角，把步骤排好。',st:['画一条射线','量角器中心对准射线的端点','0 刻度线对准这条射线','在 75° 刻度上点一个点','从端点连接这个点'],a:[0,1,2,3,4],h1:'画角之前得先有一条边做起点。',h2:'先画射线，再摆量角器，接着点刻度，最后连线。',so:['画一条射线','中心对端点、0 刻度线对射线','在 75° 刻度处点一个点','连接端点和这个点'],ex:'画角就是先定一条边，再按刻度找方向。',df:2},
+{id:'D2q',tp:'画角',dm:'D4',k:'c',q:'用三角尺拼一拼，哪两个角拼起来正好是 75°？',o:['30°和45°','60°和45°','90°和30°'],a:0,h1:'把两个角加起来算一算。',h2:'30°＋45°＝75°。',so:['30°＋45°＝75°'],ex:'30° 和 45° 拼起来正好是 75°。',df:2},
+{id:'D3q',tp:'画角',dm:'D4',k:'k',q:'用三角尺拼一个 105° 的角，已经放了 60°，另一个角是多少度？',a:45,unit:'°',h1:'两个角加起来是 105°。',h2:'105° 减 60° 等于多少？',so:['105°−60°＝45°'],ex:'60° 和 45° 能拼成 105°。',df:3},
+{id:'S1',tp:'平角周角',dm:'D2',k:'k',q:'1 平角等于几个直角？',a:2,unit:'个',h1:'平角 180°，直角 90°。',h2:'180°÷90°等于多少？',so:['180°÷90°＝2'],ex:'1 平角＝2 直角。',df:1},
+{id:'S2',tp:'平角周角',dm:'D2',k:'k',q:'1 周角等于几个直角？',a:4,unit:'个',h1:'周角 360°，直角 90°。',h2:'360°÷90°等于多少？',so:['360°÷90°＝4'],ex:'1 周角＝4 直角。',df:2},
+{id:'S3',tp:'平角周角',dm:'D2',k:'c',q:'一个角正好是一个平角的一半，它是什么角？',o:['锐角','直角','钝角'],a:1,h1:'平角 180°，平均分成 2 份。',h2:'180°÷2＝90°。',so:['180°÷2＝90°','90°是直角'],ex:'平角的一半是直角。',df:2},
+{id:'T1',tp:'时间中的角',dm:'D8',k:'k',q:'时针从 12 走到 3，转过的角是多少度？',a:90,unit:'°',h1:'钟面一圈 360°，平均分成 12 大格。',h2:'360°÷12＝30°，走了 3 大格。',so:['360°÷12＝30°','30°×3＝90°'],ex:'时针从 12 走到 3，转过 90°。',df:2},
+{id:'T2',tp:'时间中的角',dm:'D8',k:'c',q:'3 时整，时针和分针的夹角是多少度？',o:['30°','90°','180°'],a:1,h1:'时针指 3，分针指 12，隔了几大格？',h2:'每大格 30°，隔了 3 大格。',so:['相隔 3 大格','30°×3＝90°'],ex:'3 时整成 90°。',df:2},
+{id:'T3',tp:'时间中的角',dm:'D8',k:'k',q:'6 时整，时针和分针的夹角是多少度？',a:180,unit:'°',h1:'6 和 12 正好相对。',h2:'连成一条直线就是平角。',so:['6 和 12 正好相对','连成一条直线＝180°'],ex:'6 时整成平角 180°。',df:1},
+{id:'T4',tp:'时间中的角',dm:'D8',k:'k',q:'钟面上，一大格是多少度？',a:30,unit:'°',h1:'一圈 360°，分成 12 大格。',h2:'360°÷12。',so:['钟面一圈＝360°','360°÷12＝30°'],ex:'钟面每一大格是 30°。',df:2},
+{id:'H1',tp:'边长与角',dm:'D2',k:'c',q:'用放大 3 倍的放大镜看一个 45° 的角，看到的角是多少度？',o:['45°','135°','15°'],a:0,h1:'放大镜把边拉长了，张口变了吗？',h2:'角的大小只跟张口有关。',so:['放大镜只把边变长','张口没变，还是 45°'],ex:'放大镜只放大边的长短，不改变角的度数。',df:2},
+{id:'H2',tp:'边长与角',dm:'D2',k:'c',q:'两个角张开的程度一样，边画得长的那个角更大。这句话对吗？',o:['对','不对'],a:1,h1:'角的大小跟什么有关？',h2:'只跟两条边张开的程度有关。',so:['张口一样，角就一样大','跟边的长短没关系'],ex:'张口一样，两个角就一样大。',df:1},
+{id:'F1',tp:'折纸推理',dm:'D5',k:'k',q:'三个一样大的角拼成一条直线，其中 ∠1 是多少度？',a:60,unit:'°',h1:'三个角拼成一条直线，加起来是多少度？',h2:'180° 平均分成 3 份。',so:['三个角拼成平角＝180°','180°÷3＝60°'],ex:'每份 60°。',df:2},
+{id:'F2',tp:'折纸推理',dm:'D5',k:'k',q:'长方形纸折起一角，两个 ∠1 都是 35°，∠2 是多少度？（合起来是平角 180°）',a:110,unit:'°',h1:'两个 ∠1 再加 ∠2 是 180°。',h2:'180°−35°−35°。',so:['180°−35°＝145°','145°−35°＝110°'],ex:'∠2 是 110°。',df:3},
+{id:'F3',tp:'折纸推理',dm:'D5',k:'k',q:'长方形纸的一角折起，折角 ∠1＝30°，求 ∠2。',a:120,unit:'°',h1:'折过去的那块和原来一样大，所以有两个 30°。',h2:'180°−30°−30°。',so:['两个 ∠1 都是 30°','180°−30°−30°＝120°'],ex:'∠2 是 120°。',df:2},
+{id:'F4',tp:'折纸推理',dm:'D5',k:'k',q:'把一张纸铺平正好是一周角，∠1＝40°，另外两个角是同样大的 ∠2。∠2 是多少度？',a:160,unit:'°',h1:'铺平后一共 360°，先减去 ∠1。',h2:'360°−40°＝320°，再平均分成 2 份。',so:['360°−40°＝320°','320°÷2＝160°'],ex:'先减后分，∠2 是 160°。',df:3},
+{id:'F5',tp:'折纸推理',dm:'D6',k:'k',q:'三根木柴交叉，∠1＝30°，∠2＝40°，它们和 ∠3 拼成一条直线。∠3 是多少度？',a:110,unit:'°',h1:'拼成一条直线就是 180°。',h2:'180° 先减 30°，再减 40°。',so:['180°−30°＝150°','150°−40°＝110°'],ex:'∠3 是 110°。',df:3}
+];
+var QB=RAW.map(function(r){
+ return {id:r.id,topic:r.tp,demo:r.dm,type:r.k,stem:r.q,options:r.o,answer:r.a,unit:r.unit,steps:r.st,items:r.it,baskets:r.bk,
+  hint1:r.h1,hint2:r.h2,solution:r.so,explain:r.ex,diff:r.df||2};
+});
+function allQ(){return QB.concat(S.bank||[]);}
+</script>
+
+<!-- ============ 4. 页面 / 引擎 / 答题 / 回顾本 / 教师端 ============ -->
+<script>
+var CUR=null,CQ=null,microTok=0;
 function home(){
   var c=E('crumb');if(c)c.textContent='四年级上册 · 数学';
   var u='';
   for(var i=0;i<UNITS.length;i++){
     var n=i+1,lock=(n!==2);
-    u+='<div class="unit '+(lock?'locked':'active')+'" onclick="'+(lock?'lockTip()':'unit2()')+'">'+
-        (lock?'':'<span class="badge-new">已解锁</span>')+
-        '<div><div class="no">第'+n+'单元</div><div class="nm">'+UNITS[i]+'</div></div>'+
-        '<div class="small">'+(lock?'🔒':'探索馆 · 挑战馆')+'</div></div>';
+    u+='<div class="unit '+(lock?'locked':'active')+'" onclick="'+(lock?'lockTip()':'go(unit2,\'角的度量\')')+'">'+(lock?'':'<span class="badge-new">已解锁</span>')+
+     '<div><div class="no">第'+n+'单元</div><div class="nm">'+UNITS[i]+'</div></div><div class="small">'+(lock?'🔒':'探索馆 · 挑战馆')+'</div></div>';
   }
   setView('<div class="wrap"><div class="h1">数学探险地图</div><div class="sub">先去看看"角"，那里藏着一整个圆的小秘密。</div><div class="units">'+u+'</div></div>');
   hud();
 }
-function lockTip(){
-  sfx('tip');
-  modal('<div class="h1" style="font-size:1.1rem">小探险家</div><p>这片区域还在建造中，先去<b>"角的度量"</b>解锁你的量角器技能吧！</p><div class="row" style="justify-content:flex-end"><button class="btn primary" onclick="closeMask()">好，去看看</button></div>');
-}
+function lockTip(){sfx('tip');modal('<div class="h1" style="font-size:1.1rem">小探险家</div><p>这片区域还在建造中，先去<b>"角的度量"</b>解锁你的量角器技能吧！</p><div class="row" style="justify-content:flex-end"><button class="btn primary" onclick="closeMask()">好，去看看</button></div>');}
 function unit2(){
   var c=E('crumb');if(c)c.textContent='角的度量';
-  var doneD=0,k;
-  for(k in S.done){if(S.done[k]&&S.done[k].c)doneD++;}
-  var qDone=0;
-  for(k in S.stat){if(S.stat[k])qDone+=S.stat[k].t;}
-  setView('<div class="wrap"><div class="h1">第二单元 · 角的度量</div>'+
-   '<div class="sub">度量就是数单位——一个角里有几个1°，它就是几度。</div>'+
-   '<div class="entry">'+
-   '<button class="big" onclick="exploreMap()">🔭<b>探索馆</b><span>七个小演示<br>已通关 '+doneD+' / 7</span></button>'+
-   '<button class="big" onclick="challengeHome()">🎯<b>挑战馆</b><span>8 类题型 · 基础/提升/挑战<br>已完成 '+qDone+' 题</span></button>'+
-   '</div>'+
-   '<div class="card" style="margin-top:.9rem"><div class="row" style="justify-content:space-between"><b>我的回顾本</b>'+
-   '<button class="btn mini" onclick="reviewBook()">打开（'+S.wrong.length+' 条）</button></div>'+
-   '<div class="small">这里放没有想清楚的地方。</div></div></div>');
+  var d=0,k;for(k in S.done){if(S.done[k]&&S.done[k].c)d++;}
+  var q=0;for(k in S.stat){if(S.stat[k])q+=S.stat[k].t;}
+  setView('<div class="wrap"><div class="h1">第二单元 · 角的度量</div><div class="sub">度量就是数单位——一个角里有几个 1°，它就是几度。</div>'+
+   '<div class="entry"><button class="big" onclick="go(exploreMap,\'探索馆\')">🔭<b>探索馆</b><span>七个动手小实验<br>已完成 '+d+' / 7</span></button>'+
+   '<button class="big" onclick="go(challengeHome,\'挑战馆\')">🎯<b>挑战馆</b><span>八类题型 · 每轮 6 题<br>已完成 '+q+' 题</span></button></div>'+
+   '<div class="card" style="margin-top:.9rem"><div class="row" style="justify-content:space-between"><b>我的回顾本</b><button class="btn mini" onclick="go(reviewBook,\'回顾本\')">打开（'+S.wrong.length+' 条）</button></div><div class="small">这里放的没有想清楚的地方。</div></div></div>');
   hud();
 }
-
-/* ---------- 探索馆：全部开放 ---------- */
 function exploreMap(){
   var c=E('crumb');if(c)c.textContent='探索馆';
-  var html='<div class="wrap"><div class="h1">探索馆 · 路线图</div><div class="sub">七个小演示，从哪一站开始都可以，做完会留个记号。</div>';
-  for(var i=0;i<STATIONS.length;i++){
-    var st=STATIONS[i];
-    html+='<div class="station"><div class="st-head"><span class="dot">'+st.id+'</span>第'+st.id+'站 · '+st.name+'</div>';
-    for(var j=0;j<st.demos.length;j++){
-      var d=st.demos[j],dm=DEMOS[d],done=S.done[d]&&S.done[d].c;
-      html+='<div class="demo '+(done?'done':'')+'" onclick="startDemo(\''+d+'\')">'+
-       '<span class="ic">'+dm.icon+'</span><span><b>'+dm.name+'</b><small>'+dm.desc+'</small></span>'+
-       '<span style="margin-left:auto">'+(done?starIcons(S.done[d].star||2):'▶️')+'</span></div>';
-    }
-    html+='</div>';
-  }
-  html+='</div>';
-  setView(html);hud();
+  var h='<div class="wrap"><div class="h1">探索馆 · 路线图</div><div class="sub">七个小实验，从哪一站开始都可以。</div>';
+  STATIONS.forEach(function(st){
+    h+='<div class="station"><div class="st-head"><span class="dot">'+st.id+'</span>第'+st.id+'站 · '+st.name+'</div>';
+    st.demos.forEach(function(id){
+      var d=DEMOS[id],done=S.done[id]&&S.done[id].c;
+      h+='<div class="demo'+(done?' done':'')+'" onclick="go(function(){startDemo(\''+id+'\');},\'探索馆\')"><span class="ic">'+d.icon+'</span><span><b>'+d.name+'</b><small>'+d.desc+'</small></span><span style="margin-left:auto">'+(done?'✅':'▶️')+'</span></div>';
+    });
+    h+='</div>';
+  });
+  setView(h+'</div>');hud();
 }
-
-/* ---------- 演示页：用 DOM 搭建，三个环节随便点 ---------- */
-var CUR=null;
-function startDemo(id){CUR={id:id,phase:1,step:0,p:{},timer:null};renderDemo();}
-function renderDemo(){
-  var d=DEMOS[CUR.id];
+function startDemo(id){var d=DEMOS[id];if(!d||!d.ready){toast('这个小实验还没装好');return;}
+  CUR={id:id,demo:d,phase:1,stop:function(){microTok++;windTok++;}};
   var c=E('crumb');if(c)c.textContent='探索馆 · '+d.name;
-  var v=E('view');if(!v)return;
-  v.innerHTML='';
-  function mk(tag,cls,txt,id){
-    var e=document.createElement(tag);
-    if(cls)e.className=cls;
-    if(txt!=null)e.textContent=txt;
-    if(id)e.id=id;
-    return e;
-  }
-  var wrap=mk('div','wrap');
-  wrap.appendChild(mk('div','h1',d.icon+' '+d.name));
-  wrap.appendChild(mk('div','sub',d.desc));
-  var stage=mk('div','stage',null,'stage');wrap.appendChild(stage);
-  var big=mk('div','bignum',null,'bignum');big.style.display='none';wrap.appendChild(big);
-  wrap.appendChild(mk('div','subtitle','准备好了就点"▶️ 开始演示"，先看一遍，再自己动手。','subtitle'));
-  var ph=mk('div','phases');
-  var nm=['① 看演示','② 动手玩','③ 小挑战'];
-  for(var i=0;i<3;i++){
-    (function(n){
-      var e=mk('div','ph'+(n===1?' on':''),nm[n-1],'ph'+n);
-      e.onclick=function(){setPhase(n);};
-      ph.appendChild(e);
-    })(i+1);
-  }
-  wrap.appendChild(ph);
-  wrap.appendChild(mk('div','card',null,'ctl'));
-  wrap.appendChild(mk('div',null,null,'panel'));
-  v.appendChild(wrap);
-  d.mount(stage);
-  d.update(stage,{});
-  setPhase(1);
+  setView('<div class="wrap"><div class="h1">'+d.icon+' '+d.name+'</div><div class="sub">'+d.desc+'</div>'+
+   '<div class="stagewrap"><div class="stage" id="stage"></div><div class="overlay"><div class="bignum" id="bignum">--</div><div class="nametag" id="nametag">--</div></div></div>'+
+   '<div class="infobar" id="infobar"></div>'+
+   '<div class="subtitle" id="subtitle">先看 20 秒"我怎么拖"，然后自己上手。</div>'+
+   '<div class="phases"><div class="ph" id="ph1" onclick="setPhase(1)">① 微演示</div><div class="ph" id="ph2" onclick="setPhase(2)">② 动手玩</div><div class="ph" id="ph3" onclick="setPhase(3)">③ 小挑战</div></div>'+
+   '<div class="card" id="ctl"></div><div id="panel"></div></div>');
+  d.mount(E('stage'));setPhase(1);
 }
 function setPhase(n){
-  CUR.phase=n;
-  for(var i=1;i<=3;i++){
-    var e=E('ph'+i);
-    if(!e)continue;
-    e.className='ph'+((i===n)?' on':((i<n)?' done':''));
+  if(!CUR)return;
+  microTok++;CUR.phase=n;
+  for(var i=1;i<=3;i++){var e=E('ph'+i);if(e)e.className='ph'+(i===n?' on':'');}
+  if(n===1)phaseMicro();else if(n===2)phasePlay();else phaseQuiz();
+}
+function phaseMicro(){
+  var d=CUR.demo;d.reset();
+  var st=E('subtitle');if(st)st.innerHTML='点下面的按钮，看我怎么拖（20 秒）。';
+  var ct=E('ctl');if(ct)ct.innerHTML='<div class="row"><button class="btn primary" id="microBtn" onclick="playMicro()">▶️ 播放 20 秒演示</button><button class="btn" onclick="setPhase(2)">直接动手玩 →</button></div>';
+  var pn=E('panel');if(pn)pn.innerHTML='';
+}
+function playMicro(){
+  var d=CUR.demo;if(!d.micro)return;
+  var tok=++microTok,i=0,btn=E('microBtn');
+  if(btn){btn.disabled=true;btn.textContent='演示中…';}
+  function next(){
+    if(tok!==microTok)return;
+    if(i>=d.micro.length){
+      var ct=E('ctl');if(ct)ct.innerHTML='<div class="row"><button class="btn primary" onclick="setPhase(2)">✋ 去动手玩 →</button><button class="btn" onclick="playMicro()">🔁 再看一遍</button></div>';
+      var st=E('subtitle');if(st)st.innerHTML='看完了，轮到你——自己去拖一拖。';
+      return;
+    }
+    var s=d.micro[i],st=E('subtitle');if(st)st.innerHTML=s.text;
+    if(s.before)s.before(d);
+    tweenStep(tok,Math.max(700,(s.t-0.7)*1000),function(k){if(s.tick)s.tick(k,d);d.render();},function(){i++;setTimeout(next,420);});
   }
-  if(n===1)phase1();else if(n===2)phase2();else phase3();
+  next();
 }
-function phase1(){
-  var d=DEMOS[CUR.id];
-  CUR.step=0;CUR.p={};
-  clearTimeout(CUR.timer);
-  var st=E('subtitle'),ct=E('ctl'),pn=E('panel');
-  if(!st||!ct||!pn)return;
-  st.innerHTML='准备好了就点"▶️ 开始演示"，先看一遍，再自己动手。';
-  ct.innerHTML='<div class="row"><button class="btn primary" id="bp" onclick="playDemo()">▶️ 开始演示</button>'+
-   '<button class="btn" onclick="pauseDemo()">⏸ 暂停</button><button class="btn" onclick="replayDemo()">🔁 重看</button></div>';
-  pn.innerHTML='';
-  d.mount(E('stage'));
-  d.update(E('stage'),{});
-}
-function playDemo(){
-  var d=DEMOS[CUR.id];
-  clearTimeout(CUR.timer);
-  var stage=E('stage'),bp=E('bp'),st=E('subtitle');
-  if(!stage||!bp||!st){CUR.step=d.script.length;return;}
-  if(CUR.step>=d.script.length){
-    bp.textContent='✅ 演示看完了，去动手玩';
-    bp.onclick=function(){setPhase(2);};
-    return;
+function tweenStep(tok,dur,onTick,cb){
+  var t0=null;
+  function step(ts){
+    if(tok!==microTok)return;
+    if(t0===null)t0=ts;
+    var k=Math.min(1,(ts-t0)/dur);
+    onTick(k);
+    if(k<1)requestAnimationFrame(step);else if(cb)cb();
   }
-  var s=d.script[CUR.step];
-  if(s.p){for(var k in s.p)CUR.p[k]=s.p[k];}
-  d.update(stage,CUR.p);
-  st.innerHTML=s.text;
-  bp.textContent='▶️ 演示中…（'+(CUR.step+1)+' / '+d.script.length+'）';
-  CUR.timer=setTimeout(function(){CUR.step++;playDemo();},s.t*1000);
+  requestAnimationFrame(step);
 }
-function pauseDemo(){
-  clearTimeout(CUR.timer);
-  var b=E('bp');if(b)b.textContent='▶️ 继续演示';
-  sfx('click');
+function phasePlay(){
+  var d=CUR.demo;d.reset();
+  var st=E('subtitle');if(st)st.innerHTML='✋ 直接上手拖；三个标签可以随时点回别的环节。';
+  var ct=E('ctl');if(ct)ct.innerHTML=d.controlsHTML?d.controlsHTML():'';
+  var pn=E('panel');if(pn)pn.innerHTML=d.panelHTML?d.panelHTML():'';
+  if(d.syncUI)d.syncUI();
+  d.render();
+  var p1=E('ph1');if(p1)p1.className='ph done';
 }
-function replayDemo(){
-  clearTimeout(CUR.timer);
-  CUR.step=0;CUR.p={};
-  var stage=E('stage');
-  if(!stage)return;
-  DEMOS[CUR.id].mount(stage);
-  DEMOS[CUR.id].update(stage,{});
-  var b=E('bp');
-  if(b){b.textContent='▶️ 开始演示';b.onclick=playDemo;}
-  var s=E('subtitle');
-  if(s)s.innerHTML='再看一遍，这次注意看数字是怎么变的。';
+function phaseQuiz(){
+  if(!CUR)return;
+  var d=CUR.demo,ch=d.challenge||{};
+  d.reset();CQ={i:0};
+  var st=E('subtitle');if(st)st.innerHTML=ch.subtitle||((ch.goals&&ch.goals.length)?('🎯 小挑战：拖到 '+ch.goals.join('° → ')+'°'):'🎯 小挑战');
+  var ct=E('ctl');if(ct)ct.innerHTML=ch.controlsHTML?ch.controlsHTML():'<div class="row"><button class="btn" onclick="setPhase(3)">🔁 重来</button><button class="btn" onclick="setPhase(2)">回到动手玩</button></div>';
+  var pn=E('panel');if(pn)pn.innerHTML=ch.panelHTML?ch.panelHTML():'';
+  var p2=E('ph2');if(p2)p2.className='ph done';
+  if(ch.kind==='drag')renderGoals();
+  else if(ch.kind==='ask')renderAsk();
+  else CQ=null;
+  if(ch.onStart)ch.onStart();
 }
-function phase2(){
-  var d=DEMOS[CUR.id];
-  var ct=E('ctl'),pn=E('panel'),stage=E('stage');
-  if(!ct||!pn||!stage)return;
-  ct.innerHTML='<div class="tasks">'+d.explore.tasks.map(function(t,i){return '<div class="task"><b>任务'+(i+1)+'</b> '+t+'</div>';}).join('')+'</div>'+d.explore.controls;
-  pn.innerHTML='<div class="card"><b>我发现了——</b><div class="row" style="margin-top:.4rem">'+
-   d.explore.discover.map(function(o){return '<button class="btn mini" onclick="discover(this,\''+o[0]+'\')">'+o[0]+'</button>';}).join('')+
-   '</div><div id="dsc" class="fb tip" style="display:none"></div>'+
-   '<div class="row" style="margin-top:.6rem;justify-content:flex-end"><button class="btn primary" onclick="setPhase(3)">玩够了，去小挑战 →</button></div></div>';
-  var p={};
-  for(var k in CUR.p)p[k]=CUR.p[k];
-  d.update(stage,p);
+function renderGoals(){
+  var ch=CUR.demo.challenge,g=ch.goals,h='<div class="card"><b>拖到下面的度数：</b><div class="goals">';
+  for(var i=0;i<g.length;i++)h+='<div class="goal'+(i<CQ.i?' done':(i===CQ.i?' now':''))+'" id="goal'+i+'">'+g[i]+'°</div>';
+  h+='</div><div class="small" id="goalhint" style="margin-top:.55rem">'+ch.tip+'</div></div>';
+  var pn=E('panel');if(pn)pn.innerHTML=h;
 }
-function discover(btn,val){
-  var d=DEMOS[CUR.id];
-  var box=E('dsc');
-  if(val===d.explore.answer){
-    sfx('ok');
-    btn.className='btn mini on';
-    $$('#panel .btn.mini').forEach(function(b){b.disabled=true;});
-    if(box){box.style.display='block';box.innerHTML='🎉 你自己发现啦！<b>'+d.explore.right+'</b>';}
-    if(!(S.done[CUR.id]&&S.done[CUR.id].e)){S.done[CUR.id]=S.done[CUR.id]||{};S.done[CUR.id].e=1;save();addStar(1);}
-  }else{
-    sfx('tip');
-    if(box){box.style.display='block';box.innerHTML='再回动画里试一试，把滑块来回拖几次，答案自己会冒出来。';}
-  }
+function checkGoal(){
+  if(!CQ||!CUR||CUR.phase!==3)return;
+  var ch=CUR.demo.challenge;if(!ch||ch.kind!=='drag'||!ch.goals)return;
+  var g=ch.goals;if(CQ.i>=g.length)return;
+  var v=(ch.value?ch.value():CUR.demo.state.angle);if(v===-1)return;
+  var t=g[CQ.i],dd=Math.abs(v-t),hh=E('goalhint');
+  if(dd<=2){
+    sfx('snap');var el=E('goal'+CQ.i);if(el)el.className='goal done';CQ.i++;
+    if(CQ.i>=g.length)finishChal();
+    else{if(hh)hh.innerHTML='🎉 对了！下一个目标：'+g[CQ.i]+'°';var ne=E('goal'+CQ.i);if(ne)ne.className='goal now';}
+  }else if(dd<=8){if(hh)hh.innerHTML='快到了，再'+(v<t?'调大一点':'调小一点')+'，还差 '+dd+'°。';}
 }
-function phase3(){
-  var list=[];
-  var q=allQ();
-  for(var i=0;i<q.length;i++){if(q[i].demo===CUR.id&&q[i].mini)list.push(q[i]);}
-  if(!list.length){finishDemo();return;}
-  var ct=E('ctl');if(ct)ct.innerHTML='';
-  runQuiz(list,{mini:true,title:'小挑战（不计分，只是想确认一下）',el:'#panel',onEnd:finishDemo});
+function renderAsk(){
+  var it=CUR.demo.challenge.items[CQ.i];
+  var h='<div class="card"><b>第 '+(CQ.i+1)+' / '+CUR.demo.challenge.items.length+' 题　'+it.q+'</b><div class="row" style="margin-top:.5rem">';
+  for(var i=0;i<it.opts.length;i++)h+='<button class="btn mini" onclick="askAns('+i+')">'+it.opts[i]+'</button>';
+  h+='</div><div id="askfb" class="fb tip" style="display:none"></div></div>';
+  var pn=E('panel');if(pn)pn.innerHTML=h;
 }
-function finishDemo(){
-  var id=CUR.id;
-  S.done[id]=S.done[id]||{};
-  S.done[id].c=1;
-  S.done[id].star=Math.max(S.done[id].star||0,2);
-  save();
-  addCoin(5);sfx('star');
-  var ct=E('ctl'),pn=E('panel');
-  if(ct)ct.innerHTML='';
-  if(pn)pn.innerHTML='<div class="card"><b>✅ 这一站走完啦</b><div class="small">你拿到了 1 颗星和 5 枚金币。</div>'+
-   '<div class="row" style="margin-top:.6rem"><button class="btn primary" onclick="exploreMap()">回到路线图</button>'+
-   '<button class="btn" onclick="startDemo(\''+id+'\')">再看一遍</button></div></div>';
+function askAns(i){
+  var it=CUR.demo.challenge.items[CQ.i],fb=E('askfb');
+  if(i===it.a){sfx('ok');CQ.i++;
+    if(CQ.i>=CUR.demo.challenge.items.length)finishChal();
+    else{renderAsk();toast('答对啦，下一题');}}
+  else{sfx('tip');if(fb){fb.style.display='block';fb.innerHTML='这里有个小陷阱，再试一次吧！💭 '+(it.h||'');}}
 }
-
-/* ---------- 答题引擎 ---------- */
+function finishChal(){
+  sfx('star');addStar(2);addCoin(5);
+  var id=CUR.id;S.done[id]=S.done[id]||{};S.done[id].c=1;S.done[id].star=Math.max(S.done[id].star||0,2);save();
+  var p3=E('ph3');if(p3)p3.className='ph on done';
+  var hh=E('goalhint');if(hh)hh.innerHTML='🏆 全部过关！你已经会自己把这个角调出来了。';
+  var pn=E('panel');if(pn)pn.innerHTML+='<div class="card"><b>🎉 小挑战完成</b><div class="small">拿到 1 颗星和 5 枚金币。</div><div class="row" style="margin-top:.5rem"><button class="btn primary" onclick="go(exploreMap,\'探索馆\')">回到路线图</button><button class="btn" onclick="setPhase(2)">再玩一会儿</button></div></div>';
+}
+function challengeHome(){
+  var c=E('crumb');if(c)c.textContent='挑战馆';
+  var cards=TOPICS.map(function(t){var s=S.stat[t]||{r:0,t:0};return '<button class="big" onclick="go(function(){startTopic(\''+t+'\');},\'挑战馆\')"><b>'+t+'</b><span>做过 '+s.t+' 题'+(s.t?('（一次想通 '+s.r+' 题）'):'')+'</span></button>';}).join('');
+  setView('<div class="wrap"><div class="h1">挑战馆</div><div class="sub">挑一个方向，每轮 6 题，约 5 分钟。想混着来就点"混合闯关"。</div>'+
+   '<button class="btn dark" style="width:100%;padding:.9rem;font-size:1.05rem" onclick="go(function(){startTopic(null);},\'挑战馆\')">🎲 混合闯关（推荐）</button>'+
+   '<div class="entry" style="margin-top:.8rem">'+cards+'</div></div>');
+  hud();
+}
+function startTopic(topic){
+  var pool=allQ().filter(function(q){return !topic||q.topic===topic;});
+  if(pool.length<6)pool=allQ();
+  var ez=pool.filter(function(q){return q.diff===1;}),md=pool.filter(function(q){return q.diff===2;}),hd=pool.filter(function(q){return q.diff===3;});
+  function pick(a,n){var b=a.slice(),o=[];while(o.length<n&&b.length)o.push(b.splice(Math.floor(Math.random()*b.length),1)[0]);return o;}
+  var list=pick(ez,2).concat(pick(md,3)).concat(pick(hd,1));
+  for(var i=0;i<pool.length&&list.length<6;i++){if(list.indexOf(pool[i])<0)list.push(pool[i]);}
+  runQuiz(list,{title:'挑战馆 · '+(topic||'混合闯关')});
+}
 var QZ=null;
 function runQuiz(list,opt){
   opt=opt||{};
-  QZ={list:list.slice(),i:0,mini:!!opt.mini,title:opt.title||'挑战馆',el:opt.el,onEnd:opt.onEnd,
-      firstTry:0,coin:0,tries:0,usedHint:false,done:false,answer:null,kp:'',order:[],angle:null,clockAng:null};
-  if(!QZ.mini){var c=E('crumb');if(c)c.textContent=QZ.title;}
+  QZ={list:list.slice(),i:0,title:opt.title,first:0,coin:0,tries:0,used:false,done:false,ans:null,kp:'',order:[]};
   renderQuiz();
 }
 function renderQuiz(){
   if(QZ.i>=QZ.list.length){finishQuiz();return;}
   var q=QZ.list[QZ.i];
-  QZ.tries=0;QZ.usedHint=false;QZ.done=false;QZ.answer=null;QZ.kp='';QZ.order=[];QZ.angle=null;QZ.clockAng=null;
-  var host=QZ.mini?$(QZ.el||'#panel'):E('view');
-  if(!host)return;
-  var head=QZ.mini?'':('<div class="row" style="justify-content:space-between"><b>'+QZ.title+'</b><span class="small">第 '+(QZ.i+1)+' / '+QZ.list.length+' 题</span></div><div class="progress"><i style="width:'+Math.round(QZ.i/QZ.list.length*100)+'%"></i></div>');
-  host.innerHTML=head+'<div class="card"><div class="small" style="margin-bottom:.3rem">'+q.topic+' · '+['','基础','提升','挑战'][q.diff||2]+'</div>'+
-   '<div style="font-size:1.1rem;font-weight:700;margin-bottom:.4rem">'+esc(q.stem)+'</div><div id="qarea"></div>'+
-   '<div class="row" style="margin-top:.8rem;justify-content:space-between;width:100%">'+
-   '<button class="btn mini" id="hintBtn" onclick="useHint()" disabled>💡 需要一点线索</button>'+
-   '<button class="btn primary" id="subBtn" onclick="submitAns()">确认</button></div><div id="fb"></div></div>';
+  QZ.tries=0;QZ.used=false;QZ.done=false;QZ.ans=null;QZ.kp='';QZ.order=[];
+  var c=E('crumb');if(c)c.textContent=QZ.title;
+  setView('<div class="wrap"><div class="row" style="justify-content:space-between"><b>'+QZ.title+'</b><span class="small">第 '+(QZ.i+1)+' / '+QZ.list.length+' 题</span></div>'+
+   '<div class="card"><div class="small">'+q.topic+' · '+['','基础','提升','挑战'][q.diff]+'</div><div style="font-size:1.1rem;font-weight:700;margin:.3rem 0">'+esc(q.stem)+'</div><div id="qarea"></div>'+
+   '<div class="row" style="margin-top:.8rem;justify-content:space-between;width:100%"><button class="btn mini" id="hintBtn" onclick="useHint()" disabled>💡 需要一点线索</button><button class="btn primary" id="subBtn" onclick="submitAns()">确认</button></div>'+
+   '<div id="fb"></div><button class="flagbtn" onclick="flagQ()">🖐️ 这题有问题 / 我想反馈</button></div></div>');
   drawQ(q);
+}
+function flagQ(){
+  var q=QZ.list[QZ.i];
+  modal('<div class="h1" style="font-size:1.05rem">这道题帮你反馈给老师</div><div class="small">'+esc(q.stem)+'</div>'+
+   '<div class="row" style="margin-top:.6rem"><button class="btn mini" onclick="doFlag(\'题目打错了\')">题目打错了</button><button class="btn mini" onclick="doFlag(\'答案不对\')">答案不对</button><button class="btn mini" onclick="doFlag(\'我看不懂\')">我看不懂</button><button class="btn mini" onclick="doFlag(\'图和题对不上\')">图和题对不上</button></div>'+
+   '<div class="row" style="justify-content:flex-end;margin-top:.7rem"><button class="btn" onclick="closeMask()">取消</button></div>');
+}
+function doFlag(reason){
+  var q=QZ.list[QZ.i];
+  S.flags.push({id:q.id,stem:q.stem,topic:q.topic,reason:reason,t:new Date().toLocaleString()});
+  save();closeMask();sfx('ok');toast('谢谢你的反馈，老师会看到的！');
 }
 function drawQ(q){
   var a=E('qarea');if(!a)return;
-  if(q.type==='choice'){
-    var h='';
-    for(var i=0;i<q.options.length;i++)h+='<button class="opt" id="op'+i+'" onclick="pickOne('+i+')">'+'ABCD'[i]+'．'+esc(q.options[i])+'</button>';
+  if(q.type==='c'){
+    var h='';for(var i=0;i<q.options.length;i++)h+='<button class="btn" style="display:block;width:100%;text-align:left;margin:.4rem 0" id="op'+i+'" onclick="pickOne('+i+')">'+'ABCD'[i]+'．'+esc(q.options[i])+'</button>';
     a.innerHTML=h;
-  }else if(q.type==='keypad'){
-    var v='';
-    for(var n=1;n<=9;n++)v+='<button onclick="kpPush('+n+')">'+n+'</button>';
-    v+='<button onclick="kpPush(0)">0</button><button onclick="kpDel()">删除</button><button onclick="kpClr()">清空</button>';
-    a.innerHTML='<div class="row"><span>我的答案：</span><span class="blank" id="kp">?</span><span>'+(q.unit||'')+'</span></div><div class="keypad">'+v+'</div>';
-  }else if(q.type==='classify'){
-    var it='';
-    for(var j=0;j<q.items.length;j++)it+='<span class="chip" id="it-'+q.items[j].id+'" onclick="pickItem(\''+q.items[j].id+'\')">'+esc(q.items[j].t)+'</span>';
-    var bk='';
-    for(var m=0;m<q.baskets.length;m++)bk+='<div class="basket" onclick="dropTo(\''+q.baskets[m]+'\')"><b>'+esc(q.baskets[m])+'</b><div id="in-'+q.baskets[m]+'" class="small"></div></div>';
-    a.innerHTML='<div class="row" style="margin-bottom:.3rem">'+it+'</div><div class="basket-row">'+bk+'</div><div class="small">先点上面的图形，再点下面的筐。点错了可以再点别的筐。</div>';
+  }else if(q.type==='k'){
+    var v='';for(var n=1;n<=9;n++)v+='<button class="btn mini" style="min-width:2.6rem" onclick="kpPush('+n+')">'+n+'</button>';
+    v+='<button class="btn mini" style="min-width:2.6rem" onclick="kpPush(0)">0</button><button class="btn mini" onclick="kpDel()">删除</button><button class="btn mini" onclick="kpClr()">清空</button>';
+    a.innerHTML='<div class="row"><span>我的答案：</span><span style="display:inline-block;min-width:4rem;border-bottom:3px solid var(--red);text-align:center;font-weight:900;font-size:1.3rem;color:var(--red)" id="kp">?</span><span>'+(q.unit||'')+'</span></div><div class="row" style="margin-top:.5rem;max-width:17rem">'+v+'</div>';
+  }else if(q.type==='s'){
+    var it='';for(var j=0;j<q.items.length;j++)it+='<span class="pill" id="it-'+q.items[j].id+'" onclick="pickItem(\''+q.items[j].id+'\')" style="cursor:pointer;margin:.15rem">'+esc(q.items[j].t)+'</span>';
+    var bk='';for(var m=0;m<q.baskets.length;m++)bk+='<div onclick="dropTo(\''+q.baskets[m]+'\')" style="cursor:pointer;border:2px dashed var(--line);border-radius:.8rem;padding:.45rem;flex:1;min-width:6rem"><b class="small">'+esc(q.baskets[m])+'</b><div id="in-'+q.baskets[m]+'" class="small"></div></div>';
+    a.innerHTML='<div class="row">'+it+'</div><div class="row" style="margin-top:.5rem;align-items:stretch">'+bk+'</div><div class="small" style="margin-top:.3rem">先点上面的词，再点下面的筐。</div>';
     QZ.assign={};QZ.curItem=null;
-  }else if(q.type==='order'){
-    a.innerHTML='<div id="pool" class="row"></div><div class="card" style="margin-top:.5rem;box-shadow:none"><b>我的顺序</b><div id="slot" class="small" style="margin-top:.3rem">（还没选）</div></div>';
-    drawOrder();
-  }else if(q.type==='draw'){
-    a.innerHTML='<div class="stage" id="drawstage"></div><div class="slider" style="margin-top:.5rem"><span>转动射线</span><input type="range" min="1" max="180" value="20" oninput="drawRay(this.value)"><b id="drawV">20°</b></div><div class="small">把它转到正好 '+q.target+'°。</div>';
-    drawRay(20);
-  }else if(q.type==='clock'){
-    a.innerHTML='<div class="stage" id="clkstage"></div><div class="slider" style="margin-top:.5rem"><span>时针指向</span><input type="range" min="0" max="11" value="0" oninput="clockSet(this.value)"><b id="ckV">12时 · 夹角 0°</b></div><div class="small">分针一直指着12，拖动时针，让夹角正好是 '+q.target+'°。</div>';
-    clockSet(0);
+  }else if(q.type==='o'){
+    a.innerHTML='<div class="row" id="pool"></div><div class="card" style="margin-top:.5rem;box-shadow:none"><b>我的顺序</b><div id="slot" class="small" style="margin-top:.3rem">（还没选）</div></div>';
+    QZ.order=[];drawOrder();
   }
 }
-function pickOne(i){
-  if(QZ.done)return;
-  sfx('click');QZ.answer=i;
-  var q=QZ.list[QZ.i];
-  for(var k=0;k<q.options.length;k++){var e=E('op'+k);if(e)e.className='opt'+(k===i?' sel':'');}
-}
-function kpPush(n){if(QZ.done)return;sfx('click');if((''+QZ.kp).length>=4)return;QZ.kp=(''+QZ.kp)+n;var e=E('kp');if(e)e.textContent=QZ.kp;}
+function pickOne(i){if(QZ.done)return;sfx('click');QZ.ans=i;var q=QZ.list[QZ.i];for(var k=0;k<q.options.length;k++){var e=E('op'+k);if(e){e.style.borderColor=(k===i?'var(--red)':'');e.style.background=(k===i?'rgba(192,57,43,.08)':'');}}}
+function kpPush(n){if(QZ.done)return;if((''+QZ.kp).length>=4)return;QZ.kp=(''+QZ.kp)+n;var e=E('kp');if(e)e.textContent=QZ.kp;sfx('click');}
 function kpDel(){if(QZ.done)return;QZ.kp=(''+QZ.kp).slice(0,-1);var e=E('kp');if(e)e.textContent=QZ.kp||'?';}
 function kpClr(){if(QZ.done)return;QZ.kp='';var e=E('kp');if(e)e.textContent='?';}
-function pickItem(id){
-  if(QZ.done)return;
-  sfx('click');QZ.curItem=id;
-  $$('.chip').forEach(function(e){e.classList.remove('picked');});
-  var t=E('it-'+id);if(t)t.classList.add('picked');
-}
+function pickItem(id){if(QZ.done)return;sfx('click');QZ.curItem=id;$$('#qarea .pill').forEach(function(e){e.style.borderColor='';});var t=E('it-'+id);if(t)t.style.borderColor='var(--red)';}
 function dropTo(b){
   if(QZ.done)return;
-  if(!QZ.curItem){toast('先点上面一个图形，再点这个筐');return;}
-  sfx('snap');
-  QZ.assign[QZ.curItem]=b;
-  QZ.curItem=null;
-  $$('.chip').forEach(function(e){e.classList.remove('picked');});
+  if(!QZ.curItem){toast('先点上面一个词，再点这个筐');return;}
+  sfx('snap');QZ.assign[QZ.curItem]=b;QZ.curItem=null;
+  $$('#qarea .pill').forEach(function(e){e.style.borderColor='';});
   var q=QZ.list[QZ.i];
   for(var i=0;i<q.baskets.length;i++){
     var bk=q.baskets[i],ids=[];
-    for(var k in QZ.assign){
-      if(QZ.assign[k]===bk){
-        for(var j=0;j<q.items.length;j++){if(q.items[j].id===k)ids.push(q.items[j].t);}
-      }
-    }
-    var el=E('in-'+bk);
-    if(el)el.innerHTML=ids.map(function(t){return '<span class="chip picked">'+t+'</span>';}).join('');
+    for(var k in QZ.assign){if(QZ.assign[k]===bk){for(var j=0;j<q.items.length;j++){if(q.items[j].id===k)ids.push(q.items[j].t);}}}
+    var el=E('in-'+bk);if(el)el.innerHTML=ids.map(function(t){return '<span class="pill">'+t+'</span>';}).join('');
   }
 }
 function drawOrder(){
-  var q=QZ.list[QZ.i];
-  var pool='';
-  for(var i=0;i<q.steps.length;i++){if(QZ.order.indexOf(i)<0)pool+='<span class="chip" onclick="putOrder('+i+')">'+esc(q.steps[i])+'</span>';}
-  var slot='';
-  for(var k=0;k<QZ.order.length;k++)slot+='<span class="chip picked" onclick="delOrder('+k+')">'+(k+1)+'. '+esc(q.steps[QZ.order[k]])+'</span>';
+  var q=QZ.list[QZ.i],pool='',slot='';
+  for(var i=0;i<q.steps.length;i++){if(QZ.order.indexOf(i)<0)pool+='<span class="pill" style="cursor:pointer" onclick="putOrder('+i+')">'+esc(q.steps[i])+'</span>';}
+  for(var k=0;k<QZ.order.length;k++)slot+='<span class="pill" style="cursor:pointer" onclick="delOrder('+k+')">'+(k+1)+'.'+esc(q.steps[QZ.order[k]])+'</span>';
   var p=E('pool');if(p)p.innerHTML=pool||'<span class="small">都选好了</span>';
   var s=E('slot');if(s)s.innerHTML=slot||'（还没选）';
 }
 function putOrder(i){if(QZ.done)return;sfx('click');QZ.order.push(i);drawOrder();}
 function delOrder(k){if(QZ.done)return;QZ.order.splice(k,1);drawOrder();}
-function drawRay(v){
-  QZ.angle=+v;
-  var e=E('drawV');if(e)e.textContent=v+'°';
-  var st=E('drawstage');if(!st)return;
-  st.innerHTML=svgFrame(sectorS(200,240,50,0,+v,'var(--yellow)')+rayS(200,240,150,0)+rayS(200,240,150,+v,'var(--red)')+
-   '<circle cx="200" cy="240" r="8" class="pt"/>'+uprightS(200,240,90,90-(v/2),v+'°','svgtxt'));
-}
-function clockSet(h){
-  h=+h;
-  var ang=h*30;
-  QZ.clockAng=ang;
-  var e=E('ckV');if(e)e.textContent=(h===0?12:h)+'时 · 夹角 '+ang+'°';
-  var st=E('clkstage');if(!st)return;
-  var ticks='',i;
-  for(i=0;i<12;i++){ticks+=uprightS(240,165,118,90-i*30,(i===0?12:i),'svgtxt sm');}
-  st.innerHTML=svgFrame('<circle cx="240" cy="165" r="130" fill="none" stroke="var(--line)" stroke-width="3"/>'+ticks+
-   rayS(240,165,110,0)+
-   '<g transform="rotate('+(90-(h*30))+' 240 165)"><line x1="240" y1="165" x2="240" y2="55" stroke="#C0392B" stroke-width="5" stroke-linecap="round"/></g>'+
-   '<circle cx="240" cy="165" r="8" class="pt"/>'+uprightS(240,165,60,90+45,ang+'°','svgtxt'));
-}
 function isRight(){
   var q=QZ.list[QZ.i];
-  if(q.type==='choice')return QZ.answer===q.answer;
-  if(q.type==='keypad')return (''+QZ.kp)!==''&&Number(QZ.kp)===q.answer;
-  if(q.type==='classify'){
-    for(var i=0;i<q.items.length;i++){
-      var it=q.items[i],want=null;
-      for(var b in q.answer){if(q.answer[b].indexOf(it.id)>=0)want=b;}
-      if(QZ.assign[it.id]!==want)return false;
-    }
-    return true;
-  }
-  if(q.type==='order')return QZ.order.length===q.answer.length&&QZ.order.every(function(v,i){return v===q.answer[i];});
-  if(q.type==='draw')return Math.abs(QZ.angle-q.target)===0;
-  if(q.type==='clock')return (QZ.clockAng===q.target);
+  if(q.type==='c')return QZ.ans===q.answer;
+  if(q.type==='k')return (''+QZ.kp)!==''&&Number(QZ.kp)===q.answer;
+  if(q.type==='s'){for(var i=0;i<q.items.length;i++){var it=q.items[i],w=null;for(var b in q.answer){if(q.answer[b].indexOf(it.id)>=0)w=b;}if(QZ.assign[it.id]!==w)return false;}return true;}
+  if(q.type==='o')return QZ.order.length===q.answer.length&&QZ.order.every(function(v,i){return v===q.answer[i];});
   return false;
 }
 function submitAns(){
   if(QZ.done)return;
   var q=QZ.list[QZ.i];
-  if(q.type==='choice'&&QZ.answer===null){toast('先选一个答案吧');return;}
-  if(q.type==='keypad'&&(''+QZ.kp)===''){toast('先输入一个数字');return;}
-  if(q.type==='order'&&QZ.order.length!==q.steps.length){toast('把步骤全部排好再确认');return;}
-  if(q.type==='classify'){
-    for(var i=0;i<q.items.length;i++){if(!QZ.assign[q.items[i].id]){toast('还有图形没有放进筐里');return;}}
-  }
-  if(q.type==='clock'&&QZ.clockAng===null)QZ.clockAng=0;
+  if(q.type==='c'&&QZ.ans===null){toast('先选一个答案吧');return;}
+  if(q.type==='k'&&(''+QZ.kp)===''){toast('先输入一个数字');return;}
+  if(q.type==='o'&&QZ.order.length!==q.steps.length){toast('把步骤全部排好再确认');return;}
+  if(q.type==='s'){for(var i=0;i<q.items.length;i++){if(!QZ.assign[q.items[i].id]){toast('还有词没有放进筐里');return;}}}
   var fb=E('fb');
   if(isRight()){
     sfx('ok');QZ.done=true;
-    var gained=(QZ.tries===0&&!QZ.usedHint)?2:1;
-    if(!QZ.mini){addStar(gained);addCoin(4);QZ.coin+=4;if(QZ.tries===0&&!QZ.usedHint)QZ.firstTry++;}
-    if(q.type==='choice'){
-      for(var k=0;k<q.options.length;k++){var e=E('op'+k);if(e)e.className='opt'+(k===q.answer?' ok':'');}
-    }
-    var tip=QZ.mini?'':((QZ.tries===0&&!QZ.usedHint)?'（一次就想通，拿到 1 颗星）':'（自己想通的，拿到半颗星）');
-    if(fb)fb.innerHTML='<div class="fb good"><b>🎉 答对啦！</b>'+(QZ.mini?'':'<span class="small">'+tip+'</span>')+
-     '<ul class="steps">'+q.solution.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul>'+
-     '<div class="small">'+esc(q.explain||'')+'</div>'+
-     '<div class="row" style="justify-content:flex-end;margin-top:.5rem"><button class="btn primary" onclick="nextQ()">'+((QZ.i+1>=QZ.list.length)?'看看结果 →':'下一题 →')+'</button></div></div>';
-    var sb=E('subBtn');if(sb)sb.style.display='none';
-    var hb=E('hintBtn');if(hb)hb.style.display='none';
-    recordStat(q.topic,true);
-    if(!QZ.mini)removeWrong(q.id);
+    var gained=(QZ.tries===0&&!QZ.used)?2:1;
+    addStar(gained);addCoin(4);QZ.coin+=4;
+    if(QZ.tries===0&&!QZ.used)QZ.first++;
+    var tip=(QZ.tries===0&&!QZ.used)?'（一次就想通，拿到 1 颗星）':'（自己想通的，拿到半颗星）';
+    if(fb)fb.innerHTML='<div class="fb good"><b>🎉 答对啦！</b> <span class="small">'+tip+'</span><ul style="margin:.45rem 0 0;padding-left:1.15rem">'+q.solution.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul><div class="small">'+esc(q.explain)+'</div><div class="row" style="justify-content:flex-end;margin-top:.5rem"><button class="btn primary" onclick="nextQ()">'+((QZ.i+1>=QZ.list.length)?'看看结果 →':'下一题 →')+'</button></div></div>';
+    var sb=E('subBtn');if(sb)sb.style.display='none';var hb=E('hintBtn');if(hb)hb.style.display='none';
+    rec(q.topic,true);delWrong(q.id);
   }else{
-    sfx('tip');QZ.tries++;
-    if(q.type==='choice'&&QZ.answer!==null){var e2=E('op'+QZ.answer);if(e2)e2.className='opt no';}
-    recordStat(q.topic,false);
-    if(!QZ.mini)addWrong(q);
+    sfx('tip');QZ.tries++;rec(q.topic,false);addWrong(q);
     if(QZ.tries===1){
-      if(fb)fb.innerHTML='<div class="fb tip"><b>这里有个小陷阱，再试一次吧！</b><div style="margin-top:.3rem">💭 '+esc(q.hint1||'再想想看。')+'</div></div>';
-      QZ.answer=null;
-      if(q.type==='choice'){for(var m=0;m<q.options.length;m++){var e3=E('op'+m);if(e3)e3.className='opt';}}
+      if(fb)fb.innerHTML='<div class="fb tip"><b>这里有个小陷阱，再试一次吧！</b><div style="margin-top:.3rem">💭 '+esc(q.hint1)+'</div></div>';
+      QZ.ans=null;$$('#qarea .btn').forEach(function(e){e.style.borderColor='';e.style.background='';});
     }else if(QZ.tries===2){
-      if(fb)fb.innerHTML='<div class="fb tip"><b>再想一想——</b><div style="margin-top:.3rem">💭 '+esc(q.hint2||'回到演示里看一眼，规律就出来了。')+'</div><div class="small" style="margin-top:.3rem">需要我带你回探索馆找线索吗？点左下角的 💡</div></div>';
+      if(fb)fb.innerHTML='<div class="fb tip"><b>再想一想——</b><div style="margin-top:.3rem">💭 '+esc(q.hint2)+'</div><div class="small" style="margin-top:.3rem">需要我带你回探索馆找线索吗？点左下角的 💡</div></div>';
       var hb2=E('hintBtn');if(hb2)hb2.disabled=false;
-      QZ.answer=null;
-      if(q.type==='choice'){for(var n2=0;n2<q.options.length;n2++){var e4=E('op'+n2);if(e4)e4.className='opt';}}
+      QZ.ans=null;$$('#qarea .btn').forEach(function(e){e.style.borderColor='';e.style.background='';});
     }else{
       QZ.done=true;
-      if(fb)fb.innerHTML='<div class="fb tip"><b>我们一起走一遍思路：</b><ul class="steps">'+q.solution.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul>'+
-       '<div class="small">'+esc(q.explain||'')+'</div>'+
-       '<div class="row" style="justify-content:flex-end;margin-top:.5rem"><button class="btn primary" onclick="nextQ()">'+((QZ.i+1>=QZ.list.length)?'看看结果 →':'继续 →')+'</button></div></div>';
-      var sb2=E('subBtn');if(sb2)sb2.style.display='none';
-      var hb3=E('hintBtn');if(hb3)hb3.style.display='none';
+      if(fb)fb.innerHTML='<div class="fb tip"><b>我们一起走一遍思路：</b><ul style="margin:.45rem 0 0;padding-left:1.15rem">'+q.solution.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul><div class="small">'+esc(q.explain)+'</div><div class="row" style="justify-content:flex-end;margin-top:.5rem"><button class="btn primary" onclick="nextQ()">'+((QZ.i+1>=QZ.list.length)?'看看结果 →':'继续 →')+'</button></div></div>';
+      var sb2=E('subBtn');if(sb2)sb2.style.display='none';var hb3=E('hintBtn');if(hb3)hb3.style.display='none';
     }
   }
 }
 function useHint(){
-  var q=QZ.list[QZ.i];
-  QZ.usedHint=true;
-  sfx('click');
-  var d=DEMOS[q.demo]||DEMOS.D2;
-  var last=d.script[d.script.length-1];
-  modal('<div class="h1" style="font-size:1.05rem">回到探索馆找线索</div>'+
-   '<div class="card" style="box-shadow:none"><b>'+d.icon+' '+d.name+'</b><div class="small">'+d.desc+'</div>'+
-   '<div class="stage" id="mstage" style="margin-top:.5rem"></div>'+
-   '<div class="fb tip" style="margin-top:.5rem">'+esc(q.hint1||'')+'</div></div>'+
-   '<div class="row" style="justify-content:flex-end"><button class="btn" onclick="closeMask()">我自己再想想</button>'+
-   '<button class="btn primary" onclick="closeMask();startDemo(\''+q.demo+'\')">去看这个演示</button></div>');
+  var q=QZ.list[QZ.i];QZ.used=true;sfx('click');
+  var d=DEMOS[q.demo]||DEMOS.D2,last=d.micro[d.micro.length-1];
+  modal('<div class="h1" style="font-size:1.05rem">回到探索馆找线索</div><div class="card" style="box-shadow:none"><b>'+d.icon+' '+d.name+'</b><div class="small">'+d.desc+'</div><div class="stage" id="mstage" style="margin-top:.5rem"></div><div class="fb tip" style="margin-top:.5rem">'+esc(q.hint1)+'</div></div>'+
+   '<div class="row" style="justify-content:flex-end"><button class="btn" onclick="closeMask()">我自己再想想</button><button class="btn primary" onclick="closeMask();go(function(){startDemo(\''+q.demo+'\');},\'探索馆\')">去看这个演示</button></div>');
   var el=E('mstage');
-  if(el){d.mount(el);d.update(el,last.p||{});}
+  if(el){d.mount(el);if(last&&last.before)last.before(d);d.render();}
   var hb=E('hintBtn');if(hb)hb.disabled=true;
 }
 function nextQ(){QZ.i++;renderQuiz();}
-function recordStat(topic,ok){
-  topic=topic||'未分类';
-  S.stat[topic]=S.stat[topic]||{r:0,t:0};
-  S.stat[topic].t++;
-  if(ok)S.stat[topic].r++;
-  save();
-}
-function addWrong(q){
-  for(var i=0;i<S.wrong.length;i++){if(S.wrong[i].id===q.id)return;}
-  S.wrong.push({id:q.id,topic:q.topic||'未分类',stem:q.stem,demo:q.demo||'D2',solution:q.solution||[],explain:q.explain||'',culture:q.culture||''});
-  save();
-}
-function removeWrong(id){
-  var n=S.wrong.length;
-  S.wrong=S.wrong.filter(function(w){return w.id!==id;});
-  if(S.wrong.length!==n){save();toast('这条已经想通啦，从回顾本里移走了');}
-}
+function rec(t,ok){S.stat[t]=S.stat[t]||{r:0,t:0};S.stat[t].t++;if(ok)S.stat[t].r++;save();}
+function addWrong(q){for(var i=0;i<S.wrong.length;i++){if(S.wrong[i].id===q.id)return;}S.wrong.push({id:q.id,topic:q.topic,stem:q.stem,demo:q.demo,solution:q.solution,explain:q.explain});save();}
+function delWrong(id){var n=S.wrong.length;S.wrong=S.wrong.filter(function(w){return w.id!==id;});if(S.wrong.length!==n){save();toast('这条想通啦，从回顾本移走了');}}
 function finishQuiz(){
-  if(QZ.mini){var cb=QZ.onEnd;if(cb)cb();return;}
-  var total=QZ.list.length,right=QZ.firstTry,acc=total?Math.round(right/total*100):0;
-  var report=(acc>=90)?'太厉害了！你几乎一眼就看穿了这些角，下次去挑战更高难度吧。':
-             (acc>=60)?'走得挺稳！个别地方再回探索馆看一眼，你会更快。':
-             '别急，今天你已经把"角"的路走了一遍。去回顾本里挑一条，再看一遍演示，就会突然明白。';
+  var t=QZ.list.length,rt=QZ.first,acc=t?Math.round(rt/t*100):0;
+  var rep=(acc>=90)?'太厉害了！你几乎一眼就看穿了这些角，下次挑战更高难度吧。':(acc>=60)?'走得挺稳！个别地方再回探索馆看一眼，你会更快。':'别急，今天你已经把"角"的路走了一遍。去回顾本里挑一条，再看一遍演示，就会突然明白。';
   var weak=null,wr=999;
-  allTopics().forEach(function(t){var s=S.stat[t];if(s&&s.t){var r=s.r/s.t;if(r<wr){wr=r;weak=t;}}});
-  var demoMap={'线的认识':'D1','角的分类':'D2','量角读数':'D4','画角':'D4','平角周角':'D2','时间中的角':'D6','边长与角':'D2','折叠推理':'D5'};
+  TOPICS.forEach(function(k){var s=S.stat[k];if(s&&s.t){var r=s.r/s.t;if(r<wr){wr=r;weak=k;}}});
   sfx('star');addCoin(10);
-  setView('<div class="wrap"><div class="h1">这一轮走完啦</div>'+
-   '<div class="card"><div class="row" style="justify-content:space-between"><span>第一次就想通：'+right+' / '+total+' 题</span><span class="starbar">'+starIcons(S.star)+'</span></div>'+
-   '<div class="small" style="margin-top:.3rem">本轮拿到 '+QZ.coin+' 枚金币，另外再奖励 10 枚。</div></div>'+
-   '<div class="card"><b>学习报告</b><div style="margin-top:.3rem">'+report+'</div>'+
-   (weak?'<div class="small" style="margin-top:.4rem">小提醒：你在<b>「'+weak+'」</b>上还可以再稳一点，建议回探索馆看看《'+demoName(demoMap[weak])+'》。</div>':'')+
-   '</div><div class="row"><button class="btn primary" onclick="challengeHome()">再来一轮</button>'+
-   '<button class="btn" onclick="reviewBook()">看看回顾本</button><button class="btn" onclick="unit2()">回到单元</button></div></div>');
-  var c=E('crumb');if(c)c.textContent='学习报告';
-  hud();
+  setView('<div class="wrap"><div class="h1">这一轮走完啦</div><div class="card"><div class="row" style="justify-content:space-between"><span>第一次就想通：'+rt+' / '+t+' 题</span><span>⭐ ×'+Math.floor(S.star/2)+(S.star%2?'◐':'')+'</span></div><div class="small">本轮拿到 '+QZ.coin+' 枚金币，另外再奖励 10 枚。</div></div>'+
+   '<div class="card"><b>学习报告</b><div style="margin-top:.3rem">'+rep+'</div>'+(weak?'<div class="small" style="margin-top:.4rem">小提醒：你在<b>「'+weak+'」</b>上还可以再稳一点，建议回探索馆对应演示再看一遍。</div>':'')+'</div>'+
+   '<div class="row"><button class="btn primary" onclick="go(challengeHome,\'挑战馆\')">再来一轮</button><button class="btn" onclick="go(reviewBook,\'回顾本\')">看看回顾本</button><button class="btn" onclick="go(unit2,\'角的度量\')">回到单元</button></div></div>');
+  var c=E('crumb');if(c)c.textContent='学习报告';hud();
 }
-
-/* ---------- 挑战馆：不限顺序 ---------- */
-function challengeHome(){
-  var c=E('crumb');if(c)c.textContent='挑战馆';
-  var ts=allTopics();
-  var cards=ts.map(function(t){
-    var s=S.stat[t]||{r:0,t:0};
-    return '<button class="big" onclick="startTopic(\''+t+'\')"><b>'+t+'</b><span>做过 '+s.t+' 题'+(s.t?('（对 '+s.r+' 题）'):'')+'</span></button>';
-  }).join('');
-  setView('<div class="wrap"><div class="h1">挑战馆</div><div class="sub">挑一个方向，每轮 6 题，大约 5 分钟。想混着来就点"混合闯关"。</div>'+
-   '<button class="btn dark" style="width:100%;padding:.9rem;font-size:1.05rem" onclick="startTopic(null)">🎲 混合闯关（推荐）</button>'+
-   '<div class="entry" style="margin-top:.8rem">'+cards+'</div></div>');
-  hud();
-}
-function startTopic(topic){
-  var pool=allQ().filter(function(q){return !q.mini&&(!topic||q.topic===topic);});
-  if(pool.length<6)pool=allQ().filter(function(q){return !q.mini;});
-  var easy=pool.filter(function(q){return q.diff===1;});
-  var mid=pool.filter(function(q){return q.diff===2;});
-  var hard=pool.filter(function(q){return q.diff===3;});
-  function pick(a,n){var b=a.slice(),o=[];while(o.length<n&&b.length)o.push(b.splice(Math.floor(Math.random()*b.length),1)[0]);return o;}
-  var list=pick(easy,2).concat(pick(mid,3)).concat(pick(hard,1));
-  var i=0;
-  while(list.length<6&&pool.length>0){if(list.indexOf(pool[i%pool.length])<0)list.push(pool[i%pool.length]);i++;}
-  go(function(){runQuiz(list,{title:'挑战馆 · '+(topic||'混合闯关')});},'挑战馆');
-}
-
-/* ---------- 回顾本 + 漏洞雷达 ---------- */
 function reviewBook(){
   var c=E('crumb');if(c)c.textContent='回顾本';
-  var ts=allTopics();
-  var web='',i;
-  for(i=0;i<5;i++)web+='<circle cx="110" cy="110" r="'+(18+i*18)+'" fill="none" stroke="var(--line)" stroke-width="1.5"/>';
-  var step=ts.length?360/ts.length:45;
-  ts.forEach(function(t,idx){
-    var s=S.stat[t]||{r:0,t:0},rate=s.t?Math.round(s.r/s.t*100):0;
-    var L=Math.max(6,rate*0.72);
+  var web='',i;for(i=0;i<5;i++)web+='<circle cx="110" cy="110" r="'+(18+i*18)+'" fill="none" stroke="var(--line)" stroke-width="1.5"/>';
+  var step=360/TOPICS.length;
+  TOPICS.forEach(function(t,idx){
+    var s=S.stat[t]||{r:0,t:0},rate=s.t?Math.round(s.r/s.t*100):0,L=Math.max(6,rate*0.72);
     web+='<g transform="rotate('+(idx*step)+' 110 110)"><rect x="107" y="'+(110-L)+'" width="7" height="'+L+'" rx="3.5" fill="'+(rate>=80?'var(--ok)':(rate>=50?'var(--yellow)':'var(--red)'))+'"/></g>';
     web+=uprightS(110,110,92,idx*step,t.slice(0,2),'svgtxt sm');
   });
   var weak=null,wr=999;
-  ts.forEach(function(t){var s=S.stat[t];if(s&&s.t){var r=s.r/s.t;if(r<wr){wr=r;weak=t;}}});
-  var demoMap={'线的认识':'D1','角的分类':'D2','量角读数':'D4','画角':'D4','平角周角':'D2','时间中的角':'D6','边长与角':'D2','折叠推理':'D5'};
-  var wl=S.wrong.length?S.wrong.map(function(w){
-    return '<div class="card" style="box-shadow:none"><div class="small">'+esc(w.topic)+'</div><b>'+esc(w.stem)+'</b>'+
-    '<ul class="steps">'+(w.solution||[]).map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>'+
-    '<div class="small">'+esc(w.explain||'')+'</div>'+
-    '<div class="row" style="margin-top:.4rem"><button class="btn mini" onclick="startDemo(\''+w.demo+'\')">去看这个演示</button></div></div>';
-  }).join(''):'<div class="card" style="box-shadow:none">还没有需要回头看的题，继续保持！</div>';
+  TOPICS.forEach(function(t){var s=S.stat[t];if(s&&s.t){var r=s.r/s.t;if(r<wr){wr=r;weak=t;}}});
+  var wl=S.wrong.length?S.wrong.map(function(w){return '<div class="card" style="box-shadow:none"><div class="small">'+esc(w.topic)+'</div><b>'+esc(w.stem)+'</b><ul style="margin:.45rem 0 0;padding-left:1.15rem">'+(w.solution||[]).map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul><div class="small">'+esc(w.explain||'')+'</div><div class="row" style="margin-top:.4rem"><button class="btn mini" onclick="go(function(){startDemo(\''+w.demo+'\');},\'探索馆\')">去看这个演示</button></div></div>';}).join(''):'<div class="card" style="box-shadow:none">还没有需要回头看的题，继续保持！</div>';
+  var fl=S.flags.length?('<div class="card"><b>我反馈过的问题（'+S.flags.length+'）</b>'+S.flags.slice(-8).map(function(f){return '<div class="small">· ['+esc(f.reason)+'] '+esc(f.stem).slice(0,26)+'…</div>';}).join('')+'</div>'):'';
   setView('<div class="wrap"><div class="h1">我的回顾本</div><div class="sub">这里放的没有想清楚的地方。</div>'+
-   '<div class="card"><b>知识漏洞雷达图</b><div class="row" style="justify-content:center">'+
-   '<svg viewBox="0 0 220 220" style="width:min(320px,86vw)">'+web+'<circle cx="110" cy="110" r="4" fill="var(--ink)"/></svg></div>'+
-   '<div class="small">越靠外，说明这个方向越熟练。'+(wr<999?('目前最容易打滑的是：<b>'+weak+'</b>。'):'多练几题，这里就会亮起来。')+'</div></div>'+
-   '<div class="card"><b>需要再想想的题（'+S.wrong.length+'）</b>'+wl+'</div>'+
-   '<div class="row"><button class="btn primary" onclick="challengeHome()">去挑战馆练一练</button>'+
-   '<button class="btn" onclick="unit2()">回到单元</button></div></div>');
+   '<div class="card"><b>知识漏洞雷达图</b><div class="row" style="justify-content:center"><svg viewBox="0 0 220 220" style="width:min(320px,86vw)">'+web+'<circle cx="110" cy="110" r="4" fill="var(--ink)"/></svg></div><div class="small">越靠外说明越熟练。'+(wr<999?('目前最容易打滑的是：<b>'+weak+'</b>。'):'多练几题，这里就会亮起来。')+'</div></div>'+
+   fl+'<div class="card"><b>需要再想想的题（'+S.wrong.length+'）</b>'+wl+'</div>'+
+   '<div class="row"><button class="btn primary" onclick="go(challengeHome,\'挑战馆\')">去挑战馆练一练</button><button class="btn" onclick="go(unit2,\'角的度量\')">回到单元</button></div></div>');
   hud();
 }
-
-/* ---------- 设置 ---------- */
 function openSettings(){
-  var f=[['标准',1],['大',1.15],['特大',1.3]];
-  var t=[['护眼绿','green'],['明亮白','white'],['暗夜黑','dark']];
+  var f=[['标准',1],['大',1.15],['特大',1.3]],t=[['护眼绿','green'],['明亮白','white'],['暗夜黑','dark']];
   modal('<div class="h1" style="font-size:1.15rem">设置</div>'+
-   '<div class="card" style="box-shadow:none"><b>字号</b><div class="row" style="margin-top:.4rem">'+
-   f.map(function(x){return '<button class="tabbtn'+(Math.abs(S.font-x[1])<0.01?' on':'')+'" onclick="setFont('+x[1]+')">'+x[0]+'</button>';}).join('')+'</div></div>'+
-   '<div class="card" style="box-shadow:none"><b>背景</b><div class="row" style="margin-top:.4rem">'+
-   t.map(function(x){return '<button class="tabbtn'+(S.theme===x[1]?' on':'')+'" onclick="setTheme(\''+x[1]+'\')">'+x[0]+'</button>';}).join('')+'</div></div>'+
-   '<div class="card" style="box-shadow:none"><b>音效</b><div class="row" style="margin-top:.4rem">'+
-   '<button class="tabbtn'+(S.sound?' on':'')+'" onclick="setSound(true)">开</button>'+
-   '<button class="tabbtn'+(!S.sound?' on':'')+'" onclick="setSound(false)">关</button></div></div>'+
-   '<div class="card" style="box-shadow:none"><b>我的名字（写学习报告用，可留空）</b><div class="row" style="margin-top:.4rem">'+
-   '<input id="myname" class="chip" style="min-width:9rem;padding:.45rem" value="'+esc(S.name)+'" placeholder="例如：王小明"></div></div>'+
-   '<div class="row" style="justify-content:space-between"><button class="btn" onclick="exportReport()">📄 导出学习报告</button>'+
-   '<button class="btn" onclick="resetAll()">重置进度</button></div>'+
-   '<div class="row" style="justify-content:flex-end;margin-top:.7rem"><button class="btn primary" onclick="closeMask()">好了</button></div>');
+   '<div class="card" style="box-shadow:none"><b>字号</b><div class="row" style="margin-top:.4rem">'+f.map(function(x){return '<button class="tabbtn'+(Math.abs(S.font-x[1])<0.01?' on':'')+'" onclick="setFont('+x[1]+')">'+x[0]+'</button>';}).join('')+'</div></div>'+
+   '<div class="card" style="box-shadow:none"><b>背景</b><div class="row" style="margin-top:.4rem">'+t.map(function(x){return '<button class="tabbtn'+(S.theme===x[1]?' on':'')+'" onclick="setTheme(\''+x[1]+'\')">'+x[0]+'</button>';}).join('')+'</div></div>'+
+   '<div class="card" style="box-shadow:none"><b>音效</b><div class="row" style="margin-top:.4rem"><button class="tabbtn'+(S.sound?' on':'')+'" onclick="setSound(true)">开</button><button class="tabbtn'+(!S.sound?' on':'')+'" onclick="setSound(false)">关</button></div></div>'+
+   '<div class="card" style="box-shadow:none"><b>我的名字（学习报告用，可留空）</b><div class="row" style="margin-top:.4rem"><input id="myname" class="chipin" value="'+esc(S.name)+'" placeholder="例如：王小明"></div></div>'+
+   '<div class="row" style="justify-content:space-between"><button class="btn" onclick="exportReport()">📄 导出学习报告</button><button class="btn" onclick="resetAll()">重置进度</button></div>'+
+   '<div class="row" style="justify-content:flex-end;margin-top:.7rem"><button class="btn primary" onclick="saveName();closeMask()">好了</button></div>');
 }
 function setFont(v){S.font=v;save();document.documentElement.style.fontSize=(v*16)+'px';openSettings();sfx('click');}
 function setTheme(v){S.theme=v;save();document.documentElement.setAttribute('data-theme',v);openSettings();sfx('click');}
 function setSound(v){S.sound=v;save();openSettings();if(v)sfx('ok');}
-function resetAll(){
-  modal('<div class="h1" style="font-size:1.05rem">确定要重置吗？</div><div class="small">星星、金币、探索进度、回顾本、导入的题目都会被清空。</div>'+
-   '<div class="row" style="justify-content:flex-end;margin-top:.7rem"><button class="btn" onclick="closeMask()">再想想</button>'+
-   '<button class="btn primary" onclick="localStorage.removeItem(\'jdm_v1\');location.reload();">确定重置</button></div>');
-}
-
-/* ---------- 学习报告导出 ---------- */
+function saveName(){var e=E('myname');if(e){S.name=e.value.trim().slice(0,12);save();}}
+function resetAll(){modal('<div class="h1" style="font-size:1.05rem">确定要重置吗？</div><div class="small">星星、金币、探索进度、回顾本、导入的题目、反馈记录都会被清空。</div><div class="row" style="justify-content:flex-end;margin-top:.7rem"><button class="btn" onclick="closeMask()">再想想</button><button class="btn primary" onclick="localStorage.removeItem(\'jdm_v2\');location.reload();">确定重置</button></div>');}
 function exportReport(){
-  var e=E('myname');
-  if(e){S.name=e.value.trim().slice(0,12);save();}
-  var ts=allTopics();
-  var demoMap={'线的认识':'D1','角的分类':'D2','量角读数':'D4','画角':'D4','平角周角':'D2','时间中的角':'D6','边长与角':'D2','折叠推理':'D5'};
+  var e=E('myname');if(e){S.name=e.value.trim().slice(0,12);save();}
   var txt='角的度量 · 学习报告\n学生：'+(S.name||'（未填写）')+'\n日期：'+new Date().toLocaleDateString()+'\n----------------------\n';
   txt+='星星：'+Math.floor(S.star/2)+' 颗'+(S.star%2?' + 半颗':'')+'　金币：'+S.coin+'\n';
-  var dn=0,k;
-  for(k in S.done){if(S.done[k]&&S.done[k].c)dn++;}
+  var dn=0,k;for(k in S.done){if(S.done[k]&&S.done[k].c)dn++;}
   txt+='探索馆：完成 '+dn+' / 7 个演示\n----------------------\n【各知识点】\n';
-  ts.forEach(function(t){
-    var s=S.stat[t]||{r:0,t:0};
-    txt+='· '+t+'：做过 '+s.t+' 题，一次想通 '+s.r+' 题'+(s.t?('（'+Math.round(s.r/s.t*100)+'%）'):'')+'\n';
-  });
+  TOPICS.forEach(function(t){var s=S.stat[t]||{r:0,t:0};txt+='· '+t+'：做过 '+s.t+' 题，一次想通 '+s.r+' 题'+(s.t?('（'+Math.round(s.r/s.t*100)+'%）'):'')+'\n';});
   txt+='----------------------\n【需要再想想的题】\n';
-  if(S.wrong.length){
-    S.wrong.forEach(function(w,i){
-      txt+=(i+1)+'. ['+w.topic+'] '+w.stem+'\n   思路：'+(w.solution||[]).join(' → ')+'\n   建议重看：'+demoName(w.demo)+'\n';
-    });
-  }else txt+='（暂时没有）\n';
-  txt+='----------------------\n【建议】\n';
-  var weak=null,wr=999;
-  ts.forEach(function(t){var s=S.stat[t];if(s&&s.t){var r=s.r/s.t;if(r<wr){wr=r;weak=t;}}});
-  txt+=weak?('建议再回探索馆看看《'+demoName(demoMap[weak])+'》：先看演示，再动手玩，最后做小挑战。\n'):'继续探索，多动手玩几次滑块，规律会自己冒出来。\n';
+  if(S.wrong.length)S.wrong.forEach(function(w,i){txt+=(i+1)+'. ['+w.topic+'] '+w.stem+'\n   思路：'+(w.solution||[]).join(' → ')+'\n';});
+  else txt+='（暂时没有）\n';
+  if(S.flags.length){txt+='----------------------\n【学生反馈】\n';S.flags.forEach(function(f,i){txt+=(i+1)+'. ['+f.reason+'] '+f.stem+'（'+f.t+'）\n';});}
   txt+='\n（本报告由网页游戏自动生成，可离线保存）\n';
   try{
-    var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
-    var a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='角的度量学习报告'+(S.name?('_'+S.name):'')+'.txt';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);
+    var b=new Blob([txt],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download='角的度量学习报告'+(S.name?('_'+S.name):'')+'.txt';
+    document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);
     toast('学习报告已导出');
-  }catch(e2){
-    modal('<div class="h1" style="font-size:1.05rem">学习报告</div><pre style="white-space:pre-wrap;font-size:.82rem">'+esc(txt)+'</pre><div class="row" style="justify-content:flex-end"><button class="btn primary" onclick="closeMask()">好</button></div>');
-  }
+  }catch(e2){modal('<div class="h1" style="font-size:1.05rem">学习报告</div><pre style="white-space:pre-wrap;font-size:.8rem">'+esc(txt)+'</pre><div class="row" style="justify-content:flex-end"><button class="btn primary" onclick="closeMask()">好</button></div>');}
 }
-
-/* ---------- 教师端：题库管理 ---------- */
-function checkQ(q){
+function chkQ(q){
   var e=[];
   if(!q||typeof q!=='object')return ['不是一条题目'];
-  if(!q.id)e.push('缺少 id');
-  if(!q.stem)e.push('缺少 stem');
-  var T=['choice','keypad','classify','order','draw','clock'];
-  if(T.indexOf(q.type)<0)e.push('type 只能是 '+T.join(' / '));
-  if(q.type==='choice'){
-    if(!Array.isArray(q.options)||q.options.length<2)e.push('choice 需要 options 数组（至少2项）');
-    if(typeof q.answer!=='number')e.push('choice 的 answer 要填选项序号，从0开始');
-  }
-  if(q.type==='keypad'&&typeof q.answer!=='number')e.push('keypad 的 answer 要填数字');
-  if(q.type==='classify'){
-    if(!Array.isArray(q.items)||!q.items.length)e.push('classify 需要 items 数组');
-    if(!Array.isArray(q.baskets)||!q.baskets.length)e.push('classify 需要 baskets 数组');
-    if(!q.answer||typeof q.answer!=='object')e.push('classify 需要 answer 对象');
-  }
-  if(q.type==='order'){
-    if(!Array.isArray(q.steps)||!q.steps.length)e.push('order 需要 steps 数组');
-    if(!Array.isArray(q.answer))e.push('order 需要 answer 数组（正确顺序的下标）');
-  }
-  if((q.type==='draw'||q.type==='clock')&&typeof q.target!=='number')e.push(q.type+' 需要数字 target');
-  if(!Array.isArray(q.solution))e.push('建议补上 solution 数组（分步算式）');
+  if(!q.id)e.push('缺少 id');if(!q.stem)e.push('缺少 stem');
+  if(['c','k','s','o'].indexOf(q.type)<0)e.push('type 只能是 c/k/s/o');
+  if(q.type==='c'&&(!Array.isArray(q.options)||typeof q.answer!=='number'))e.push('c 需要 options 和数字 answer');
+  if(q.type==='k'&&typeof q.answer!=='number')e.push('k 的 answer 要填数字');
+  if(q.type==='s'&&(!Array.isArray(q.items)||!Array.isArray(q.baskets)||!q.answer))e.push('s 需要 items/baskets/answer');
+  if(q.type==='o'&&(!Array.isArray(q.steps)||!Array.isArray(q.answer)))e.push('o 需要 steps 和 answer');
   return e;
 }
-function normalizeQ(q,i){
-  var o={};
-  o.id=q.id||('自定义'+Date.now()+'_'+i);
-  o.topic=q.topic||'未分类';
-  o.demo=q.demo||'D2';
-  o.mini=0;
-  o.diff=(q.diff===1||q.diff===2||q.diff===3)?q.diff:2;
-  o.type=q.type;
-  o.stem=q.stem||'';
-  o.options=q.options||null;
-  o.answer=q.answer;
-  o.steps=q.steps||null;
-  o.items=q.items||null;
-  o.baskets=q.baskets||null;
-  o.target=q.target||0;
-  o.unit=q.unit||'';
-  o.hint1=q.hint1||'再读一遍题目，把已知条件圈出来。';
-  o.hint2=q.hint2||'回到探索馆看一眼演示，规律就出来了。';
-  o.solution=Array.isArray(q.solution)?q.solution:[];
-  o.explain=q.explain||'';
-  o.culture=q.culture||'';
-  return o;
-}
-function bankListHTML(){
-  var b=S.bank||[];
-  if(!b.length)return '<div class="small">还没有导入自定义题。可以点下面的按钮下载模板。</div>';
-  var h='';
-  b.forEach(function(q,i){
-    h+='<div class="qitem"><span>'+esc(q.topic)+'｜'+esc(q.type)+'｜'+esc(q.stem).slice(0,26)+'…</span>'+
-       '<button class="btn mini" onclick="delBank('+i+')">删除</button></div>';
-  });
-  return h;
-}
-function refreshBankList(){var e=E('banklist');if(e)e.innerHTML=bankListHTML();}
 function openTeacher(){
-  var total=BUILTIN.length+(S.bank||[]).length;
-  modal('<div class="h1" style="font-size:1.15rem">🧑‍🏫 教师端 · 题库管理</div>'+
-   '<div class="card" style="box-shadow:none"><b>题库统计</b><div class="small">内置 '+BUILTIN.length+' 题 ｜ 自定义 '+(S.bank||[]).length+' 题 ｜ 合计 '+total+' 题</div></div>'+
-   '<div class="card" style="box-shadow:none"><b>导入题库</b>'+
-   '<div class="row" style="margin-top:.4rem"><input type="file" id="bankfile" accept=".json,application/json" onchange="importBankFile(this)"></div>'+
-   '<textarea class="ta" id="banktext" placeholder=\'粘贴 JSON 数组，例如：[{"id":"C001","topic":"角的分类","demo":"D2","type":"choice","stem":"比直角小的角是什么角？","options":["锐角","直角","钝角"],"answer":0,"hint1":"想想门只开一小缝的时候。","hint2":"比90°小的角是锐角。","solution":["比直角小，就是锐角"],"explain":"锐角比直角小。","diff":1}]\'></textarea>'+
-   '<div class="row" style="margin-top:.4rem"><button class="btn dark" onclick="importBankText()">从文本框导入</button>'+
-   '<button class="btn" onclick="downloadTemplate()">下载模板</button>'+
-   '<button class="btn" onclick="exportBank()">导出当前题库</button></div>'+
-   '<div id="bankmsg" class="small" style="margin-top:.4rem"></div></div>'+
-   '<div class="card" style="box-shadow:none"><b>自定义题目（可逐条删除）</b><div id="banklist" style="max-height:14rem;overflow:auto;margin-top:.3rem">'+bankListHTML()+'</div>'+
-   '<button class="btn" style="margin-top:.4rem" onclick="clearBank()">清空全部自定义题</button></div>'+
-   '<div class="card" style="box-shadow:none"><b>说明</b><div class="small">'+
-   '支持的 type：choice（选择）、keypad（填数字）、classify（分类）、order（排序）、draw（拖到指定角度）、clock（钟面拖时针）。<br>'+
-   '选填字段：topic 知识点、demo 关联演示（D1到D7任一）、diff 难度1/2/3、hint1/hint2 两次提示、solution 分步算式、explain 一句话结论、culture 文化情境。<br>'+
-   '导入的题目会立刻出现在挑战馆里，并一起进入知识漏洞雷达图。</div></div>'+
+  var tot=QB.length+(S.bank||[]).length;
+  modal('<div class="h1" style="font-size:1.15rem">🧑‍🏫 教师端</div>'+
+   '<div class="card" style="box-shadow:none"><b>题库统计</b><div class="small">内置 '+QB.length+' 题 ｜ 自定义 '+(S.bank||[]).length+' 题 ｜ 合计 '+tot+' 题</div></div>'+
+   '<div class="card" style="box-shadow:none"><b>导入题库</b><div class="row" style="margin-top:.4rem"><input type="file" id="bf" accept=".json" onchange="importFile(this)"></div>'+
+   '<textarea class="ta" id="bt" placeholder=\'粘贴 JSON 数组，例如：[{"id":"C1","topic":"角的分类","demo":"D2","type":"c","stem":"比直角小的角是什么角？","options":["锐角","直角","钝角"],"answer":0,"hint1":"想想门开一条小缝时。","hint2":"比90°小的是锐角。","solution":["比直角小就是锐角"],"explain":"锐角比直角小。","diff":1}]\'></textarea>'+
+   '<div class="row" style="margin-top:.4rem"><button class="btn dark" onclick="importText()">从文本框导入</button><button class="btn" onclick="dlTpl()">下载模板</button><button class="btn" onclick="dlBank()">导出当前题库</button></div><div id="bmsg" class="small" style="margin-top:.4rem"></div></div>'+
+   '<div class="card" style="box-shadow:none"><b>学生反馈（'+S.flags.length+'）</b><div style="max-height:10rem;overflow:auto">'+(S.flags.length?S.flags.map(function(f,i){return '<div class="small" style="border-bottom:1px dashed var(--line);padding:.25rem 0">· ['+esc(f.reason)+'] '+esc(f.stem).slice(0,26)+'…<button class="btn mini" style="float:right" onclick="S.flags.splice('+i+',1);save();openTeacher();">删除</button></div>';}).join(''):'（还没有反馈）')+'</div></div>'+
+   '<div class="card" style="box-shadow:none"><b>自定义题目</b><div style="max-height:10rem;overflow:auto;margin-top:.3rem">'+((S.bank||[]).length?S.bank.map(function(q,i){return '<div class="small" style="border-bottom:1px dashed var(--line);padding:.25rem 0">'+esc(q.topic)+'｜'+esc(q.stem).slice(0,22)+'…<button class="btn mini" style="float:right" onclick="S.bank.splice('+i+',1);save();openTeacher();">删除</button></div>';}).join(''):'（还没有导入自定义题）')+'</div>'+
+   '<div class="row" style="margin-top:.4rem"><button class="btn" onclick="S.bank=[];save();openTeacher();toast(\'已清空\');">清空自定义题</button></div></div>'+
+   '<div class="card" style="box-shadow:none"><b>说明</b><div class="small">type：c 选择 / k 填空 / s 分类 / o 排序。选填：topic 知识点、demo 关联演示（D1/D2/D4/D5/D6/D7/D8）、diff 难度 1/2/3、hint1/hint2 两次提示、solution 分步算式、explain 一句话结论。</div></div>'+
    '<div class="row" style="justify-content:flex-end"><button class="btn primary" onclick="closeMask()">关闭</button></div>');
-}
-function importBankText(){
-  var t=E('banktext'),m=E('bankmsg');
-  try{
-    var arr=JSON.parse(t?t.value:'');
-    if(!Array.isArray(arr))throw new Error('最外层要是一个数组');
-    doImport(arr,m);
-  }catch(e){if(m)m.innerHTML='<b style="color:#C0392B">导入失败：'+esc(e.message)+'</b>';}
-}
-function importBankFile(input){
-  var f=input.files&&input.files[0];
-  if(!f)return;
-  var r=new FileReader();
-  r.onload=function(){
-    try{
-      var arr=JSON.parse(r.result);
-      if(!Array.isArray(arr))throw new Error('最外层要是一个数组');
-      doImport(arr,E('bankmsg'));
-    }catch(e){toast('导入失败：'+e.message);}
-  };
-  r.readAsText(f,'utf-8');
 }
 function doImport(arr,msg){
   var ok=[],bad=[];
-  arr.forEach(function(q,i){
-    var e=checkQ(q);
-    if(e.length)bad.push('第'+(i+1)+'条：'+e.join('；'));
-    else ok.push(normalizeQ(q,i));
-  });
-  S.bank=(S.bank||[]).concat(ok);
-  save();
+  arr.forEach(function(q,i){var e=chkQ(q);if(e.length)bad.push('第'+(i+1)+'条：'+e.join('；'));else ok.push({id:q.id,topic:q.topic||'未分类',demo:q.demo||'D2',type:q.type,stem:q.stem,options:q.options,answer:q.answer,steps:q.steps,items:q.items,baskets:q.baskets,unit:q.unit||'',hint1:q.hint1||'再读一遍题目。',hint2:q.hint2||'回探索馆看一眼演示。',solution:q.solution||[],explain:q.explain||'',diff:q.diff||2});});
+  S.bank=(S.bank||[]).concat(ok);save();
   var h='<b style="color:#2E9E5B">成功导入 '+ok.length+' 道题</b>';
-  if(bad.length)h+='<br><b style="color:#E67E22">有 '+bad.length+' 条没导入：</b><br>'+bad.slice(0,6).map(esc).join('<br>')+(bad.length>6?'<br>…':'');
-  if(msg)msg.innerHTML=h;
-  toast('导入 '+ok.length+' 道题');
-  refreshBankList();
+  if(bad.length)h+='<br><b style="color:#E67E22">有 '+bad.length+' 条没导入：</b><br>'+bad.slice(0,5).map(esc).join('<br>');
+  if(msg)msg.innerHTML=h;toast('导入 '+ok.length+' 道题');
 }
-function delBank(i){S.bank.splice(i,1);save();refreshBankList();toast('已删除');}
-function clearBank(){
-  modal('<div class="h1" style="font-size:1.05rem">清空自定义题？</div><div class="small">内置题库不受影响。</div>'+
-   '<div class="row" style="justify-content:flex-end;margin-top:.7rem"><button class="btn" onclick="openTeacher()">取消</button>'+
-   '<button class="btn primary" onclick="S.bank=[];save();openTeacher();toast(\'已清空\');">确定</button></div>');
-}
-function downloadTemplate(){
-  var tpl=[
-   {id:'C001',topic:'角的分类',demo:'D2',type:'choice',stem:'比直角小的角是什么角？',options:['锐角','直角','钝角'],answer:0,diff:1,
-    hint1:'想想门只开一小缝的时候。',hint2:'比90°小的角是锐角。',solution:['比直角小，就是锐角'],explain:'锐角比直角小。',culture:'火把只转一点点'},
-   {id:'C002',topic:'量角读数',demo:'D4',type:'keypad',stem:'量角器0刻度线在右边，另一条边指着内圈58°，这个角是多少度？',answer:58,unit:'°',diff:2,
-    hint1:'0在右边，读内圈。',hint2:'内圈数字直接读出来就是度数。',solution:['0刻度线在右，读内圈','另一条边指着58°'],explain:'0刻度线在哪边，就读哪一圈。',culture:'量角器就是180个1°'},
-   {id:'C003',topic:'线的认识',demo:'D1',type:'order',stem:'把"认识线段"的步骤排好。',steps:['找到一个点','再找一个点','两点之间画一条直直的线','标上两个端点'],answer:[0,1,2,3],diff:1,
-    hint1:'画线段要先有端点。',hint2:'两个端点定下来，线就定下来了。',solution:['两个端点确定','中间连一条直直的线'],explain:'线段有两个端点。',culture:'竹竿'}
-  ];
-  try{
-    var blob=new Blob([JSON.stringify(tpl,null,2)],{type:'application/json;charset=utf-8'});
-    var a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='题库导入模板.json';
-    document.body.appendChild(a);a.click();
-    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);
-    toast('模板已下载');
-  }catch(e){toast('下载失败，可手动复制说明里的示例');}
-}
-function exportBank(){
-  try{
-    var blob=new Blob([JSON.stringify(allQ(),null,1)],{type:'application/json;charset=utf-8'});
-    var a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='角的度量题库.json';
-    document.body.appendChild(a);a.click();
-    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);
-    toast('题库已导出，共 '+allQ().length+' 题');
-  }catch(e){toast('导出失败');}
-}
-
-/* ---------- 启动 ---------- */
-try{
-  stack=[home];
-  home();
-  window.__booted=true;
-}catch(e){
-  if(window.onerror)window.onerror(e.message,'',0);
-}
+function importText(){try{var a=JSON.parse(E('bt').value);if(!Array.isArray(a))throw new Error('最外层要是数组');doImport(a,E('bmsg'));}catch(e){E('bmsg').innerHTML='<b style="color:#C0392B">导入失败：'+esc(e.message)+'</b>';}}
+function importFile(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var a=JSON.parse(r.result);if(!Array.isArray(a))throw new Error('最外层要是数组');doImport(a,E('bmsg'));}catch(e){toast('导入失败：'+e.message);}};r.readAsText(f,'utf-8');}
+function dl(name,txt){try{var b=new Blob([txt],{type:'application/json;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);toast('已下载');}catch(e){toast('下载失败');}}
+function dlTpl(){dl('题库导入模板.json',JSON.stringify([{id:'C1',topic:'角的分类',demo:'D2',type:'c',stem:'比直角小的角是什么角？',options:['锐角','直角','钝角'],answer:0,hint1:'想想门开一条小缝时。',hint2:'比90°小的是锐角。',solution:['比直角小就是锐角'],explain:'锐角比直角小。',diff:1}],null,2));}
+function dlBank(){dl('角的度量题库.json',JSON.stringify(allQ(),null,1));}
+try{stack=[home];home();window.__booted=true;}catch(e){if(window.onerror)window.onerror(e.message,'',0);}
 </script>
 </body>
 </html>
